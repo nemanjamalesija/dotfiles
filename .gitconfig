@@ -1,0 +1,42 @@
+[user]
+	name = Nemanja Malesija
+	email = malesija.nemanja@gmail.com
+[core]
+	editor = nvim
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+ # light = true
+ # syntax-theme = Solarized (light)
+  dark = true
+  syntax-theme = Monokai Extended Bright
+  line-numbers = true
+  decorations = true
+  side-by-side = false
+[merge]
+	conflictStyle = zdiff3
+	tool = sublimemerge
+[diff]
+  tool = sublimemerge
+[difftool "sublimemerge"]
+    cmd = \"/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge\" diff \"$LOCAL\" \"$REMOTE\"
+    path = /Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge
+[mergetool "sublimemerge"]
+    cmd = \"/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge\" mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+    trustExitCode = true
+
+[alias]
+	cfg = config --global --edit
+
+	cm = commit -m
+	cma = commit --amend -m
+
+	co = checkout
+	cb = checkout -b
+	please = push --force-with-lease
+
+	reset-hard = reset --hard @{u}
+	rebase-n = "!f() { git rebase -i HEAD~$1; }; f"
+	revert-cm= git reset --soft HEAD~1
+	reset-one  = reset --hard HEAD^
