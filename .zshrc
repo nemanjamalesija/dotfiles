@@ -34,6 +34,9 @@ alias grebase-n='git rebase -i HEAD~'
 alias grevert-cm='git reset --soft HEAD~1'  
 alias greset-one='git reset --hard HEAD^'  
 
+alias nj='cd ~/Desktop/projekti/njuskalo-hr && nvim'
+alias njn='cd ~/Desktop/projekti/njuskalo-hr'
+
 alias dlog='rm -f var/logs/dev.log'
 alias dzlog='rm -f var/logs/zira/dev.log'
 
@@ -42,6 +45,10 @@ alias pbc='docker/node npm run pb:watch:client:development'
 alias pbs='docker/node npm run pb:watch:server:development'
 alias pbdbg='docker/node npm run pb:watch:server:development:debugger'
 alias pbgt='docker/node npm run pb:generate:translations'
+
+
+zstyle ':prompt:pure:execution_time' show false
+zstyle ':prompt:pure:execution_time' threshold 0
 
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
 autoload -U promptinit; promptinit
