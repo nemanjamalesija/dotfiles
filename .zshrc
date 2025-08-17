@@ -1,3 +1,7 @@
+export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export EDITOR="nvim"
+export VISUAL="nvim"
+
 njuBranch () {
     echo "Please provide a JIRA ID:"
     read JIRA_ID
