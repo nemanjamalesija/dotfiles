@@ -27,16 +27,3 @@
     trustExitCode = true
 
 [alias]
-	cfg = config --global --edit
-
-	cm = commit -m
-	cma = commit --amend -m
-
-	co = checkout
-	cb = checkout -b
-	please = push --force-with-lease
-
-	reset-hard = reset --hard @{u}
-	rebase-n = "!f() { git rebase -i HEAD~$1; }; f"
-	revert-cm= git reset --soft HEAD~1
-	reset-one  = reset --hard HEAD^
