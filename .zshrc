@@ -10,6 +10,7 @@ njuBranch () {
 alias zcfg='nvim ~/.dotfiles/.zshrc'
 alias gcfg='nvim ~/.dotfiles/.gitconfig'
 
+alias vcfg='nvim ~/.dotfiles/vimrc'
 alias wcfg='nvim ~/.dotfiles/wezterm.lua'
 alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
 
