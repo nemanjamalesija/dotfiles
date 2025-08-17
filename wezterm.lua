@@ -4,11 +4,12 @@ local wezterm = require("wezterm")
 local themes = {
 	"Builtin Solarized Light",
 	"Spring",
+	"Dark+",
+	"catppuccin-mocha",
 	-- "gruber-darker",
 	-- "Obsidian",
 	-- "OceanicMaterial",
-	"catppuccin-mocha",
-	"tokyonight-storm",
+	-- "tokyonight-storm",
 }
 
 -- Set your default theme
@@ -58,7 +59,7 @@ return {
 	tab_max_width = 25,
 	use_fancy_tab_bar = true,
 	adjust_window_size_when_changing_font_size = false,
-	font = wezterm.font("RobotoMono Nerd Font"),
+	font = wezterm.font("RobotoMono Nerd Font Mono"),
 	font_size = 18,
 	color_scheme = default_theme,
 	window_background_opacity = initial_opacity(default_theme),

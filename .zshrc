@@ -14,7 +14,7 @@ njuBranch () {
 alias zcfg='nvim ~/.dotfiles/.zshrc'
 alias gcfg='nvim ~/.dotfiles/.gitconfig'
 
-alias vcfg='nvim ~/.dotfiles/vimrc'
+alias vcfg='cd ~/.dotfiles && nvim nvim'
 alias wcfg='nvim ~/.dotfiles/wezterm.lua'
 alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
 
@@ -26,3 +26,7 @@ alias pbc='docker/node npm run pb:watch:client:development'
 alias pbs='docker/node npm run pb:watch:server:development'
 alias pbdbg='docker/node npm run pb:watch:server:development:debugger'
 alias pbgt='docker/node npm run pb:generate:translations'
+
+fpath+=("$(brew --prefix)/share/zsh/site-functions")
+autoload -U promptinit; promptinit
+prompt pure
