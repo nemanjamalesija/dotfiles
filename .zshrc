@@ -20,12 +20,14 @@ alias vcfg='cd ~/.dotfiles && nvim nvim'
 alias wcfg='nvim ~/.dotfiles/wezterm.lua'
 alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
 
+alias gdiff='git diff' 
 alias gs='git status' 
 alias ga='git add' 
 alias gcm='git commit -m'
 alias gcma='git commit --amend -m'
 alias gco='git checkout'  
 alias gcb='git checkout -b'
+alias gp='git push' 
 alias gplease='git push --force-with-lease'
 alias greset-hard='git reset --hard @{u}'
 alias grebase-n='git rebase -i HEAD~'
@@ -40,9 +42,6 @@ alias pbc='docker/node npm run pb:watch:client:development'
 alias pbs='docker/node npm run pb:watch:server:development'
 alias pbdbg='docker/node npm run pb:watch:server:development:debugger'
 alias pbgt='docker/node npm run pb:generate:translations'
-
-zstyle ':prompt:pure:execution_time' show false
-zstyle ':prompt:pure:execution_time' threshold 0
 
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
 autoload -U promptinit; promptinit
