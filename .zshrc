@@ -1,12 +1,3 @@
-export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-
-# export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
-# export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
-# export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
-
-export EDITOR="nvim"
-export VISUAL="nvim"
-
 njuBranch () {
     echo "Please provide a JIRA ID:"
     read JIRA_ID
@@ -19,7 +10,7 @@ njuBranch () {
 alias zcfg='nvim ~/.dotfiles/.zshrc'
 alias gcfg='nvim ~/.dotfiles/.gitconfig'
 
-alias wcfg='nvim ~/.config/wezterm/wezterm.lua'
+alias wcfg='nvim ~/.dotfiles/wezterm.lua'
 alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
 
 alias wold='docker/node npm run watch:development'
