@@ -1,4 +1,4 @@
-export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 # export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
@@ -6,5 +6,3 @@ export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PAT
 
 export EDITOR="nvim"
 export VISUAL="nvim"
-
-eval "$(/opt/homebrew/bin/brew shellenv)"
