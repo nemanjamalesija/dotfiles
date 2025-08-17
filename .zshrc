@@ -18,6 +18,9 @@ alias vcfg='nvim ~/.dotfiles/vimrc'
 alias wcfg='nvim ~/.dotfiles/wezterm.lua'
 alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
 
+alias dlog='rm -f var/logs/dev.log'
+alias dzlog='rm -f var/logs/zira/dev.log'
+
 alias wold='docker/node npm run watch:development'
 alias pbc='docker/node npm run pb:watch:client:development'
 alias pbs='docker/node npm run pb:watch:server:development'
