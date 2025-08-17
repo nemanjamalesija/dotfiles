@@ -106,9 +106,9 @@ return {
             require("vscode").setup({
                 background = "hard",
                 transparent = true,
-                group_overrides = {
-                    ["@variable.parameter"] = { fg = "#E69875" },
-                },
+                -- group_overrides = {
+                --     ["@variable.parameter"] = { fg = "#FF9900" },
+                -- },
             })
             vim.cmd.colorscheme("vscode")
         end,
