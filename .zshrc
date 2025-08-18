@@ -28,14 +28,17 @@ alias gcma='git commit --amend -m'
 alias gco='git checkout'  
 alias gcb='git checkout -b'
 alias gp='git push' 
+alias gpr='git pull -r' 
 alias gplease='git push --force-with-lease'
 alias greset-hard='git reset --hard @{u}'
-alias grebase-n='git rebase -i HEAD~'
 alias grevert-cm='git reset --soft HEAD~1'  
 alias greset-one='git reset --hard HEAD^'  
+grebase-n() {
+    git rebase -i HEAD~$1
+}
 
-alias nj='cd ~/Desktop/projekti/njuskalo-hr'
-alias njn='cd ~/Desktop/projekti/njuskalo-hr && nvim'
+alias nju='cd ~/Desktop/projekti/njuskalo-hr'
+alias njun='cd ~/Desktop/projekti/njuskalo-hr && nvim'
 
 alias dlog='rm -f var/logs/dev.log'
 alias dzlog='rm -f var/logs/zira/dev.log'
