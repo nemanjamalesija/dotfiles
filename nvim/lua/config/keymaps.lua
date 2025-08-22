@@ -9,7 +9,7 @@
 vim.keymap.set("n", "<leader>s", "<cmd>w<cr>", { desc = "Save file" })
 vim.keymap.set("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit buffer" })
 
-vim.keymap.set("n", "<leader>S", ":%s/", { noremap = true, desc = "Substitute word" })
+-- vim.keymap.set("n", "<leader>S", ":%s/", { noremap = true, desc = "Substitute word" })
 
 vim.keymap.set("n", "<leader>r", [["_ddP]], { desc = "Replace current line with yanked text" })
 
