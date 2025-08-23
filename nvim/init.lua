@@ -18,3 +18,53 @@ vim.filetype.add({
         scss = "sass",
     },
 })
+
+local function set_illuminate_highlights()
+    for _, group in ipairs({
+        "IlluminatedWordText",
+        "IlluminatedWordRead",
+        "IlluminatedWordWrite",
+        "LspReferenceText",
+        "LspReferenceRead",
+        "LspReferenceWrite",
+    }) do
+        vim.api.nvim_set_hl(0, group, { underline = true, bg = "NONE", fg = "NONE", sp = "NONE" })
+    end
+end
+
+set_illuminate_highlights()
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    callback = set_illuminate_highlights,
+})
+
+local function toggle_bat_theme()
+    if vim.opt.background:get() == "light" then
+        vim.env.BAT_THEME = "Solarized (light)"
+    else
+        vim.env.BAT_THEME = ""
+    end
+end
+
+-- Create autocommand group and autocommand
+local bat_theme_group = vim.api.nvim_create_augroup("update_bat_theme", { clear = true })
+vim.api.nvim_create_autocmd("ColorScheme", {
+    group = bat_theme_group,
+    callback = toggle_bat_theme,
+})
+
+-- Set initial BAT_THEME
+toggle_bat_theme()
+
+vim.diagnostic.config({
+    virtual_text = false,
+    underline = true,
+    signs = true,
+    update_in_insert = false,
+    float = {
+        max_width = 80,
+        wrap = true,
+        border = "rounded",
+    },
+})
