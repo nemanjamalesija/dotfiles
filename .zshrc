@@ -33,6 +33,7 @@ alias gpull='git pull -r'
 alias greset-hard='git reset --hard @{u}'
 alias grevert-cm='git reset --soft HEAD~1'  
 alias greset-one='git reset --hard HEAD^'  
+alias grebase='git rebase'  
 grebase-n() {
     git rebase -i HEAD~$1
 }

@@ -8,9 +8,9 @@
 	diffFilter = delta --color-only
 [delta]
  # light = true
- # syntax-theme = Solarized (light)
+# syntax-theme = Solarized (light)
   dark = true
-  syntax-theme = Monokai Extended Bright
+ syntax-theme = Monokai Extended Bright
   line-numbers = true
   decorations = true
   side-by-side = false
