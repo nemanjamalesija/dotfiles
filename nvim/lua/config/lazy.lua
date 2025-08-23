@@ -16,10 +16,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     spec = {
-        -- add LazyVim and import its plugins
-        { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-
-        -- import/override with your plugins
+        { "LazyVim/LazyVim", import = "lazyvim.plugins", opts = {
+            colorscheme = "everforest",
+        } },
         { import = "lazyvim.plugins.extras.lang.typescript" },
         { import = "lazyvim.plugins.extras.lang.json" },
         { import = "lazyvim.plugins.extras.ui.mini-animate" },
@@ -27,19 +26,15 @@ require("lazy").setup({
         { import = "lazyvim.plugins.extras.coding.luasnip" },
         { import = "lazyvim.plugins.extras.linting.eslint" },
         -- { import = "lazyvim.plugins.extras.formatting.prettier" },
-
-        { "kdheepak/lazygit.nvim" },
         { "tpope/vim-eunuch" },
         { "windwp/nvim-ts-autotag", enabled = false },
         { "github/copilot.vim" },
-
         { import = "plugins" },
     },
     defaults = {
         lazy = false,
         version = false,
     },
-    install = { colorscheme = { "monokai" } },
     checker = {
         enabled = true,
         notify = false,
