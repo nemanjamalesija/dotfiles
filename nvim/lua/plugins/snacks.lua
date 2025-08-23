@@ -6,9 +6,9 @@ return {
     opts = {
         explorer = { enabled = false },
         debug = { enabled = false },
-        notifier = { enabled = false },
         notify = { enabled = false },
-        notifier = { enabled = true },
+        notifier = { enabled = false },
+        indent = { enabled = false },
         -- quickfile = { enabled = true },
         -- scope = { enabled = true },
         -- scroll = { enabled = true },
