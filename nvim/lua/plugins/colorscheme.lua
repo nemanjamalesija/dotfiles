@@ -1,5 +1,9 @@
 return {
     {
+        "folke/tokyonight.nvim",
+        enabled = false,
+    },
+    {
         "catppuccin/nvim",
         name = "catppuccin-mocha",
 
@@ -7,39 +11,29 @@ return {
             require("catppuccin").setup({
                 flavour = "mocha",
                 transparent_background = true,
+                float = {
+                    enabled = true,
+                    transparent = true, -- or true, depending on your preference
+                    solid = false, -- or true, depending on your preference
+                },
             })
             --[[ vim.cmd.colorscheme("catppuccin-mocha") ]]
         end,
     },
     {
-        "neanias/everforest-nvim",
-        version = false,
+        "sainnhe/everforest",
         lazy = false,
         priority = 1000,
         config = function()
-            vim.o.background = "light"
-
-            local config = {
-                background = "hard",
-                -- ui_contrast = "high",
-
-                on_highlights = function(highlight_groups, palette)
-                    highlight_groups["@variable.parameter"] = { fg = "#E69875" }
-                end,
-            }
-
-            if vim.o.background == "dark" and config.background == "hard" then
-                config.transparent_background_level = 1
-            end
-
-            require("everforest").setup(config)
-            -- vim.cmd.colorscheme("everforest")
+            vim.g.everforest_enable_italic = true
+            vim.g.everforest_background = "hard"
+            vim.g.everforest_better_performance = 1
+            vim.cmd.colorscheme("everforest")
         end,
     },
     {
         "polirritmico/monokai-nightasty.nvim",
-        priority = 1000,
-        lazy = false,
+        lazy = true,
         config = function()
             require("monokai-nightasty").setup({
                 on_colors = function(colors)
@@ -109,7 +103,7 @@ return {
                 --     ["@variable.parameter"] = { fg = "#FF9900" },
                 -- },
             })
-            vim.cmd.colorscheme("vscode")
+            -- vim.cmd.colorscheme("vscode")
         end,
     },
 }

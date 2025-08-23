@@ -25,6 +25,7 @@ return {
                     render = "default",
                     stages = "fade",
                     level = 3,
+                    -- background_colour = get_notify_bg(),
                 })
             end,
         },

@@ -1,51 +1,51 @@
 return {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
         local harpoon = require("harpoon")
-        harpoon:setup({})
 
-        -- Telescope integration
-        local conf = require("telescope.config").values
-        local function toggle_telescope(harpoon_files)
-            local file_paths = {}
-            for _, item in ipairs(harpoon_files.items) do
-                table.insert(file_paths, item.value)
-            end
+        -- REQUIRED
+        harpoon:setup()
+        -- REQUIRED
 
-            require("telescope.pickers")
-                .new({}, {
-                    prompt_title = "Harpoon",
-                    finder = require("telescope.finders").new_table({
-                        results = file_paths,
-                    }),
-                    previewer = conf.file_previewer({}),
-                    sorter = conf.generic_sorter({}),
-                })
-                :find()
-        end
+        -- Your keymaps
+        vim.keymap.set("n", "<leader>ha", function()
+            harpoon:list():add()
+        end, { desc = "Add file to Harpoon" })
 
         vim.keymap.set("n", "<leader>hm", function()
-            require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())
+            harpoon.ui:toggle_quick_menu(harpoon:list())
         end, { desc = "Toggle Harpoon menu" })
-        vim.keymap.set("n", "<leader>ho", function()
-            toggle_telescope(harpoon:list())
-        end, { desc = "Open harpoon with Telescope" })
-        vim.keymap.set("n", "<leader>ha", function()
-            require("harpoon"):list():add()
-        end, { desc = "Add file to Harpoon" })
+
+        -- Fixed select keymaps
         vim.keymap.set("n", "<M-1>", function()
-            require("harpoon"):list():select(1)
+            harpoon:list():select(1)
         end)
         vim.keymap.set("n", "<M-2>", function()
-            require("harpoon"):list():select(2)
+            harpoon:list():select(2)
         end)
         vim.keymap.set("n", "<M-3>", function()
-            require("harpoon"):list():select(2)
+            harpoon:list():select(3) -- Fixed: was select(2)
         end)
         vim.keymap.set("n", "<M-4>", function()
-            require("harpoon"):list():select(2)
+            harpoon:list():select(4) -- Fixed: was select(2)
         end)
+
+        -- Optional: Add prev/next navigation
+        vim.keymap.set("n", "<C-S-P>", function()
+            harpoon:list():prev()
+        end)
+        vim.keymap.set("n", "<C-S-N>", function()
+            harpoon:list():next()
+        end)
+
+        -- Handle swap file issues
+        vim.api.nvim_create_autocmd("SwapExists", {
+            callback = function()
+                vim.v.swapchoice = "o" -- Open read-only
+                vim.notify("File opened read-only due to existing swap file", vim.log.levels.WARN)
+            end,
+        })
     end,
 }

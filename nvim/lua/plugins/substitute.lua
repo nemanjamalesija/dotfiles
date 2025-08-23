@@ -7,7 +7,7 @@ return {
             },
             range = {
                 group_substituted_text = false,
-                prefix = "r",
+                prefix = "s",
                 prompt_current_text = false,
                 suffix = "",
             },
@@ -15,10 +15,10 @@ return {
         init = function()
             local substitute = require("substitute")
 
-            vim.keymap.set("n", "<leader>r", substitute.operator, { noremap = true, desc = "Substitute operator" })
-            vim.keymap.set("n", "<leader>rr", substitute.line, { noremap = true, desc = "Substitute line" })
-            vim.keymap.set("n", "<leader>R", substitute.eol, { noremap = true, desc = "Substitute to end of line" })
-            vim.keymap.set("x", "<leader>r", substitute.visual, { noremap = true, desc = "Substitute visual" })
+            vim.keymap.set("n", "s", substitute.operator, { noremap = true, desc = "Substitute operator" })
+            vim.keymap.set("n", "ss", substitute.line, { noremap = true, desc = "Substitute line" })
+            vim.keymap.set("n", "S", substitute.eol, { noremap = true, desc = "Substitute to end of line" })
+            vim.keymap.set("x", "s", substitute.visual, { noremap = true, desc = "Substitute visual" })
 
             vim.api.nvim_set_hl(0, "SubstituteSubstituted", { link = "Substitute" })
             vim.api.nvim_set_hl(0, "SubstituteRange", { link = "Substitute" })
