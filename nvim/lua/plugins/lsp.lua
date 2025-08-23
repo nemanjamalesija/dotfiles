@@ -11,8 +11,7 @@ return {
 
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "ts_ls",
-                    "volar",
+                    "ts_ls", -- TypeScript with Vue plugin
                     "intelephense",
                     "html",
                     "cssls",
@@ -94,18 +93,24 @@ return {
                 },
             })
 
-            -- Typescript LSP server
-            --[[  lspconfig.ts_ls.setup({}) ]]
+            -- Get Vue Language Server path for TypeScript plugin
+            local mason_registry = require("mason-registry")
+            local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+                .. "/node_modules/@vue/language-server"
 
-            -- Volar LSP server
-            lspconfig.volar.setup({
+            -- TypeScript with Vue plugin (handles TS/JS/Vue)
+            lspconfig.ts_ls.setup({
                 capabilities = capabilities,
-                filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
                 init_options = {
-                    vue = {
-                        hybridMode = false,
+                    plugins = {
+                        {
+                            name = "@vue/typescript-plugin",
+                            location = vue_language_server_path,
+                            languages = { "vue" },
+                        },
                     },
                 },
+                filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
             })
 
             -- CSS LSP server
@@ -136,10 +141,56 @@ return {
                 },
             })
 
+            -- HTML LSP server
+            lspconfig.html.setup({
+                capabilities = capabilities,
+                filetypes = { "html", "vue" },
+            })
+
+            -- Tailwind CSS LSP server
+            lspconfig.tailwindcss.setup({
+                capabilities = capabilities,
+                filetypes = {
+                    "html",
+                    "css",
+                    "scss",
+                    "javascript",
+                    "javascriptreact",
+                    "typescript",
+                    "typescriptreact",
+                    "vue",
+                },
+            })
+
+            -- Emmet LSP server
+            lspconfig.emmet_ls.setup({
+                capabilities = capabilities,
+                filetypes = {
+                    "html",
+                    "css",
+                    "scss",
+                    "javascript",
+                    "javascriptreact",
+                    "typescript",
+                    "typescriptreact",
+                    "vue",
+                },
+            })
+
+            -- Lua LSP server
+            lspconfig.lua_ls.setup({
+                capabilities = capabilities,
+            })
+
+            -- SASS LSP server
+            lspconfig.somesass_ls.setup({
+                capabilities = capabilities,
+            })
+
             -- Keymaps
             vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
             vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-            vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "Find references" })
+            vim.keymap.set("n", "<leader>cr", vim.lsp.buf.references, { desc = "Find references" })
             vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
         end,
     },
