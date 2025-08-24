@@ -19,7 +19,7 @@ return {
                     wrap = "nowrap",
                     hidden = true,
                     layout = "vertical",
-                    vertical = "up:80%",
+                    vertical = "up:75%",
                 },
             },
             keymap = {
@@ -36,13 +36,11 @@ return {
                 },
                 fzf = {
                     ["ctrl-z"] = "abort",
-                    ["ctrl-u"] = "unix-line-discard",
-                    ["ctrl-f"] = "half-page-down",
-                    ["ctrl-b"] = "half-page-up",
+                    ["ctrl-d"] = "half-page-down",
+                    ["ctrl-u"] = "half-page-up",
                     ["ctrl-a"] = "beginning-of-line",
                     ["ctrl-e"] = "end-of-line",
                     ["alt-a"] = "toggle-all",
-                    ["f3"] = "toggle-preview-wrap",
                     ["ctrl-p"] = "toggle-preview",
                     ["shift-down"] = "preview-page-down",
                     ["shift-up"] = "preview-page-up",
@@ -151,8 +149,17 @@ return {
             })
         end, { desc = "Find files (clean search, exclude dist/node_modules/etc)" })
 
-        -- Live grep with exclusions
-        vim.keymap.set("n", "<leader>F", function()
+        vim.keymap.set("n", "<leader>ff", function()
+            require("fzf-lua").lgrep_curbuf({
+                winopts = {
+                    preview = {
+                        hidden = false, -- show preview for this picker
+                    },
+                },
+            })
+        end, { desc = "Fuzzy search in current buffer" })
+
+        vim.keymap.set("n", "<leader>fg", function()
             local rg_opts = "--column --line-number --no-heading --color=always --hidden --no-ignore --fixed-strings"
             local exclude_globs = get_rg_exclude_globs()
 
@@ -173,19 +180,53 @@ return {
             })
         end, { desc = "Live grep (literal search, exclude junk)" })
 
-        -- Fuzzy search in current buffer
-        vim.keymap.set("n", "<leader>f", function()
-            require("fzf-lua").lgrep_curbuf({
-                winopts = {
-                    preview = {
-                        hidden = false, -- show preview for this picker
-                    },
-                },
-            })
-        end, { desc = "Fuzzy search in current buffer" })
+        vim.keymap.set("v", "<leader>fsf", function()
+            local bufnr = vim.api.nvim_get_current_buf()
+            local start_pos = vim.api.nvim_buf_get_mark(bufnr, "<")
+            local end_pos = vim.api.nvim_buf_get_mark(bufnr, ">")
+            local lines = vim.api.nvim_buf_get_lines(bufnr, start_pos[1] - 1, end_pos[1], false)
+            if #lines == 0 then
+                return
+            end
+            lines[#lines] = string.sub(lines[#lines], 1, end_pos[2])
+            lines[1] = string.sub(lines[1], start_pos[2] + 1)
+            local selection = table.concat(lines, " "):gsub("\n", " ")
 
-        -- Live grep in specific directory
-        vim.keymap.set("n", "<leader>fd", function()
+            require("fzf-lua").lgrep_curbuf({
+                search = selection,
+                winopts = { preview = { hidden = false } },
+            })
+        end, { desc = "Fuzzy search for selection (current buffer)" })
+
+        vim.keymap.set("v", "<leader>fsg", function()
+            local bufnr = vim.api.nvim_get_current_buf()
+            local start_pos = vim.api.nvim_buf_get_mark(bufnr, "<")
+            local end_pos = vim.api.nvim_buf_get_mark(bufnr, ">")
+            local lines = vim.api.nvim_buf_get_lines(bufnr, start_pos[1] - 1, end_pos[1], false)
+            if #lines == 0 then
+                return
+            end
+            lines[#lines] = string.sub(lines[#lines], 1, end_pos[2])
+            lines[1] = string.sub(lines[1], start_pos[2] + 1)
+            local selection = table.concat(lines, " "):gsub("\n", " ")
+
+            require("fzf-lua").live_grep({
+                search = selection,
+                winopts = { preview = { hidden = false } },
+            })
+        end, { desc = "Live grep for selection (project-wide)" })
+
+        vim.keymap.set("n", "<leader>fdf", function()
+            local dir = vim.fn.input("files directory: ")
+            vim.cmd("redraw")
+            if dir ~= "" then
+                require("fzf-lua").files({
+                    cwd = dir,
+                })
+            end
+        end, { desc = "Find files in user directory" })
+
+        vim.keymap.set("n", "<leader>fdg", function()
             local dir = vim.fn.input("grep directory: ")
             vim.cmd("redraw")
             if dir ~= "" then
@@ -194,5 +235,28 @@ return {
                 })
             end
         end, { desc = "live grep in user directory" })
+
+        vim.keymap.set("v", "<leader>fds", function()
+            local bufnr = vim.api.nvim_get_current_buf()
+            local start_pos = vim.api.nvim_buf_get_mark(bufnr, "<")
+            local end_pos = vim.api.nvim_buf_get_mark(bufnr, ">")
+            local lines = vim.api.nvim_buf_get_lines(bufnr, start_pos[1] - 1, end_pos[1], false)
+            if #lines == 0 then
+                return
+            end
+            lines[#lines] = string.sub(lines[#lines], 1, end_pos[2])
+            lines[1] = string.sub(lines[1], start_pos[2] + 1)
+            local selection = table.concat(lines, " "):gsub("\n", " ")
+
+            local dir = vim.fn.input("grep directory: ")
+            vim.cmd("redraw")
+            if dir ~= "" then
+                require("fzf-lua").live_grep({
+                    cwd = dir,
+                    search = selection,
+                    winopts = { preview = { hidden = false } },
+                })
+            end
+        end, { desc = "Live grep for selection in user directory" })
     end,
 }
