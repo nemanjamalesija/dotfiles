@@ -67,3 +67,6 @@ end
 
 vim.keymap.set("n", "vi{", dive_with_count_object, { desc = "Dive inside nth { block" })
 vim.keymap.set("n", "vi(", dive_with_count_paren, { desc = "Dive inside nth ( block" })
+
+-- Buffer navigation
+vim.keymap.set("n", "<M-w>", "<cmd>bdelete<cr>", { desc = "Buffer delete" })

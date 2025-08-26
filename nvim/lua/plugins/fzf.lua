@@ -181,40 +181,44 @@ return {
         end, { desc = "Live grep (literal search, exclude junk)" })
 
         vim.keymap.set("v", "<leader>fsf", function()
-            local bufnr = vim.api.nvim_get_current_buf()
-            local start_pos = vim.api.nvim_buf_get_mark(bufnr, "<")
-            local end_pos = vim.api.nvim_buf_get_mark(bufnr, ">")
-            local lines = vim.api.nvim_buf_get_lines(bufnr, start_pos[1] - 1, end_pos[1], false)
-            if #lines == 0 then
+            -- Yank current selection to unnamed register
+            vim.cmd("normal! y")
+            local selection = vim.fn.getreg('"')
+
+            -- Clean up the selection
+            selection = selection:gsub("\n", " "):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+
+            if selection == "" then
                 return
             end
-            lines[#lines] = string.sub(lines[#lines], 1, end_pos[2])
-            lines[1] = string.sub(lines[1], start_pos[2] + 1)
-            local selection = table.concat(lines, " "):gsub("\n", " ")
 
             require("fzf-lua").lgrep_curbuf({
                 search = selection,
-                winopts = { preview = { hidden = false } },
+                winopts = {
+                    preview = { hidden = false },
+                },
             })
-        end, { desc = "Fuzzy search for selection (current buffer)" })
+        end, { desc = "Fuzzy search for selection - simple yank method" })
 
         vim.keymap.set("v", "<leader>fsg", function()
-            local bufnr = vim.api.nvim_get_current_buf()
-            local start_pos = vim.api.nvim_buf_get_mark(bufnr, "<")
-            local end_pos = vim.api.nvim_buf_get_mark(bufnr, ">")
-            local lines = vim.api.nvim_buf_get_lines(bufnr, start_pos[1] - 1, end_pos[1], false)
-            if #lines == 0 then
+            -- Yank current selection to unnamed register
+            vim.cmd("normal! y")
+            local selection = vim.fn.getreg('"')
+
+            -- Clean up the selection
+            selection = selection:gsub("\n", " "):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+
+            if selection == "" then
                 return
             end
-            lines[#lines] = string.sub(lines[#lines], 1, end_pos[2])
-            lines[1] = string.sub(lines[1], start_pos[2] + 1)
-            local selection = table.concat(lines, " "):gsub("\n", " ")
 
             require("fzf-lua").live_grep({
                 search = selection,
-                winopts = { preview = { hidden = false } },
+                winopts = {
+                    preview = { hidden = false },
+                },
             })
-        end, { desc = "Live grep for selection (project-wide)" })
+        end, { desc = "Live grep for selection (project-wide) - with preview" })
 
         vim.keymap.set("n", "<leader>fdf", function()
             local dir = vim.fn.input("files directory: ")
@@ -234,7 +238,7 @@ return {
                     cwd = dir,
                 })
             end
-        end, { desc = "live grep in user directory" })
+        end, { desc = "Live grep in user directory" })
 
         vim.keymap.set("v", "<leader>fds", function()
             local bufnr = vim.api.nvim_get_current_buf()

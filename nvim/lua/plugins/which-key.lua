@@ -1,0 +1,21 @@
+return {
+    -- "folke/which-key.nvim",
+    -- event = "VeryLazy",
+    -- opts = {
+    --     preset = "modern",
+    --     delay = 500,
+    --     icons = {
+    --         separator = "→",
+    --         mappings = false,
+    --     },
+    --     layout = { align = "center" },
+    --     triggers = {
+    --         { "<leader>", mode = { "n", "v" } },
+    --     },
+    --     plugins = {
+    --         spelling = {
+    --             enabled = false,
+    --         },
+    --     },
+    -- },
+}

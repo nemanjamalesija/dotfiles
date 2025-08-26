@@ -16,22 +16,15 @@ end, {
     desc = "Re-enable conform-autoformat-on-save",
 })
 
+vim.keymap.set("n", "<leader>cf", function()
+    require("conform").format({ formatters = { "prettier" }, force = true })
+end, { desc = "Format with prettier" })
+
 return {
     {
         "stevearc/conform.nvim",
         event = { "BufWritePre" },
         cmd = { "ConformInfo" },
-        -- keys = {
-        --     {
-        --         "<leader>f",
-        --         function()
-        --             require("conform").format({ async = true, lsp_format = "fallback" })
-        --         end,
-        --         mode = "",
-        --         desc = "Format buffer",
-        --     },
-        -- },
-
         opts = {
             notify_on_error = false,
             default_format_opts = {
@@ -40,12 +33,43 @@ return {
                 lsp_format = "fallback",
             },
             formatters_by_ft = {
+                -- Web languages
                 lua = { "stylua" },
-                javascript = { "prettier" },
-                typescript = { "prettier" },
-                vue = { "prettier" },
-                vuetypescript = { "prettier" },
-                typescriptreact = { "prettier" },
+                javascript = { "eslint" },
+                typescript = { "eslint" },
+                vue = { "eslint" },
+                typescriptreact = { "eslint" },
+                javascriptreact = { "eslint" },
+
+                -- Stylesheets
+                css = { "stylelint" },
+                scss = { "stylelint" },
+                sass = { "stylelint" },
+                less = { "stylelint" },
+
+                -- Markup
+                html = { "prettier" },
+
+                -- Config files
+                json = { "prettier" },
+                yaml = { "prettier" },
+                toml = { "taplo" },
+
+                -- Markdown
+                markdown = { "prettier" },
+            },
+            -- Custom formatters (if needed)
+            formatters = {
+                -- stylelint = {
+                --     command = "stylelint",
+                --     args = { "--fix", "--stdin", "--stdin-filename", "$FILENAME" },
+                --     stdin = true,
+                -- },
+                prettier = {
+                    command = "prettier",
+                    args = { "--stdin-filepath", "$FILENAME" },
+                    stdin = true,
+                },
             },
         },
     },

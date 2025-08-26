@@ -5,9 +5,7 @@ return {
     config = function()
         local harpoon = require("harpoon")
 
-        -- REQUIRED
         harpoon:setup()
-        -- REQUIRED
 
         -- Your keymaps
         vim.keymap.set("n", "<leader>ha", function()
@@ -19,24 +17,17 @@ return {
         end, { desc = "Toggle Harpoon menu" })
 
         -- Fixed select keymaps
-        vim.keymap.set("n", "<M-1>", function()
-            harpoon:list():select(1)
-        end)
-        vim.keymap.set("n", "<M-2>", function()
-            harpoon:list():select(2)
-        end)
-        vim.keymap.set("n", "<M-3>", function()
-            harpoon:list():select(3) -- Fixed: was select(2)
-        end)
-        vim.keymap.set("n", "<M-4>", function()
-            harpoon:list():select(4) -- Fixed: was select(2)
-        end)
+        for i = 1, 5 do
+            vim.keymap.set("n", "<M-" .. i .. ">", function()
+                harpoon:list():select(i)
+            end, { desc = "Harpoon to File " .. i })
+        end
 
         -- Optional: Add prev/next navigation
-        vim.keymap.set("n", "<C-S-P>", function()
+        vim.keymap.set("n", "<M-l>", function()
             harpoon:list():prev()
         end)
-        vim.keymap.set("n", "<C-S-N>", function()
+        vim.keymap.set("n", "<M-h>", function()
             harpoon:list():next()
         end)
 

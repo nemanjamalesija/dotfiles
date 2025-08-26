@@ -68,3 +68,5 @@ vim.diagnostic.config({
         border = "rounded",
     },
 })
+
+vim.o.background = "light"

@@ -11,7 +11,8 @@ return {
 
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "ts_ls", -- TypeScript with Vue plugin
+                    "ts_ls",
+                    "eslint",
                     "intelephense",
                     "html",
                     "cssls",
@@ -42,10 +43,20 @@ return {
             local ts_error = require("ts-error-translator")
             ts_error.setup()
 
-            -- Eslint
+            -- Common on_attach function to disable LSP formatting
+            local on_attach = function(client, bufnr)
+                -- Disable LSP formatting in favor of conform.nvim
+                client.server_capabilities.documentFormattingProvider = false
+                client.server_capabilities.documentRangeFormattingProvider = false
+            end
+
+            -- Eslint (keep auto-fix functionality, but disable formatting)
             lspconfig.eslint.setup({
                 capabilities = capabilities,
                 on_attach = function(client, bufnr)
+                    on_attach(client, bufnr) -- Disable formatting
+
+                    -- Keep ESLint auto-fix on save
                     vim.api.nvim_create_autocmd("BufWritePre", {
                         buffer = bufnr,
                         callback = function()
@@ -55,26 +66,14 @@ return {
                 end,
             })
 
-            -- Stylelint
+            -- Stylelint (remove formatting, keep linting)
             lspconfig.stylelint_lsp.setup({
                 capabilities = capabilities,
-                on_attach = function(client, bufnr)
-                    vim.api.nvim_create_autocmd("BufWritePre", {
-                        buffer = bufnr,
-                        callback = function()
-                            vim.lsp.buf.format({
-                                filter = function(client)
-                                    return client.name == "stylelint_lsp"
-                                end,
-                                async = false,
-                            })
-                        end,
-                    })
-                end,
+                on_attach = on_attach, -- Disable formatting
                 settings = {
                     stylelintplus = {
-                        autoFixOnSave = true,
-                        autoFixOnFormat = true,
+                        autoFixOnSave = false, -- Disable auto-fix, let conform handle it
+                        autoFixOnFormat = false,
                     },
                 },
                 filetypes = { "css", "scss", "less", "sass" },
@@ -83,11 +82,12 @@ return {
             -- PHP
             lspconfig.intelephense.setup({
                 capabilities = capabilities,
-                filetypes = { "php", "view", "template" }, -- Add your custom filetypes
+                on_attach = on_attach, -- Disable formatting
+                filetypes = { "php", "view", "template", "twig" }, -- Added twig support
                 settings = {
                     intelephense = {
                         files = {
-                            associations = { "*.php", "*.view", "*.template" }, -- Associate files
+                            associations = { "*.php", "*.view", "*.template", "*.twig" }, -- Added twig files
                         },
                     },
                 },
@@ -101,6 +101,7 @@ return {
             -- TypeScript with Vue plugin (handles TS/JS/Vue)
             lspconfig.ts_ls.setup({
                 capabilities = capabilities,
+                on_attach = on_attach, -- Disable formatting
                 init_options = {
                     plugins = {
                         {
@@ -116,6 +117,7 @@ return {
             -- CSS LSP server
             lspconfig.cssls.setup({
                 capabilities = capabilities,
+                on_attach = on_attach, -- Disable formatting
                 settings = {
                     css = {
                         validate = true,
@@ -144,12 +146,14 @@ return {
             -- HTML LSP server
             lspconfig.html.setup({
                 capabilities = capabilities,
-                filetypes = { "html", "vue" },
+                on_attach = on_attach, -- Disable formatting
+                filetypes = { "html" },
             })
 
             -- Tailwind CSS LSP server
             lspconfig.tailwindcss.setup({
                 capabilities = capabilities,
+                on_attach = on_attach, -- Disable formatting
                 filetypes = {
                     "html",
                     "css",
@@ -165,6 +169,7 @@ return {
             -- Emmet LSP server
             lspconfig.emmet_ls.setup({
                 capabilities = capabilities,
+                on_attach = on_attach, -- Disable formatting
                 filetypes = {
                     "html",
                     "css",
@@ -180,11 +185,13 @@ return {
             -- Lua LSP server
             lspconfig.lua_ls.setup({
                 capabilities = capabilities,
+                on_attach = on_attach, -- Disable formatting
             })
 
             -- SASS LSP server
             lspconfig.somesass_ls.setup({
                 capabilities = capabilities,
+                on_attach = on_attach, -- Disable formatting
             })
 
             -- Keymaps

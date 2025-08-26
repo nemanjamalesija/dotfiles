@@ -9,8 +9,8 @@ return {
         "DiffviewLog",
     },
     keys = {
-        { "<leader>gh", "<Cmd>DiffviewFileHistory %<CR>", desc = "Git Current File History" },
-        { "<leader>go", "<Cmd>DiffviewOpen<CR>", desc = "Open Git Diff Current File" },
-        { "<leader>gc", "<Cmd>DiffviewClose<CR>", desc = "Close Git Diff Current File" },
+        { "<leader>dh", "<Cmd>DiffviewFileHistory %<CR>", desc = "Git Current File History" },
+        { "<leader>do", "<Cmd>DiffviewOpen<CR>", desc = "Open Git Diff Current File" },
+        { "<leader>dc", "<Cmd>DiffviewClose<CR>", desc = "Close Git Diff Current File" },
     },
 }

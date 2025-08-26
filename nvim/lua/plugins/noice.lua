@@ -1,5 +1,5 @@
 vim.keymap.set("n", "<leader>nc", function()
-    require("notify").dismiss()
+    require("notify").dismiss({ silent = true, pending = false })
 end, { desc = "Dismiss notify popup and clear hlsearch" })
 
 return {
@@ -25,7 +25,8 @@ return {
                     render = "default",
                     stages = "fade",
                     level = 3,
-                    -- background_colour = get_notify_bg(),
+                    background_colour = "NotifyBackground",
+                    merge_duplicates = false,
                 })
             end,
         },

@@ -13,8 +13,8 @@ return {
                 transparent_background = true,
                 float = {
                     enabled = true,
-                    transparent = true, -- or true, depending on your preference
-                    solid = false, -- or true, depending on your preference
+                    transparent = true,
+                    solid = false,
                 },
             })
             --[[ vim.cmd.colorscheme("catppuccin-mocha") ]]
@@ -25,8 +25,8 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
+            vim.g.everforest_background = "medium"
             vim.g.everforest_enable_italic = true
-            vim.g.everforest_background = "hard"
             vim.g.everforest_better_performance = 1
             vim.cmd.colorscheme("everforest")
         end,
@@ -44,10 +44,8 @@ return {
                     local fg_text = "#6c6c6c"
                     local bg_poup = "#f9f9f9"
                     local lsp_ref_bg = "#dddddd"
-                    local cursor_line_bg = "#f6f6f6"
                     local sublime_blue = "#2aa198"
                     local sublime_blue_dark = "#4791e4"
-                    local red = "#ff005f"
                     local purple_subtitute_yellow = "#8da101"
                     local everforest_pink = "#df69ba"
 
