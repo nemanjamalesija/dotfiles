@@ -21,28 +21,19 @@ return {
                     on_open = function(win)
                         vim.api.nvim_win_set_config(win, { focusable = true })
                     end,
-                    -- render = "minimal",
                     render = "default",
                     stages = "fade",
-                    level = 3,
-                    background_colour = "NotifyBackground",
+                    -- Remove or lower the level to show more message types
+                    level = vim.log.levels.INFO, -- Changed from 3 to INFO
                     merge_duplicates = false,
                 })
             end,
         },
     },
     opts = {
-        lsp = {
-            override = {
-                ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                ["vim.lsp.util.stylize_markdown"] = true,
-            },
-        },
-        notify = {
-            enabled = true,
-            view = "notify",
-        },
+
         cmdline = {
+            enabled = true,
             view = "cmdline",
             format = {
                 search_down = { view = "cmdline" },
@@ -64,15 +55,6 @@ return {
                     row = 1,
                     col = -2,
                 },
-            },
-        },
-        routes = {
-            {
-                filter = {
-                    event = "msg_show",
-                    find = "written",
-                },
-                opts = { skip = true },
             },
         },
     },
