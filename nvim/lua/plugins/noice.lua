@@ -24,7 +24,7 @@ return {
                     render = "default",
                     stages = "fade",
                     -- Remove or lower the level to show more message types
-                    level = vim.log.levels.INFO, -- Changed from 3 to INFO
+                    level = vim.log.levels.WARN,
                     merge_duplicates = false,
                 })
             end,
