@@ -7,5 +7,5 @@ return {
     { "echasnovski/mini.splitjoin", enabled = false },
     { "echasnovski/mini.operators", enabled = false },
     { "echasnovski/mini.align", enabled = false },
-    { "echasnovski/mini.ai", enabled = false },
+    { "echasnovski/mini.diff", enabled = false },
 }
