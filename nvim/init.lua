@@ -1,5 +1,6 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -47,13 +48,6 @@ local function toggle_bat_theme()
     end
 end
 
--- Create autocommand group and autocommand
-local bat_theme_group = vim.api.nvim_create_augroup("update_bat_theme", { clear = true })
-vim.api.nvim_create_autocmd("ColorScheme", {
-    group = bat_theme_group,
-    callback = toggle_bat_theme,
-})
-
 -- Set initial BAT_THEME
 toggle_bat_theme()
 
@@ -69,4 +63,15 @@ vim.diagnostic.config({
     },
 })
 
-vim.o.background = "light"
+-- vim.o.background = "light"
+if vim.env.COLORFGBG then
+    -- Basic check: If first number is "15" it's light, if "0" it's dark
+    local fg, bg = vim.env.COLORFGBG:match("^(%d+);(%d+)$")
+    if fg and bg then
+        if tonumber(fg) > tonumber(bg) then
+            vim.o.background = "light"
+        else
+            vim.o.background = "dark"
+        end
+    end
+end
