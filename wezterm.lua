@@ -16,15 +16,15 @@ local themes = {
 local default_theme = "Builtin Solarized Light"
 
 -- Pick opacity based on theme
-local function initial_opacity(theme)
-	if theme == "Builtin Solarized Light" then
-		return 1.0
-	elseif theme == "Spring" then
-		return 1.0
-	else
-		return 0.99
-	end
-end
+-- local function initial_opacity(theme)
+-- 	if theme == "Builtin Solarized Light" then
+-- 		return 1.0
+-- 	elseif theme == "Spring" then
+-- 		return 1.0
+-- 	else
+-- 		return 0.99
+-- 	end
+-- end
 
 -- Toggle logic
 local function rotate_theme(window, pane)
@@ -43,29 +43,39 @@ local function rotate_theme(window, pane)
 
 	-- Apply theme + opacity
 	overrides.color_scheme = next_theme
-	overrides.window_background_opacity = initial_opacity(next_theme)
+	-- overrides.window_background_opacity = initial_opacity(next_theme)
 	window:set_config_overrides(overrides)
 end
 
 return {
+	-- GPU acceleration for macOS
+	front_end = "WebGpu",
+	webgpu_power_preference = "HighPerformance",
+	max_fps = 120,
 	window_decorations = "RESIZE",
-	enable_tab_bar = true,
+	enable_tab_bar = false,
 	hide_tab_bar_if_only_one_tab = false,
-	show_new_tab_button_in_tab_bar = true,
+	show_new_tab_button_in_tab_bar = false,
 	show_tab_index_in_tab_bar = false,
-	show_tabs_in_tab_bar = true,
+	show_tabs_in_tab_bar = false,
 	switch_to_last_active_tab_when_closing_tab = true,
+	line_height = 1.0,
 	tab_and_split_indices_are_zero_based = false,
 	tab_max_width = 25,
 	use_fancy_tab_bar = true,
-	adjust_window_size_when_changing_font_size = false,
+	adjust_window_size_when_changing_font_size = true,
 	font = wezterm.font("RobotoMono Nerd Font Mono"),
-	font_size = 18,
+	font_size = 20,
 	color_scheme = default_theme,
-	window_background_opacity = initial_opacity(default_theme),
+	window_background_opacity = 1.0,
 	alternate_buffer_wheel_scroll_speed = 0,
-	max_fps = 120,
 	window_close_confirmation = "NeverPrompt",
+	window_padding = {
+		left = 0,
+		right = 0,
+		top = 0,
+		bottom = 0,
+	},
 	keys = {
 		{
 			key = "t",
