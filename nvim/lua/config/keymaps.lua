@@ -70,3 +70,9 @@ vim.keymap.set("n", "vi(", dive_with_count_paren, { desc = "Dive inside nth ( bl
 
 -- Buffer navigation
 vim.keymap.set("n", "<M-w>", "<cmd>bdelete<cr>", { desc = "Buffer delete" })
+vim.keymap.set("n", "<M-i>", "<cmd>vertical resize +5<cr>", { desc = "Increase buffer width" })
+vim.keymap.set("n", "<M-d>", "<cmd>vertical resize -5<cr>", { desc = "Decrease buffer width" })
+vim.keymap.set("n", "<M-I>", "<cmd>resize +5<cr>", { desc = "Increase buffer height" })
+vim.keymap.set("n", "<M-D>", "<cmd>resize -5<cr>", { desc = "Decrease buffer height" })
+vim.keymap.set("n", "<M-l>", "<cmd>bprevious<cr>", { desc = "Buffer previous" })
+vim.keymap.set("n", "<M-h>", "<cmd>bnext<cr>", { desc = "Buffer next" })
