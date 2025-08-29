@@ -35,6 +35,7 @@ alias greset-hard='git reset --hard @{u}'
 alias grevert-cm='git reset --soft HEAD~1'  
 alias greset-one='git reset --hard HEAD^'  
 alias grebase='git rebase'  
+alias cls="clear"
 grebase-n() {
     git rebase -i HEAD~$1
 }
