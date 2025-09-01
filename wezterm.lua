@@ -6,6 +6,7 @@ local themes = {
 	"Dark+",
 	"catppuccin-latte",
 	"catppuccin-macchiato",
+	"Poimandres",
 	-- "gruber-darker",
 	-- "Obsidian",
 	-- "OceanicMaterial",
