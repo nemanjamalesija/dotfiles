@@ -16,9 +16,16 @@ end, {
     desc = "Re-enable conform-autoformat-on-save",
 })
 
-vim.keymap.set("n", "<leader>cf", function()
-    require("conform").format({ formatters = { "prettier" }, force = true })
-end, { desc = "Format with prettier" })
+-- vim.keymap.set("n", "<leader>cf", function()
+--     require("conform").format({ formatters = { "eslint" }, force = true })
+-- end, { desc = "Format with biome" })
+
+vim.api.nvim_set_keymap(
+    "n",
+    "<leader>fw",
+    ":!biome format --write=false %<CR>",
+    { noremap = true, silent = true, desc = "Format with biome (no save)" }
+)
 
 return {
     {
@@ -33,42 +40,28 @@ return {
                 lsp_format = "fallback",
             },
             formatters_by_ft = {
-                -- Web languages
+                -- Web languages - KEEP ESLint for auto-save (fixes + formats)
                 lua = { "stylua" },
                 javascript = { "eslint" },
                 typescript = { "eslint" },
                 vue = { "eslint" },
                 typescriptreact = { "eslint" },
                 javascriptreact = { "eslint" },
-
                 -- Stylesheets
                 css = { "stylelint" },
                 scss = { "stylelint" },
                 sass = { "stylelint" },
                 less = { "stylelint" },
-
-                -- Markup
-                html = { "prettier" },
-
-                -- Config files
-                json = { "prettier" },
-                yaml = { "prettier" },
-                toml = { "taplo" },
-
-                -- Markdown
-                markdown = { "prettier" },
             },
-            -- Custom formatters (if needed)
+            -- Custom formatters
             formatters = {
-                -- stylelint = {
-                --     command = "stylelint",
-                --     args = { "--fix", "--stdin", "--stdin-filename", "$FILENAME" },
-                --     stdin = true,
-                -- },
-                prettier = {
-                    command = "prettier",
-                    args = { "--stdin-filepath", "$FILENAME" },
+                biome = {
+                    command = "biome",
+                    args = { "format", "--stdin-file-path", "$FILENAME" },
                     stdin = true,
+                    cwd = function()
+                        return vim.fn.expand("%:p:h")
+                    end,
                 },
             },
         },
