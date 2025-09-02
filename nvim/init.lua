@@ -1,16 +1,10 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
-
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 
 require("config.lazy")
-
-vim.diagnostic.config({
-    underline = false,
-    severity_sort = true,
-})
 
 vim.filetype.add({
     extension = {
@@ -29,7 +23,7 @@ local function set_illuminate_highlights()
         "LspReferenceRead",
         "LspReferenceWrite",
     }) do
-        vim.api.nvim_set_hl(0, group, { underline = true, bg = "NONE", fg = "NONE", sp = "NONE" })
+        vim.api.nvim_set_hl(0, group, { underline = true })
     end
 end
 
@@ -39,17 +33,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
     callback = set_illuminate_highlights,
 })
-
-local function toggle_bat_theme()
-    if vim.opt.background:get() == "light" then
-        vim.env.BAT_THEME = "Solarized (light)"
-    else
-        vim.env.BAT_THEME = ""
-    end
-end
-
--- Set initial BAT_THEME
-toggle_bat_theme()
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -63,15 +46,4 @@ vim.diagnostic.config({
     },
 })
 
--- vim.o.background = "light"
-if vim.env.COLORFGBG then
-    -- Basic check: If first number is "15" it's light, if "0" it's dark
-    local fg, bg = vim.env.COLORFGBG:match("^(%d+);(%d+)$")
-    if fg and bg then
-        if tonumber(fg) > tonumber(bg) then
-            vim.o.background = "light"
-        else
-            vim.o.background = "dark"
-        end
-    end
-end
+vim.o.background = "light"
