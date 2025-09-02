@@ -21,10 +21,21 @@ return {
             globalstatus = true,
         }
         opts.sections = {
-            -- lualine_a = { window }, -- Uncomment for window number, else:
             lualine_a = { "mode" },
             lualine_b = {
-                { "branch", icon = "" },
+                {
+                    "filename",
+                    file_status = true,
+                    path = 1,
+                    symbols = {
+                        modified = "[+]",
+                        readonly = "[]",
+                        unnamed = "[No Name]",
+                        newfile = "[New]",
+                    },
+                    shorting_target = 20, -- Not relevant when path=0, but harmless
+                },
+                -- { "branch", icon = "" },
             },
             lualine_c = {
                 {
@@ -33,7 +44,7 @@ return {
                 },
             },
             lualine_x = {
-                { "fileName" },
+
                 {
                     "diagnostics",
 
