@@ -1,38 +1,18 @@
-vim.api.nvim_create_autocmd("ColorScheme", {
-    pattern = "*",
-    callback = function()
-        -- Link multicursor highlights to existing ones from your colorscheme
-        vim.api.nvim_set_hl(0, "MultiCursorMain", { link = "Visual" })
-        vim.api.nvim_set_hl(0, "MultiCursor", { link = "Visual" })
-    end,
-})
+--[[ select words with Ctrl-N (like Ctrl-d in Sublime Text/VS Code)
+create cursors vertically with Ctrl-Down/Ctrl-Up
+select one character at a time with Shift-Arrows
+press n/N to get next/previous occurrence
+press [/] to select next/previous cursor
+press q to skip current and get next occurrence
+press Q to remove current cursor/selection
+start insert mode with i,a,I,A ]]
 return {
-    {
-        "smoka7/multicursors.nvim",
-        event = "VeryLazy",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "Cathyprime/hydra.nvim",
-        },
-        opts = {},
-        cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
-        keys = {
-            {
-                "<Leader>m",
-                "<CMD>MCstart<CR>",
-                desc = "multicursor",
-            },
-            {
-                "<Leader>m",
-                "<CMD>MCvisual<CR>",
-                mode = "v",
-                desc = "multicursor",
-            },
-            {
-                "<c-j>",
-                "<CMD>MCunderCursor<CR>",
-                desc = "multicursor down",
-            },
-        },
-    },
+    "mg979/vim-visual-multi",
+    branch = "master",
+    init = function()
+        vim.g.VM_maps = {
+            ["Add Cursor Down"] = "<c-c>",
+            -- ["Add Cursor Up"] = "<c-k>",
+        }
+    end,
 }
