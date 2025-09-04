@@ -22,57 +22,6 @@ return {
                     vertical = "up:75%",
                 },
             },
-            keymap = {
-                builtin = {
-                    ["<F1>"] = "toggle-help",
-                    ["<F2>"] = "toggle-fullscreen",
-                    ["<F3>"] = "toggle-preview-wrap",
-                    ["<C-p>"] = "toggle-preview",
-                    ["<F5>"] = "toggle-preview-ccw",
-                    ["<F6>"] = "toggle-preview-cw",
-                    ["<S-down>"] = "preview-page-down",
-                    ["<S-up>"] = "preview-page-up",
-                    ["<S-left>"] = "preview-page-reset",
-                },
-                fzf = {
-                    ["ctrl-z"] = "abort",
-                    ["ctrl-d"] = "half-page-down",
-                    ["ctrl-u"] = "half-page-up",
-                    ["ctrl-a"] = "beginning-of-line",
-                    ["ctrl-e"] = "end-of-line",
-                    ["alt-a"] = "toggle-all",
-                    ["ctrl-p"] = "toggle-preview",
-                    ["shift-down"] = "preview-page-down",
-                    ["shift-up"] = "preview-page-up",
-                },
-            },
-            fzf_opts = {
-                ["--ansi"] = "",
-                ["--info"] = "inline",
-                ["--height"] = "100%",
-                ["--layout"] = "default",
-                ["--border"] = "none",
-            },
-
-            files = {
-                prompt = "Files❯ ",
-                multiprocess = true,
-                git_icons = true,
-                file_icons = true,
-                color_icons = true,
-                find_opts = [[-type f -not -path '*/\.git/*' -printf '%P\n']],
-                rg_opts = "--color=never --files --hidden --follow -g '!.git'",
-                fd_opts = "--color=never --type f --hidden --follow --exclude .git",
-            },
-            grep = {
-                prompt = "Rg❯ ",
-                input_prompt = "Grep For❯ ",
-                multiprocess = true,
-                git_icons = false,
-                file_icons = true,
-                color_icons = true,
-                rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=512",
-            },
         })
 
         -- Helper function to create excluded directories for fd
@@ -147,13 +96,13 @@ return {
                 cwd_prompt = false,
                 cwd_header = true,
             })
-        end, { desc = "Find files (clean search, exclude dist/node_modules/etc)" })
+        end, { desc = "Find files" })
 
         vim.keymap.set("n", "<leader>ff", function()
             require("fzf-lua").lgrep_curbuf({
                 winopts = {
                     preview = {
-                        hidden = false, -- show preview for this picker
+                        hidden = false,
                     },
                 },
             })
@@ -178,7 +127,7 @@ return {
                     },
                 },
             })
-        end, { desc = "Live grep (literal search, exclude junk)" })
+        end, { desc = "Live grep (project wide)" })
 
         vim.keymap.set("v", "<leader>fsf", function()
             -- Yank current selection to unnamed register
@@ -198,14 +147,12 @@ return {
                     preview = { hidden = false },
                 },
             })
-        end, { desc = "Fuzzy search for selection - simple yank method" })
+        end, { desc = "Fuzzy search for selection in the current file" })
 
         vim.keymap.set("v", "<leader>fsg", function()
-            -- Yank current selection to unnamed register
             vim.cmd("normal! y")
             local selection = vim.fn.getreg('"')
 
-            -- Clean up the selection
             selection = selection:gsub("\n", " "):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
 
             if selection == "" then
@@ -218,7 +165,7 @@ return {
                     preview = { hidden = false },
                 },
             })
-        end, { desc = "Live grep for selection (project-wide) - with preview" })
+        end, { desc = "Live grep for selection (project-wide)" })
 
         vim.keymap.set("n", "<leader>fdf", function()
             local dir = vim.fn.input("files directory: ")
@@ -228,7 +175,7 @@ return {
                     cwd = dir,
                 })
             end
-        end, { desc = "Find files in user directory" })
+        end, { desc = "Find files in specified directory" })
 
         vim.keymap.set("n", "<leader>fdg", function()
             local dir = vim.fn.input("grep directory: ")
@@ -236,31 +183,22 @@ return {
             if dir ~= "" then
                 fzf_lua.live_grep({
                     cwd = dir,
-                })
-            end
-        end, { desc = "Live grep in user directory" })
-
-        vim.keymap.set("v", "<leader>fds", function()
-            local bufnr = vim.api.nvim_get_current_buf()
-            local start_pos = vim.api.nvim_buf_get_mark(bufnr, "<")
-            local end_pos = vim.api.nvim_buf_get_mark(bufnr, ">")
-            local lines = vim.api.nvim_buf_get_lines(bufnr, start_pos[1] - 1, end_pos[1], false)
-            if #lines == 0 then
-                return
-            end
-            lines[#lines] = string.sub(lines[#lines], 1, end_pos[2])
-            lines[1] = string.sub(lines[1], start_pos[2] + 1)
-            local selection = table.concat(lines, " "):gsub("\n", " ")
-
-            local dir = vim.fn.input("grep directory: ")
-            vim.cmd("redraw")
-            if dir ~= "" then
-                require("fzf-lua").live_grep({
-                    cwd = dir,
-                    search = selection,
                     winopts = { preview = { hidden = false } },
                 })
             end
-        end, { desc = "Live grep for selection in user directory" })
+        end, { desc = "Live grep in specified directory" })
+
+        vim.keymap.set("n", "<leader>fdbf", function()
+            fzf_lua.files({
+                cwd = "presentation-backend",
+            })
+        end, { desc = "Find files in presentation-backend" })
+
+        vim.keymap.set("n", "<leader>fdpbg", function()
+            fzf_lua.live_grep({
+                cwd = "presentation-backend",
+                winopts = { preview = { hidden = false } },
+            })
+        end, { desc = "Live grep in presentation-backend" })
     end,
 }
