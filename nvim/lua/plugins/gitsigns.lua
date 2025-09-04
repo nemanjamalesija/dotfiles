@@ -5,43 +5,40 @@ local M = {
 
 M.config = function()
     require("gitsigns").setup({
-        signs = {
-            add = {
-                text = "│",
-            },
-            change = {
-                text = "│",
-            },
-            delete = {
-                text = "_",
-            },
-            topdelete = {
-                text = "‾",
-            },
-            changedelete = {
-                text = "~",
-            },
-        },
+        -- signs = {
+        --     add = {
+        --         text = "│",
+        --     },
+        --     change = {
+        --         text = "│",
+        --     },
+        --     delete = {
+        --         text = "_",
+        --     },
+        --     topdelete = {
+        --         text = "‾",
+        --     },
+        --     changedelete = {
+        --         text = "~",
+        --     },
+        -- },
         word_diff = false,
         attach_to_untracked = true,
-
         on_attach = function()
             local gs = package.loaded.gitsigns
-
             -- Navigation
             vim.keymap.set({ "n", "v" }, "]h", function()
                 if vim.wo.diff then
-                    return "]h"
+                    return "]c"
                 end
                 vim.schedule(function()
                     gs.next_hunk()
                 end)
                 return "<Ignore>"
             end, { expr = true, desc = "Next hunk" })
-
             vim.keymap.set({ "n", "v" }, "[h", function()
                 if vim.wo.diff then
-                    return "[h"
+                    return "[c"
                 end
                 vim.schedule(function()
                     gs.prev_hunk()
@@ -61,7 +58,6 @@ M.config = function()
             end, { desc = "Blame line" })
             vim.keymap.set("n", "<leader>gtd", gs.toggle_deleted, { desc = "Toggle deleted" })
             vim.keymap.set("n", "<leader>gtw", gs.toggle_word_diff, { desc = "Toggle word diff" })
-
             -- Text object
             vim.keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Hunk" })
         end,
