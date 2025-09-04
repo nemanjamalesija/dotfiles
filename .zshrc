@@ -2,6 +2,16 @@ export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export EDITOR="nvim"
 export VISUAL="nvim"
 
+
+slugify() {
+    echo "$1" | \
+    tr '[:upper:]' '[:lower:]' | \
+    sed -E 's/[_ ]+/-/g' | \
+    sed -E 's/[^a-z0-9-]//g' | \
+    sed -E 's/-+/-/g' | \
+    sed -E 's/^-|-$//g'
+}
+
 njuBranch () {
     echo "Please provide a JIRA ID:"
     read JIRA_ID
