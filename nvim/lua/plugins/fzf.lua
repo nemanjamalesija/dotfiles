@@ -19,7 +19,21 @@ return {
                     wrap = "nowrap",
                     hidden = true,
                     layout = "vertical",
-                    vertical = "up:75%",
+                    vertical = "down:75%",
+                },
+            },
+            fzf_opts = {
+                ["--layout"] = "reverse",
+            },
+            -- Add default options for specific pickers
+            grep = {
+                fzf_opts = {
+                    ["--layout"] = "reverse",
+                },
+            },
+            lgrep = {
+                fzf_opts = {
+                    ["--layout"] = "reverse",
                 },
             },
         })
@@ -94,12 +108,14 @@ return {
             fzf_lua.files({
                 fd_opts = get_fd_exclude_args(),
                 cwd_prompt = false,
-                cwd_header = true,
             })
         end, { desc = "Find files" })
 
         vim.keymap.set("n", "<leader>ff", function()
             require("fzf-lua").lgrep_curbuf({
+                fzf_opts = {
+                    ["--layout"] = "reverse",
+                },
                 winopts = {
                     preview = {
                         hidden = false,
@@ -121,6 +137,9 @@ return {
             fzf_lua.live_grep({
                 rg_opts = rg_opts .. globs_str,
                 exec_empty_query = true,
+                fzf_opts = {
+                    ["--layout"] = "reverse",
+                },
                 winopts = {
                     preview = {
                         hidden = false, -- show preview for this picker
@@ -143,6 +162,9 @@ return {
 
             require("fzf-lua").lgrep_curbuf({
                 search = selection,
+                fzf_opts = {
+                    ["--layout"] = "reverse",
+                },
                 winopts = {
                     preview = { hidden = false },
                 },
@@ -161,6 +183,9 @@ return {
 
             require("fzf-lua").live_grep({
                 search = selection,
+                fzf_opts = {
+                    ["--layout"] = "reverse",
+                },
                 winopts = {
                     preview = { hidden = false },
                 },
@@ -173,6 +198,9 @@ return {
             if dir ~= "" then
                 require("fzf-lua").files({
                     cwd = dir,
+                    fzf_opts = {
+                        ["--layout"] = "reverse",
+                    },
                 })
             end
         end, { desc = "Find files in specified directory" })
@@ -183,20 +211,29 @@ return {
             if dir ~= "" then
                 fzf_lua.live_grep({
                     cwd = dir,
+                    fzf_opts = {
+                        ["--layout"] = "reverse",
+                    },
                     winopts = { preview = { hidden = false } },
                 })
             end
         end, { desc = "Live grep in specified directory" })
 
-        vim.keymap.set("n", "<leader>fdbf", function()
+        vim.keymap.set("n", "<leader>fpb", function()
             fzf_lua.files({
                 cwd = "presentation-backend",
+                fzf_opts = {
+                    ["--layout"] = "reverse",
+                },
             })
         end, { desc = "Find files in presentation-backend" })
 
-        vim.keymap.set("n", "<leader>fdpbg", function()
+        vim.keymap.set("n", "<leader>gpb", function()
             fzf_lua.live_grep({
                 cwd = "presentation-backend",
+                fzf_opts = {
+                    ["--layout"] = "reverse",
+                },
                 winopts = { preview = { hidden = false } },
             })
         end, { desc = "Live grep in presentation-backend" })
