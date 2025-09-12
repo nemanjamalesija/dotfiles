@@ -27,6 +27,7 @@ require("lazy").setup({
         { import = "lazyvim.plugins.extras.linting.eslint" },
         { import = "lazyvim.plugins.extras.formatting.biome" },
         { import = "lazyvim.plugins.extras.coding.nvim-cmp" },
+        { import = "lazyvim.plugins.extras.editor.illuminate" },
         { "windwp/nvim-ts-autotag", enabled = false },
         --[[ {
             "github/copilot.vim",

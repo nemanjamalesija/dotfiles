@@ -43,6 +43,32 @@ return {
                 map("[[", "prev", buffer)
             end,
         })
+
+        local function get_function_fg()
+            local hl = vim.api.nvim_get_hl(0, { name = "Boolean" })
+            return hl and hl.fg or nil
+        end
+
+        local function set_illuminate_highlights()
+            local underline_color = get_function_fg()
+            for _, group in ipairs({
+                "IlluminatedWordText",
+                "IlluminatedWordRead",
+                "IlluminatedWordWrite",
+                "LspReferenceText",
+                "LspReferenceRead",
+                "LspReferenceWrite",
+            }) do
+                vim.api.nvim_set_hl(0, group, { underline = true, sp = underline_color })
+            end
+        end
+
+        set_illuminate_highlights()
+
+        vim.api.nvim_create_autocmd("ColorScheme", {
+            pattern = "*",
+            callback = set_illuminate_highlights,
+        })
     end,
     keys = {
         { "]]", desc = "Next Reference" },
