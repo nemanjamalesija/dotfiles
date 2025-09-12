@@ -17,9 +17,6 @@ return {
         map_c_h = true,
         map_c_w = false,
         map_cr = true,
-        fast_wrap = {
-            map = "<C-w>",
-        },
     },
     config = function(_, opts)
         require("nvim-autopairs").setup(opts)
