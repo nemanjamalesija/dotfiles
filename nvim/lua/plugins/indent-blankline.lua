@@ -9,6 +9,7 @@ return {
             },
             scope = {
                 enabled = true,
+                show_end = false,
                 highlight = { "Label" },
                 show_start = true,
                 char = "▏",
