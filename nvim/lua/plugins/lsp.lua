@@ -3,23 +3,16 @@ return {
     {
         "williamboman/mason-lspconfig.nvim",
         config = function()
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-                border = "rounded",
-                max_width = 80,
-                max_height = 20,
-            })
-
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "ts_ls",
-                    "eslint",
-                    "intelephense",
                     "html",
                     "cssls",
-                    "tailwindcss",
                     "somesass_ls",
+                    "tailwindcss",
                     "lua_ls",
                     "emmet_ls",
+                    "eslint",
                     "stylelint_lsp",
                 },
                 automatic_installation = true,
@@ -79,20 +72,6 @@ return {
                 filetypes = { "css", "scss", "less", "sass" },
             })
 
-            -- PHP
-            lspconfig.intelephense.setup({
-                capabilities = capabilities,
-                on_attach = on_attach, -- Disable formatting
-                filetypes = { "php", "view", "template", "twig" }, -- Added twig support
-                settings = {
-                    intelephense = {
-                        files = {
-                            associations = { "*.php", "*.view", "*.template", "*.twig" }, -- Added twig files
-                        },
-                    },
-                },
-            })
-
             -- Get Vue Language Server path for TypeScript plugin
             local mason_registry = require("mason-registry")
             local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
@@ -112,35 +91,6 @@ return {
                     },
                 },
                 filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-            })
-
-            -- CSS LSP server
-            lspconfig.cssls.setup({
-                capabilities = capabilities,
-                on_attach = on_attach, -- Disable formatting
-                settings = {
-                    css = {
-                        validate = true,
-                        completion = {
-                            completePropertyWithSemicolon = true,
-                            triggerPropertyValueCompletion = true,
-                        },
-                    },
-                    scss = {
-                        validate = true,
-                        completion = {
-                            completePropertyWithSemicolon = true,
-                            triggerPropertyValueCompletion = true,
-                        },
-                    },
-                    less = {
-                        validate = true,
-                        completion = {
-                            completePropertyWithSemicolon = true,
-                            triggerPropertyValueCompletion = true,
-                        },
-                    },
-                },
             })
 
             -- HTML LSP server
@@ -174,22 +124,11 @@ return {
                     "html",
                     "css",
                     "scss",
-                    "javascript",
-                    "javascriptreact",
-                    "typescript",
-                    "typescriptreact",
-                    "vue",
                 },
             })
 
             -- Lua LSP server
             lspconfig.lua_ls.setup({
-                capabilities = capabilities,
-                on_attach = on_attach, -- Disable formatting
-            })
-
-            -- SASS LSP server
-            lspconfig.somesass_ls.setup({
                 capabilities = capabilities,
                 on_attach = on_attach, -- Disable formatting
             })
