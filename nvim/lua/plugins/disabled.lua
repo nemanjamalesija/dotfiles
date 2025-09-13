@@ -1,0 +1,28 @@
+return {
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        opts = {
+            explorer = { enabled = false },
+            debug = { enabled = false },
+            notify = { enabled = false },
+            notifier = { enabled = false },
+            indent = { enabled = false },
+        },
+    },
+    { "folke/tokyonight.nvim", enabled = false },
+    { "folke/persistence.nvim", enabled = false },
+    { "akinsho/bufferline.nvim", enabled = false },
+    { "folke/flash.nvim", enabled = false },
+    { "windwp/nvim-ts-autotag", enabled = false },
+    { "echasnovski/mini.pairs", enabled = false },
+    { "echasnovski/mini.animate", opts = { cursor = { enable = false } } },
+    { "echasnovski/mini.icons", enabled = false },
+    { "echasnovski/mini.bufremove", version = false },
+    { "echasnovski/mini.surround", enabled = false },
+    { "echasnovski/mini.splitjoin", enabled = false },
+    { "echasnovski/mini.operators", enabled = false },
+    { "echasnovski/mini.align", enabled = false },
+    { "echasnovski/mini.diff", enabled = false },
+}
