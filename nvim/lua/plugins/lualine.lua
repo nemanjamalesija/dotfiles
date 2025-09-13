@@ -98,24 +98,18 @@ return {
             lualine_b = {
                 {
                     "filename",
+                    --branch
+                    -- icon = "",
+                    -- color = { gui = "bold" },
                     file_status = true,
                     path = 1,
                     symbols = {
                         modified = "[+]",
-                        readonly = "[]",
+                        readonly = "[ ]",
                         unnamed = "[No Name]",
                         newfile = "[New]",
                     },
-                    shorting_target = 20,
                 },
-                -- {
-                --     "branch",
-                --     fmt = function(name, _)
-                --         -- truncate branch name in case the name is too long
-                --         return string.sub(name, 1, 20)
-                --     end,
-                --     color = { gui = "italic,bold" },
-                -- },
             },
             lualine_c = {
                 {
