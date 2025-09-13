@@ -25,7 +25,6 @@ return {
             fzf_opts = {
                 ["--layout"] = "reverse",
             },
-            -- Add default options for specific pickers
             grep = {
                 fzf_opts = {
                     ["--layout"] = "reverse",
@@ -38,7 +37,6 @@ return {
             },
         })
 
-        -- Helper function to create excluded directories for fd
         local function get_fd_exclude_args()
             local excludes = {
                 "__install",
@@ -70,7 +68,6 @@ return {
             return args
         end
 
-        -- Helper function to create rg glob patterns for exclusions
         local function get_rg_exclude_globs()
             local excludes = {
                 "__install",
@@ -103,7 +100,6 @@ return {
             return globs
         end
 
-        -- Keymaps
         vim.keymap.set("n", "<leader><leader>", function()
             fzf_lua.files({
                 fd_opts = get_fd_exclude_args(),
@@ -142,7 +138,7 @@ return {
                 },
                 winopts = {
                     preview = {
-                        hidden = false, -- show preview for this picker
+                        hidden = false,
                     },
                 },
             })
@@ -219,7 +215,7 @@ return {
             end
         end, { desc = "Live grep in specified directory" })
 
-        vim.keymap.set("n", "<leader>fpb", function()
+        vim.keymap.set("n", "<leader>pf", function()
             fzf_lua.files({
                 cwd = "presentation-backend",
                 fzf_opts = {
@@ -228,7 +224,7 @@ return {
             })
         end, { desc = "Find files in presentation-backend" })
 
-        vim.keymap.set("n", "<leader>gpb", function()
+        vim.keymap.set("n", "<leader>pg", function()
             fzf_lua.live_grep({
                 cwd = "presentation-backend",
                 fzf_opts = {
