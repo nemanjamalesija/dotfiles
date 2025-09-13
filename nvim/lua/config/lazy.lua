@@ -28,7 +28,6 @@ require("lazy").setup({
         { import = "lazyvim.plugins.extras.formatting.biome" },
         { import = "lazyvim.plugins.extras.coding.nvim-cmp" },
         { import = "lazyvim.plugins.extras.editor.illuminate" },
-        { "windwp/nvim-ts-autotag", enabled = false },
         --[[ {
             "github/copilot.vim",
             config = function()
@@ -63,6 +62,7 @@ require("lazy").setup({
                 "tohtml",
                 "zipPlugin",
                 "tutor",
+                "bufferline",
             },
         },
     },
