@@ -5,23 +5,6 @@ local M = {
 
 M.config = function()
     require("gitsigns").setup({
-        -- signs = {
-        --     add = {
-        --         text = "│",
-        --     },
-        --     change = {
-        --         text = "│",
-        --     },
-        --     delete = {
-        --         text = "_",
-        --     },
-        --     topdelete = {
-        --         text = "‾",
-        --     },
-        --     changedelete = {
-        --         text = "~",
-        --     },
-        -- },
         word_diff = false,
         attach_to_untracked = true,
         on_attach = function()
