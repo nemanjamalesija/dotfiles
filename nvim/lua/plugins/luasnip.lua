@@ -101,7 +101,7 @@ return {
         table.insert(
             snippets,
             s({
-                trig = "cl",
+                trig = "log",
                 name = "Console log",
                 desc = "Console.log with message and value",
             }, {
@@ -222,7 +222,7 @@ return {
                 t("onMounted(() => {"),
                 t({ "", "  " }),
                 i(1, "// code here"),
-                t({ "", "})" }),
+                t({ "", "})," }),
             })
         )
 
@@ -236,7 +236,7 @@ return {
                 t("mounted() {"),
                 t({ "", "  " }),
                 i(1, "// code here"),
-                t({ "", "}" }),
+                t({ "", "}," }),
             })
         )
 
