@@ -45,7 +45,7 @@ return {
         })
 
         local function get_function_fg()
-            local hl = vim.api.nvim_get_hl(0, { name = "Boolean" })
+            local hl = vim.api.nvim_get_hl(0, { name = "Label" })
             return hl and hl.fg or nil
         end
 
