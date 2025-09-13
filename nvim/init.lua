@@ -14,26 +14,6 @@ vim.filetype.add({
     },
 })
 
-local function set_illuminate_highlights()
-    for _, group in ipairs({
-        "IlluminatedWordText",
-        "IlluminatedWordRead",
-        "IlluminatedWordWrite",
-        "LspReferenceText",
-        "LspReferenceRead",
-        "LspReferenceWrite",
-    }) do
-        vim.api.nvim_set_hl(0, group, { underline = true })
-    end
-end
-
-set_illuminate_highlights()
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-    pattern = "*",
-    callback = set_illuminate_highlights,
-})
-
 vim.diagnostic.config({
     virtual_text = false,
     underline = true,
