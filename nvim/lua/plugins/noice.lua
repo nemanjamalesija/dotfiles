@@ -2,6 +2,18 @@ vim.keymap.set("n", "<leader>nc", function()
     require("notify").dismiss({ silent = true, pending = false })
 end, { desc = "Dismiss notify popup and clear hlsearch" })
 
+-- Hover popups
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+    opts = opts or {}
+    opts.wrap = true
+    opts.border = "single"
+    opts.max_width = 90
+
+    local bufnr, winid = orig_util_open_floating_preview(contents, syntax, opts, ...)
+    return bufnr, winid
+end
+
 return {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -36,6 +48,18 @@ return {
                 search_down = { view = "cmdline" },
                 search_up = { view = "cmdline" },
             },
+        },
+        lsp = {
+            signature = {
+                enabled = false,
+            },
+        },
+        presets = {
+            bottom_search = true,
+            command_palette = true,
+            long_message_to_split = true,
+            inc_rename = false,
+            lsp_doc_border = false,
         },
     },
 }
