@@ -12,8 +12,8 @@ return {
                 end,
             })
 
-            vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-            vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+            vim.keymap.set("n", "zO", require("ufo").openAllFolds)
+            vim.keymap.set("n", "zC", require("ufo").closeAllFolds)
 
             vim.api.nvim_create_autocmd({ "BufReadPost", "BufWinEnter" }, {
                 callback = function()
