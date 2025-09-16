@@ -16,15 +16,11 @@ end, {
     desc = "Re-enable conform-autoformat-on-save",
 })
 
--- vim.keymap.set("n", "<leader>cf", function()
---     require("conform").format({ formatters = { "eslint" }, force = true })
--- end, { desc = "Format with biome" })
-
 vim.api.nvim_set_keymap(
     "n",
     "<leader>fw",
     ":!biome format --write=false %<CR>",
-    { noremap = true, silent = true, desc = "Format with biome (no save)" }
+    { noremap = true, silent = true, desc = "Format with biome" }
 )
 
 return {
@@ -40,7 +36,6 @@ return {
                 lsp_format = "fallback",
             },
             formatters_by_ft = {
-                -- Web languages - KEEP ESLint for auto-save (fixes + formats)
                 lua = { "stylua" },
                 javascript = { "eslint" },
                 typescript = { "eslint" },
@@ -48,21 +43,10 @@ return {
                 typescriptreact = { "eslint" },
                 javascriptreact = { "eslint" },
                 -- Stylesheets
-                css = { "stylelint" },
-                scss = { "stylelint" },
-                sass = { "stylelint" },
-                less = { "stylelint" },
-            },
-            -- Custom formatters
-            formatters = {
-                biome = {
-                    command = "biome",
-                    args = { "format", "--stdin-file-path", "$FILENAME" },
-                    stdin = true,
-                    cwd = function()
-                        return vim.fn.expand("%:p:h")
-                    end,
-                },
+                css = { "prettier" },
+                scss = { "prettier" },
+                sass = { "prettier" },
+                less = { "prettier" },
             },
         },
     },
