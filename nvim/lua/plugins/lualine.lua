@@ -100,7 +100,7 @@ return {
                     "filename",
                     --branch
                     -- icon = "",
-                    -- color = { gui = "bold" },
+                    color = { gui = "bold" },
                     file_status = true,
                     path = 1,
                     symbols = {
