@@ -4,23 +4,37 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
         local harpoon = require("harpoon")
-
         harpoon:setup()
 
-        -- Your keymaps
         vim.keymap.set("n", "<leader>ha", function()
             harpoon:list():add()
         end, { desc = "Add file to Harpoon" })
 
         vim.keymap.set("n", "<leader>hm", function()
-            harpoon.ui:toggle_quick_menu(harpoon:list())
+            harpoon.ui:toggle_quick_menu(harpoon:list(), {
+                border = "single",
+                title_pos = "center",
+                ui_width_ratio = 0.70,
+            })
         end, { desc = "Toggle Harpoon menu" })
 
         vim.keymap.set("n", "<leader>hh", function()
-            harpoon.ui:toggle_quick_menu(harpoon:list())
+            harpoon.ui:toggle_quick_menu(harpoon:list(), {
+                border = "rounded",
+                title_pos = "center",
+                ui_width_ratio = 0.40,
+            })
         end, { desc = "Toggle Harpoon menu" })
 
-        -- Fixed select keymaps
+        -- Navigate to next and previous harpoon items
+        vim.keymap.set("n", "<M-n>", function()
+            harpoon:list():next()
+        end, { desc = "Harpoon next file" })
+
+        vim.keymap.set("n", "<M-p>", function()
+            harpoon:list():prev()
+        end, { desc = "Harpoon previous file" })
+
         for i = 1, 5 do
             vim.keymap.set("n", "<M-" .. i .. ">", function()
                 harpoon:list():select(i)
