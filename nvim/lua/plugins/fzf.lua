@@ -8,6 +8,13 @@ return {
         local fzf_lua = require("fzf-lua")
 
         fzf_lua.setup({
+            defaults = {
+                keymap = {
+                    builtin = {
+                        ["<c-p>"] = "toggle-preview",
+                    },
+                },
+            },
             winopts = {
                 width = 0.8,
                 height = 0.8,
@@ -138,7 +145,7 @@ return {
                 },
                 winopts = {
                     preview = {
-                        hidden = false,
+                        hidden = false, -- show preview for this picker
                     },
                 },
             })
