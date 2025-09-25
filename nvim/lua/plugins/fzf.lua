@@ -13,6 +13,10 @@ return {
                     builtin = {
                         ["<c-p>"] = "toggle-preview",
                     },
+                    fzf = {
+                        ["ctrl-d"] = "half-page-down",
+                        ["ctrl-u"] = "half-page-up",
+                    },
                 },
             },
             winopts = {
@@ -31,6 +35,7 @@ return {
             },
             fzf_opts = {
                 ["--layout"] = "reverse",
+                ["--bind"] = "ctrl-d:half-page-down,ctrl-u:half-page-up",
             },
             grep = {
                 fzf_opts = {
