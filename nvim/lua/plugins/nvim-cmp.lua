@@ -71,8 +71,8 @@ return {
 
                         local priority_order = {
                             luasnip = 1,
-                            nvim_lsp = 2,
-                            copilot = 3,
+                            copilot = 2,
+                            nvim_lsp = 3,
                             buffer = 4,
                             path = 5,
                         }
