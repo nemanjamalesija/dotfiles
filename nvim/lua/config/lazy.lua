@@ -25,9 +25,10 @@ require("lazy").setup({
         { import = "lazyvim.plugins.extras.lang.vue" },
         { import = "lazyvim.plugins.extras.coding.luasnip" },
         { import = "lazyvim.plugins.extras.linting.eslint" },
-        { import = "lazyvim.plugins.extras.formatting.biome" },
         { import = "lazyvim.plugins.extras.coding.nvim-cmp" },
         { import = "lazyvim.plugins.extras.editor.illuminate" },
+        { import = "lazyvim.plugins.extras.lang.php" },
+        { import = "lazyvim.plugins.extras.lang.tailwind" },
         --[[ {
             "github/copilot.vim",
             config = function()

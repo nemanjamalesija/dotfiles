@@ -1,7 +1,7 @@
 return {
-    { "williamboman/mason.nvim" },
+    { "mason-org/mason.nvim" },
     {
-        "williamboman/mason-lspconfig.nvim",
+        "mason-org/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
@@ -15,8 +15,30 @@ return {
                     "eslint",
                     "stylelint_lsp",
                     "intelephense",
+                    "vue_ls",
                 },
                 automatic_installation = true,
+            })
+        end,
+    },
+    {
+        "MunifTanjim/eslint.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("eslint").setup({
+                code_actions = {
+                    enable = true,
+                    apply_on_save = {
+                        enable = true,
+                        types = { "directive", "problem", "suggestion", "layout" },
+                    },
+                },
+                diagnostics = {
+                    enable = true,
+                    report_unused_disable_directives = false,
+                    run_on = "type",
+                },
+                filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
             })
         end,
     },
@@ -29,82 +51,71 @@ return {
             },
         },
         config = function()
-            local lspconfig = require("lspconfig")
-
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
 
             local ts_error = require("ts-error-translator")
             ts_error.setup()
 
-            -- Common on_attach function to disable LSP formatting
+            local lsp_format_on_save_group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = false })
+
             local on_attach = function(client, bufnr)
-                -- Disable LSP formatting in favor of conform.nvim
-                client.server_capabilities.documentFormattingProvider = false
-                client.server_capabilities.documentRangeFormattingProvider = false
+                client.server_capabilities.documentFormattingProvider = true
+                client.server_capabilities.documentRangeFormattingProvider = true
+
+                vim.api.nvim_clear_autocmds({ group = lsp_format_on_save_group, buffer = bufnr })
+                vim.api.nvim_create_autocmd("BufWritePre", {
+                    group = lsp_format_on_save_group,
+                    buffer = bufnr,
+                    callback = function()
+                        vim.lsp.buf.format({ bufnr = bufnr, async = false })
+                    end,
+                })
             end
+            -- Get Vue Language Server path for TypeScript plugin using Mason v2 API
+            local vue_ls_path = vim.fn.expand("$MASON/packages/vue-language-server")
+            local vue_plugin_path = vue_ls_path .. "/node_modules/@vue/language-server"
 
-            -- Eslint (keep auto-fix functionality, but disable formatting)
-            lspconfig.eslint.setup({
+            -- Stylelint
+            vim.lsp.config.stylelint_lsp = {
                 capabilities = capabilities,
-                on_attach = function(client, bufnr)
-                    on_attach(client, bufnr) -- Disable formatting
-
-                    -- Keep ESLint auto-fix on save
-                    vim.api.nvim_create_autocmd("BufWritePre", {
-                        buffer = bufnr,
-                        callback = function()
-                            vim.cmd("EslintFixAll")
-                        end,
-                    })
-                end,
-            })
-
-            -- Stylelint (remove formatting, keep linting)
-            lspconfig.stylelint_lsp.setup({
-                capabilities = capabilities,
-                on_attach = on_attach, -- Disable formatting
+                on_attach = on_attach,
                 settings = {
                     stylelintplus = {
-                        autoFixOnSave = false, -- Disable auto-fix, let conform handle it
-                        autoFixOnFormat = false,
+                        autoFixOnSave = true,
+                        autoFixOnFormat = true,
                     },
                 },
                 filetypes = { "css", "scss", "less", "sass" },
-            })
+            }
 
-            -- Get Vue Language Server path for TypeScript plugin
-            local mason_registry = require("mason-registry")
-            local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
-                .. "/node_modules/@vue/language-server"
-
-            -- TypeScript with Vue plugin (handles TS/JS/Vue)
-            lspconfig.ts_ls.setup({
+            -- TypeScript with Vue plugin
+            vim.lsp.config.ts_ls = {
                 capabilities = capabilities,
-                on_attach = on_attach, -- Disable formatting
+                on_attach = on_attach,
                 init_options = {
                     plugins = {
                         {
                             name = "@vue/typescript-plugin",
-                            location = vue_language_server_path,
+                            location = vue_plugin_path,
                             languages = { "vue" },
                         },
                     },
                 },
                 filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-            })
+            }
 
-            -- HTML LSP server
-            lspconfig.html.setup({
+            -- HTML LSP
+            vim.lsp.config.html = {
                 capabilities = capabilities,
-                on_attach = on_attach, -- Disable formatting
+                on_attach = on_attach,
                 filetypes = { "html" },
-            })
+            }
 
-            -- Tailwind CSS LSP server
-            lspconfig.tailwindcss.setup({
+            -- Tailwind CSS LSP
+            vim.lsp.config.tailwindcss = {
                 capabilities = capabilities,
-                on_attach = on_attach, -- Disable formatting
+                on_attach = on_attach,
                 filetypes = {
                     "html",
                     "css",
@@ -115,117 +126,46 @@ return {
                     "typescriptreact",
                     "vue",
                 },
-            })
+            }
 
-            -- Emmet LSP server
-            lspconfig.emmet_ls.setup({
+            -- Emmet LSP
+            vim.lsp.config.emmet_ls = {
                 capabilities = capabilities,
-                on_attach = on_attach, -- Disable formatting
+                on_attach = on_attach,
                 filetypes = {
                     "html",
                     "css",
                     "scss",
                 },
-            })
+            }
 
-            -- Lua LSP server
-            lspconfig.lua_ls.setup({
+            -- Lua LSP
+            vim.lsp.config.lua_ls = {
                 capabilities = capabilities,
-                on_attach = on_attach, -- Disable formatting
-            })
+                on_attach = function(client, bufnr)
+                    client.server_capabilities.documentFormattingProvider = false
+                end,
+            }
 
-            lspconfig.intelephense.setup({
+            -- PHP Intelephense
+            vim.lsp.config.intelephense = {
                 capabilities = capabilities,
                 on_attach = on_attach,
                 settings = {
                     intelephense = {
-                        files = {
-                            maxSize = 1000000,
-                            associations = {
-                                "*.php",
-                                "*.phtml",
-                                "*.inc",
-                            },
-                        },
-                        -- Symfony specific settings
                         stubs = {
-                            "apache",
-                            "bcmath",
-                            "bz2",
-                            "calendar",
-                            "com_dotnet",
-                            "Core",
-                            "ctype",
-                            "curl",
-                            "date",
-                            "dba",
-                            "dom",
-                            "enchant",
-                            "exif",
-                            "FFI",
-                            "fileinfo",
-                            "filter",
-                            "fpm",
-                            "ftp",
-                            "gd",
-                            "gettext",
-                            "gmp",
-                            "hash",
-                            "iconv",
-                            "imap",
-                            "intl",
-                            "json",
-                            "ldap",
-                            "libxml",
-                            "mbstring",
-                            "meta",
-                            "mysqli",
-                            "oci8",
-                            "odbc",
-                            "openssl",
-                            "pcntl",
-                            "pcre",
-                            "PDO",
-                            "pdo_ibm",
-                            "pdo_mysql",
-                            "pdo_pgsql",
-                            "pdo_sqlite",
-                            "pgsql",
-                            "Phar",
-                            "posix",
-                            "pspell",
-                            "readline",
-                            "Reflection",
-                            "session",
-                            "shmop",
-                            "SimpleXML",
-                            "snmp",
-                            "soap",
-                            "sockets",
-                            "sodium",
-                            "SPL",
-                            "sqlite3",
-                            "standard",
-                            "superglobals",
-                            "sysvmsg",
-                            "sysvsem",
-                            "sysvshm",
-                            "tidy",
-                            "tokenizer",
-                            "xml",
-                            "xmlreader",
-                            "xmlwriter",
-                            "xsl",
-                            "Zend OPcache",
-                            "zip",
-                            "zlib",
-                            -- Symfony stubs
                             "symfony",
+                            "Core",
+                            "PDO",
+                            "json",
+                            "mbstring",
+                            "curl",
+                            "openssl",
                         },
                     },
                 },
                 filetypes = { "php" },
-            })
+            }
 
             -- Keymaps
             vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
