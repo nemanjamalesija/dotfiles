@@ -46,6 +46,7 @@ alias greset-hard='git reset --hard @{u}'
 alias grevert-cm='git reset --soft HEAD~1'  
 alias greset-one='git reset --hard HEAD^'  
 alias grebase='git rebase'  
+alias grestore='git restore'  
 alias cls="clear"
 grebase-n() {
     git rebase -i HEAD~$1
@@ -53,6 +54,8 @@ grebase-n() {
 
 alias nju='cd ~/Desktop/projekti/njuskalo-hr'
 alias njun='cd ~/Desktop/projekti/njuskalo-hr && nvim'
+alias amr='cd ~/Desktop/projekti/njuskalo-hr'
+alias amrn='cd ~/Desktop/projekti/njuskalo-hr && nvim'
 
 alias dlog='rm -f var/logs/dev.log'
 alias dzlog='rm -f var/logs/zira/dev.log'
