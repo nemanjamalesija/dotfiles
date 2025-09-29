@@ -32,16 +32,14 @@ return {
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-            -- FIXED: Create buffer-specific autocmd groups to prevent conflicts
             local on_attach = function(client, bufnr)
                 client.server_capabilities.documentFormattingProvider = true
                 client.server_capabilities.documentRangeFormattingProvider = true
             end
 
-            local vue_ls_path = vim.fn.expand("$MASON/packages/vue-language-server")
-            local vue_plugin_path = vue_ls_path .. "/node_modules/@vue/language-server"
+            local lspconfig = require("lspconfig")
 
-            require("lspconfig").eslint.setup({
+            lspconfig.eslint.setup({
                 capabilities = capabilities,
                 on_attach = function(client, bufnr)
                     on_attach(client, bufnr)
@@ -102,7 +100,10 @@ return {
                 },
             }
 
-            -- TypeScript with Vue plugin (Takeover Mode)
+            local vue_ls_path = vim.fn.expand("$MASON/packages/vue-language-server")
+            local vue_plugin_path = vue_ls_path .. "/node_modules/@vue/language-server"
+
+            -- TypeScript with Vue plugin
             vim.lsp.config.ts_ls = {
                 capabilities = capabilities,
                 on_attach = on_attach,
@@ -117,6 +118,8 @@ return {
                 },
                 filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
             }
+
+            lspconfig.volar.setup({})
 
             -- Lua LSP
             vim.lsp.config.lua_ls = {
