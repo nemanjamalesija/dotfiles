@@ -149,6 +149,14 @@ return {
                 filetypes = { "php" },
             }
 
+            -- Twig LSP
+            lspconfig.twiggy_language_server.setup({
+                capabilities = capabilities,
+                on_attach = on_attach,
+                filetypes = { "twig" },
+                root_dir = lspconfig.util.root_pattern(".git", "."),
+            })
+
             -- Keymaps
             vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
             vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Go to definition" })
