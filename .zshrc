@@ -54,8 +54,8 @@ grebase-n() {
 
 alias nju='cd ~/Desktop/projekti/njuskalo-hr'
 alias njun='cd ~/Desktop/projekti/njuskalo-hr && nvim'
-alias amr='cd ~/Desktop/projekti/njuskalo-hr'
-alias amrn='cd ~/Desktop/projekti/njuskalo-hr && nvim'
+alias amr='cd ~/Desktop/projekti/web-app/amr-web'
+alias amrn='cd ~/Desktop/projekti/web-app/amr-web && nvim'
 
 alias dlog='rm -f var/logs/dev.log'
 alias dzlog='rm -f var/logs/zira/dev.log'
