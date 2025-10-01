@@ -26,16 +26,41 @@ return {
             end,
         }):map("<leader>ux")
 
+        -- Optimized navigation using vim's built-in search
+        local function jump_to_reference(direction)
+            -- Get word under cursor
+            local word = vim.fn.expand("<cword>")
+            if word == "" or word:match("^%s*$") then
+                return
+            end
+
+            -- Escape special regex characters and use word boundaries
+            local pattern = "\\<" .. vim.fn.escape(word, "\\") .. "\\>"
+
+            -- Search flags: W = don't wrap, w = wrap around
+            local flags = direction == "next" and "W" or "bW"
+            local pos = vim.fn.searchpos(pattern, flags)
+
+            -- If not found, wrap around
+            if pos[1] == 0 then
+                flags = direction == "next" and "w" or "bw"
+                vim.fn.searchpos(pattern, flags)
+            end
+        end
+
         local function map(key, dir, buffer)
             vim.keymap.set("n", key, function()
-                require("illuminate")["goto_" .. dir .. "_reference"](false)
-            end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
+                jump_to_reference(dir)
+            end, {
+                desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference",
+                buffer = buffer,
+                silent = true,
+            })
         end
 
         map("]]", "next")
         map("[[", "prev")
 
-        -- also set it after loading ftplugins, since a lot overwrite [[ and ]]
         vim.api.nvim_create_autocmd("FileType", {
             callback = function()
                 local buffer = vim.api.nvim_get_current_buf()
@@ -64,7 +89,6 @@ return {
         end
 
         set_illuminate_highlights()
-
         vim.api.nvim_create_autocmd("ColorScheme", {
             pattern = "*",
             callback = set_illuminate_highlights,
