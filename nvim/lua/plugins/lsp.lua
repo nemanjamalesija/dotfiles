@@ -8,7 +8,6 @@ return {
                     "ts_ls",
                     "html",
                     "cssls",
-                    "somesass_ls",
                     "tailwindcss",
                     "lua_ls",
                     "emmet_ls",
@@ -24,9 +23,6 @@ return {
         "neovim/nvim-lspconfig",
         opts = {
             inlay_hints = { enabled = false },
-            document_highlight = {
-                enabled = false,
-            },
         },
         config = function()
             local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -63,7 +59,7 @@ return {
                         autoFixOnFormat = true,
                     },
                 },
-                filetypes = { "css", "scss", "less", "sass" },
+                filetypes = { "css", "scss", "sass", "less" },
             }
 
             -- HTML LSP
@@ -74,20 +70,20 @@ return {
             }
 
             -- Tailwind CSS LSP
-            vim.lsp.config.tailwindcss = {
-                capabilities = capabilities,
-                on_attach = on_attach,
-                filetypes = {
-                    "html",
-                    "css",
-                    "scss",
-                    "javascript",
-                    "javascriptreact",
-                    "typescript",
-                    "typescriptreact",
-                    "vue",
-                },
-            }
+            -- vim.lsp.config.tailwindcss = {
+            --     capabilities = capabilities,
+            --     on_attach = on_attach,
+            --     filetypes = {
+            --         "html",
+            --         "css",
+            --         "scss",
+            --         "javascript",
+            --         "javascriptreact",
+            --         "typescript",
+            --         "typescriptreact",
+            --         "vue",
+            --     },
+            -- }
 
             -- Emmet LSP
             vim.lsp.config.emmet_ls = {
@@ -119,15 +115,18 @@ return {
                 filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
             }
 
-            lspconfig.volar.setup({})
-
+            -- lspconfig.volar.setup({
+            --     capabilities = capabilities,
+            --     on_attach = on_attach,
+            --     filetypes = { "vue" },
+            -- })
+            --
             -- Lua LSP
-            vim.lsp.config.lua_ls = {
-                capabilities = capabilities,
-                on_attach = function(client, bufnr)
-                    client.server_capabilities.documentFormattingProvider = false
-                end,
-            }
+            -- vim.lsp.config.volar = {
+            --     capabilities = capabilities,
+            --     on_attach = on_attach,
+            --     filetypes = { "vue" },
+            -- }
 
             -- PHP Intelephense
             vim.lsp.config.intelephense = {
