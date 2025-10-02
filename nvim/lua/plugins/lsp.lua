@@ -114,20 +114,6 @@ return {
                 },
                 filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
             }
-
-            -- lspconfig.volar.setup({
-            --     capabilities = capabilities,
-            --     on_attach = on_attach,
-            --     filetypes = { "vue" },
-            -- })
-            --
-            -- Lua LSP
-            -- vim.lsp.config.volar = {
-            --     capabilities = capabilities,
-            --     on_attach = on_attach,
-            --     filetypes = { "vue" },
-            -- }
-
             -- PHP Intelephense
             vim.lsp.config.intelephense = {
                 capabilities = capabilities,
