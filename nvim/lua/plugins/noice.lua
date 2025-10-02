@@ -1,7 +1,3 @@
-vim.keymap.set("n", "<leader>nc", function()
-    require("notify").dismiss({ silent = true, pending = false })
-end, { desc = "Dismiss notify popup and clear hlsearch" })
-
 -- Hover popups
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
@@ -60,6 +56,43 @@ return {
             long_message_to_split = true,
             inc_rename = false,
             lsp_doc_border = false,
+        },
+    },
+    keys = {
+        {
+            "<leader>na",
+            function()
+                require("noice").cmd("all")
+            end,
+            desc = "Noice: Show all notifications",
+        },
+        {
+            "<leader>nc",
+            function()
+                require("noice").cmd("dismiss")
+            end,
+            desc = "Noice: Clear all notifications",
+        },
+        {
+            "<leader>nh",
+            function()
+                require("noice").cmd("history")
+            end,
+            desc = "Noice: Show notification history",
+        },
+        {
+            "<leader>nl",
+            function()
+                require("noice").cmd("last")
+            end,
+            desc = "Noice: Show last notification",
+        },
+        {
+            "<leader>nt",
+            function()
+                require("noice").cmd("fzf")
+            end,
+            desc = "Noice: Fzf picker",
         },
     },
 }
