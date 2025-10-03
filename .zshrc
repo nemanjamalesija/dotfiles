@@ -29,6 +29,8 @@ alias zsource='source ~/.zshrc'
 alias gcfg='nvim ~/.dotfiles/.gitconfig'
 alias vcfg='cd ~/.dotfiles && nvim nvim'
 alias wcfg='nvim ~/.dotfiles/wezterm.lua'
+alias acfg="nvim ~/.dotfiles/alacritty/alacritty.toml"
+
 alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
 
 alias gdiff='git diff' 
