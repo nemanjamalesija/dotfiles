@@ -6,15 +6,15 @@ local themes = {
 	"Dark+",
 	"catppuccin-latte",
 	"catppuccin-macchiato",
-	"Poimandres",
-	-- "gruber-darker",
+	"OceanicMaterial",
+	"gruber-darker",
+	-- "Poimandres",
 	-- "Obsidian",
-	-- "OceanicMaterial",
 	-- "tokyonight-storm",
 }
 
 -- Set your default theme
-local default_theme = "Builtin Solarized Light"
+local default_theme = "gruber-darker"
 
 -- Pick opacity based on theme
 -- local function initial_opacity(theme)
