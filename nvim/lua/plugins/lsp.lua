@@ -13,7 +13,7 @@ return {
                     "emmet_ls",
                     "eslint",
                     "stylelint_lsp",
-                    "intelephense",
+                    -- "intelephense",
                 },
                 automatic_installation = true,
             })
@@ -115,24 +115,24 @@ return {
                 filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
             }
             -- PHP Intelephense
-            vim.lsp.config.intelephense = {
-                capabilities = capabilities,
-                on_attach = on_attach,
-                settings = {
-                    intelephense = {
-                        stubs = {
-                            "symfony",
-                            "Core",
-                            "PDO",
-                            "json",
-                            "mbstring",
-                            "curl",
-                            "openssl",
-                        },
-                    },
-                },
-                filetypes = { "php" },
-            }
+            -- vim.lsp.config.intelephense = {
+            --     capabilities = capabilities,
+            --     on_attach = on_attach,
+            --     settings = {
+            --         intelephense = {
+            --             stubs = {
+            --                 "symfony",
+            --                 "Core",
+            --                 "PDO",
+            --                 "json",
+            --                 "mbstring",
+            --                 "curl",
+            --                 "openssl",
+            --             },
+            --         },
+            --     },
+            --     filetypes = { "php" },
+            -- }
 
             -- Twig LSP
             lspconfig.twiggy_language_server.setup({
