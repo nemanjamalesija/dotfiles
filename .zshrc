@@ -29,7 +29,7 @@ alias zsource='source ~/.zshrc'
 alias gcfg='nvim ~/.dotfiles/.gitconfig'
 alias vcfg='cd ~/.dotfiles && nvim nvim'
 alias wcfg='nvim ~/.dotfiles/wezterm.lua'
-alias acfg="nvim ~/.dotfiles/alacritty/alacritty.toml"
+alias acfg="nvim /Users/nemanjamalesija/.config/alacritty/alacritty.toml"
 
 alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
 
@@ -54,10 +54,10 @@ grebase-n() {
     git rebase -i HEAD~$1
 }
 
-alias nju='cd ~/Desktop/projekti/njuskalo-hr'
-alias njun='cd ~/Desktop/projekti/njuskalo-hr && nvim'
+alias nj='cd ~/Desktop/projekti/njuskalo-hr'
+alias njv='cd ~/Desktop/projekti/njuskalo-hr && nvim'
 alias amr='cd ~/Desktop/projekti/web-app/amr-web'
-alias amrn='cd ~/Desktop/projekti/web-app/amr-web && nvim'
+alias amrv='cd ~/Desktop/projekti/web-app/amr-web && nvim'
 
 alias dlog='rm -f var/logs/dev.log'
 alias dzlog='rm -f var/logs/zira/dev.log'
