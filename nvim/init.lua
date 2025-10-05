@@ -27,3 +27,4 @@ vim.diagnostic.config({
 })
 
 vim.o.background = "light"
+vim.opt.guicursor = { "a:ver25" }
