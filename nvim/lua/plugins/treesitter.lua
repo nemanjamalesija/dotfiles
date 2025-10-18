@@ -28,6 +28,7 @@ return {
             "vimdoc",
             "xml",
             "yaml",
+            "twig",
         })
         opts.incremental_selection = {
             enable = true,
