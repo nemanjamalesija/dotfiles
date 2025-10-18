@@ -105,7 +105,7 @@ return {
                     path = 1,
                     symbols = {
                         modified = "[+]",
-                        readonly = "[ ]",
+                        readonly = " ",
                         unnamed = "[No Name]",
                         newfile = "[New]",
                     },
