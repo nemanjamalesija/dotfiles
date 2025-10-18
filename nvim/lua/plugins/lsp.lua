@@ -12,6 +12,7 @@ return {
                     "emmet_ls",
                     "eslint",
                     "stylelint_lsp",
+                    "marksman",
                     -- "tailwindcss",
                     -- "intelephense",
                 },
@@ -69,22 +70,6 @@ return {
                 filetypes = { "html" },
             }
 
-            -- Tailwind CSS LSP
-            -- vim.lsp.config.tailwindcss = {
-            --     capabilities = capabilities,
-            --     on_attach = on_attach,
-            --     filetypes = {
-            --         "html",
-            --         "css",
-            --         "scss",
-            --         "javascript",
-            --         "javascriptreact",
-            --         "typescript",
-            --         "typescriptreact",
-            --         "vue",
-            --     },
-            -- }
-
             -- Emmet LSP
             vim.lsp.config.emmet_ls = {
                 capabilities = capabilities,
@@ -114,6 +99,39 @@ return {
                 },
                 filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
             }
+
+            -- Twig LSP
+            lspconfig.twiggy_language_server.setup({
+                capabilities = capabilities,
+                on_attach = on_attach,
+                filetypes = { "twig" },
+                root_dir = lspconfig.util.root_pattern(".git", "."),
+            })
+
+            -- Markdown LSP
+            vim.lsp.config.markdown = {
+                capabilities = capabilities,
+                on_attach = on_attach,
+                filetypes = { "markdown" },
+            }
+
+            -- Tailwind CSS LSP
+            -- vim.lsp.config.tailwindcss = {
+            --     capabilities = capabilities,
+            --     on_attach = on_attach,
+            --     filetypes = {
+            --         "html",
+            --         "css",
+            --         "scss",
+            --         "javascript",
+            --         "javascriptreact",
+            --         "typescript",
+            --         "typescriptreact",
+            --         "vue",
+            --     },
+            -- }
+            --
+            --
             -- PHP Intelephense
             -- vim.lsp.config.intelephense = {
             --     capabilities = capabilities,
@@ -133,14 +151,6 @@ return {
             --     },
             --     filetypes = { "php" },
             -- }
-
-            -- Twig LSP
-            lspconfig.twiggy_language_server.setup({
-                capabilities = capabilities,
-                on_attach = on_attach,
-                filetypes = { "twig" },
-                root_dir = lspconfig.util.root_pattern(".git", "."),
-            })
 
             -- Keymaps
             vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
