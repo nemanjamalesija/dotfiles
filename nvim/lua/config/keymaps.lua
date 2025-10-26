@@ -62,13 +62,14 @@ vim.keymap.set("n", "<M-i>", "<cmd>vertical resize +5<cr>", { desc = "Increase b
 vim.keymap.set("n", "<M-d>", "<cmd>vertical resize -5<cr>", { desc = "Decrease buffer width" })
 vim.keymap.set("n", "<M-I>", "<cmd>resize +5<cr>", { desc = "Increase buffer height" })
 vim.keymap.set("n", "<M-D>", "<cmd>resize -5<cr>", { desc = "Decrease buffer height" })
+vim.keymap.set("n", "<leader>\\", "<cmd>split<cr>", { desc = "Split window horizontally" })
 -- vim.keymap.set("n", "<M-l>", "<C-w>l", { desc = "Focus split right" })
 -- vim.keymap.set("n", "<M-h>", "<C-w>h", { desc = "Focus split left" })
 -- vim.keymap.set("n", "<M-k>", "<C-w>k", { desc = "Focus split up" })
 -- vim.keymap.set("n", "<M-j>", "<C-w>j", { desc = "Focus split down" })
 
 -- Obsidian
-vim.keymap.set("n", "<leader>ON", ":ObsidianNew<CR>", { desc = "Obsidian: New Note in Workspace" })
-vim.keymap.set("n", "<leader>OS", ":ObsidianSearch<CR>", { desc = "Obsidian: Search Notes in Workspace" })
-vim.keymap.set("n", "<leader>OL", ":ObsidianQuickSwitch<CR>", { desc = "Obsidian: List Notes in Workspace" })
-vim.keymap.set("n", "<leader>OT", ":ObsidianToday<CR>", { desc = "Obsidian: Notes for today" })
+vim.keymap.set("n", "<leader>On", ":ObsidianNew<CR>", { desc = "Obsidian: New Note in Workspace" })
+vim.keymap.set("n", "<leader>Os", ":ObsidianSearch<CR>", { desc = "Obsidian: Search Notes in Workspace" })
+vim.keymap.set("n", "<leader>Ol", ":ObsidianQuickSwitch<CR>", { desc = "Obsidian: List Notes in Workspace" })
+vim.keymap.set("n", "<leader>Ot", ":ObsidianToday<CR>", { desc = "Obsidian: Notes for today" })
