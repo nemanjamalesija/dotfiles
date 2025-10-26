@@ -67,6 +67,11 @@ alias pbc='docker/node npm run pb:watch:client:development'
 alias pbs='docker/node npm run pb:watch:server:development'
 alias pbdbg='docker/node npm run pb:watch:server:development:debugger'
 alias pbgt='docker/node npm run pb:generate:translations'
+alias borders='nvim ~/.dotfiles/borders/bordersrc'
+alias borders-start='brew services start felixkratz/formulae/borders' 
+alias borders-stop='brew services stop felixkratz/formulae/borders'
+alias borders-restart='brew services restart felixkratz/formulae/borders'
+
 
 
 zstyle ':prompt:pure:execution_time' show false
