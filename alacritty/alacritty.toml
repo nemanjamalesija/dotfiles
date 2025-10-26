@@ -2,14 +2,14 @@
 live_config_reload = true
 
 # Solarized Light
-import = ["~/.config/alacritty/themes/themes/solarized_light.toml"]
-[colors]
- cursor = { text = "#fdf6e3", cursor = "#586e75" }
+# import = ["~/.config/alacritty/themes/themes/solarized_light.toml"]
+# [colors]
+#  cursor = { text = "#fdf6e3", cursor = "#586e75" }
 
 # Cattpuccin Macchiato
-# import = ["~/.config/alacritty/themes/themes/catppuccin_macchiato.toml"]
-# [colors]
-# cursor = { text = "#24273A", cursor = "#F4DBD6" }
+import = ["~/.config/alacritty/themes/themes/catppuccin_macchiato.toml"]
+[colors]
+cursor = { text = "#24273A", cursor = "#F4DBD6" }
 
 # Dark Plus
 # import = ["~/.config/alacritty/themes/themes/dark_plus.toml"]
@@ -22,9 +22,11 @@ TERM = "alacritty"
 
 [window]
 decorations = "None"
-# opacity = 0.99
+ opacity = 0.97
 option_as_alt = "Both"
-startup_mode = "Maximized"
+# startup_mode = "Maximized"
+position = { x= 20, y = 985  }
+dimensions = { columns = 142,lines = 42 }
 
 [window.padding]
 x = 0
@@ -32,12 +34,14 @@ y = 0
 
 [font]
 size = 20.0
-offset = { x = -1, y = -1 }
-glyph_offset = { x = 0, y = 2 }
+# offset = { x = -1, y = -1 }
+glyph_offset = { x = 0, y = 1 }
 
 [font.normal]
-family = "RobotoMono Nerd Font"
-style= "Regular"
+  family = "MesloLGS Nerd Font Mono"
+# family = "MesloLGSDZ Nerd Font Mono"
+# family = "RobotoMono Nerd Font"
+# style= "Regular"
 
 [[keyboard.bindings]]
 key = "V"
