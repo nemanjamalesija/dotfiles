@@ -72,6 +72,7 @@ alias borders-start='brew services start felixkratz/formulae/borders'
 alias borders-stop='brew services stop felixkratz/formulae/borders'
 alias borders-restart='brew services restart felixkratz/formulae/borders'
 alias notes='nvim ~/vaults/njuskalo'
+alias vcls="rm ~/.local/state/nvim/lsp.log"
 
 
 
