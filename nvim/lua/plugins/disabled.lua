@@ -14,7 +14,7 @@ return {
     { "folke/tokyonight.nvim", enabled = false },
     { "folke/persistence.nvim", enabled = false },
     { "akinsho/bufferline.nvim", enabled = false },
-    { "folke/flash.nvim", enabled = false },
+    -- { "folke/flash.nvim", enabled = false },
     { "windwp/nvim-ts-autotag", enabled = false },
     { "nvim-mini/mini.pairs", enabled = false },
     { "nvim-mini/mini.animate", opts = { cursor = { enable = false } } },
@@ -25,4 +25,5 @@ return {
     { "nvim-mini/mini.operators", enabled = false },
     { "nvim-mini/mini.align", enabled = false },
     { "nvim-mini/mini.diff", enabled = false },
+    { "folke/noice.nvim", enabled = false },
 }
