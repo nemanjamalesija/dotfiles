@@ -6,6 +6,8 @@ return {
         local harpoon = require("harpoon")
         harpoon:setup()
 
+        vim.opt.shortmess:append("A")
+
         vim.keymap.set("n", "<leader>ha", function()
             harpoon:list():add()
         end, { desc = "Add file to Harpoon" })
@@ -26,7 +28,6 @@ return {
             })
         end, { desc = "Toggle Harpoon menu" })
 
-        -- Navigate to next and previous harpoon items
         vim.keymap.set("n", "<M-n>", function()
             harpoon:list():next()
         end, { desc = "Harpoon next file" })
@@ -35,9 +36,25 @@ return {
             harpoon:list():prev()
         end, { desc = "Harpoon previous file" })
 
+        local function safe_select(index)
+            local ok, err = pcall(function()
+                harpoon:list():select(index)
+            end)
+            if not ok then
+                if err:match("E325") then
+                    vim.cmd("silent! edit!")
+                    vim.schedule(function()
+                        harpoon:list():select(index)
+                    end)
+                else
+                    vim.notify("Harpoon error: " .. tostring(err), vim.log.levels.ERROR)
+                end
+            end
+        end
+
         for i = 1, 5 do
             vim.keymap.set("n", "<M-" .. i .. ">", function()
-                harpoon:list():select(i)
+                safe_select(i)
             end, { desc = "Harpoon to File " .. i })
         end
     end,
