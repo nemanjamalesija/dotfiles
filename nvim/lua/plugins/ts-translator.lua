@@ -1,1 +1,2 @@
-return { "nemanjamalesija/ts-error-translator.nvim", enabled = false }
+-- return { "nemanjamalesija/ts-error-translator.nvim" }
+return {}
