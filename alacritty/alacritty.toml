@@ -6,10 +6,15 @@ live_config_reload = true
 # [colors]
 #  cursor = { text = "#fdf6e3", cursor = "#586e75" }
 
-# Cattpuccin Macchiato
-import = ["~/.config/alacritty/themes/themes/catppuccin_macchiato.toml"]
+# Rose pine
+import = ["~/.config/alacritty/themes/themes/rose_pine_dawn.toml"]
 [colors]
-cursor = { text = "#24273A", cursor = "#F4DBD6" }
+ cursor = { text = "#fdf6e3", cursor = "#586e75" }
+
+# Cattpuccin Macchiato
+# import = ["~/.config/alacritty/themes/themes/catppuccin_macchiato.toml"]
+# [colors]
+# cursor = { text = "#24273A", cursor = "#F4DBD6" }
 
 # Dark Plus
 # import = ["~/.config/alacritty/themes/themes/dark_plus.toml"]
@@ -17,31 +22,37 @@ cursor = { text = "#24273A", cursor = "#F4DBD6" }
 # cursor = { text = "#1F1F1F", cursor = "#e5e5e5" }
 
 
+# import = ["~/.config/alacritty/themes/themes/one_dark.toml"]
+# [colors]
+# cursor = { text = "#24273A", cursor = "#F4DBD6" }
+
 [env]
 TERM = "alacritty"
 
 [window]
-decorations = "None"
- opacity = 0.97
+opacity = 0.97
 option_as_alt = "Both"
-# startup_mode = "Maximized"
+decorations = "None"
 position = { x= 20, y = 985  }
 dimensions = { columns = 142,lines = 42 }
+# startup_mode = "Maximized"
 
 [window.padding]
-x = 0
-y = 0
+x = 2
+y = 0 
 
 [font]
-size = 20.0
-# offset = { x = -1, y = -1 }
-glyph_offset = { x = 0, y = 1 }
+size = 24.0
+  # offset = { x = -1, y = 0 }
+ glyph_offset = { x = 0, y = 1 }
 
 [font.normal]
-  family = "MesloLGS Nerd Font Mono"
-# family = "MesloLGSDZ Nerd Font Mono"
-# family = "RobotoMono Nerd Font"
-# style= "Regular"
+ # family = "DejaVuSansM Nerd Font Mono"
+family= "Inconsolata Nerd Font Mono"
+# family = "MesloLGS Nerd Font Mono"
+#family = "JetBrainsMono Nerd Font"
+#family = "RobotoMono Nerd Font"
+  # style= "Medium"
 
 [[keyboard.bindings]]
 key = "V"
