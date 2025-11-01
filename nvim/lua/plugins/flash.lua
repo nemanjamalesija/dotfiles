@@ -1,14 +1,13 @@
 return {
     "folke/flash.nvim",
-    -- Explicitly disable all default keymaps
     keys = {
         { "s", mode = { "n", "x", "o" }, false },
         { "S", mode = { "n", "x", "o" }, false },
         { "r", mode = { "o" }, false },
         { "R", mode = { "o" }, false },
-        -- Your custom mapping:
+        { "f", mode = { "o" }, false },
         {
-            "<leader>w",
+            "f",
             function()
                 local Flash = require("flash")
                 ---@param opts Flash.Format
@@ -52,12 +51,11 @@ return {
                     end,
                 })
             end,
-            mode = { "n" },
+            mode = { "n", "x" },
             desc = "Flash jump with custom label logic",
         },
     },
     opts = function(_, opts)
-        -- You may still want to disable modes as a backup
         opts.modes = {
             char = { enabled = false },
             search = { enabled = false },
