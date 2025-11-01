@@ -17,11 +17,18 @@ return {
                         { opts.match.label2, "FlashLabel" },
                     }
                 end
+
+                -- Get the character input from user
+                local char = vim.fn.getcharstr()
+                if char == "" or char == "\27" then -- ESC pressed
+                    return
+                end
+
                 Flash.jump({
                     timeout = 0,
                     search = { mode = "search" },
                     label = { after = false, before = { 0, 0 }, uppercase = false, format = format },
-                    pattern = [[\<]],
+                    pattern = vim.pesc(char), -- Use the typed character as pattern
                     action = function(match, state)
                         state:hide()
                         Flash.jump({
@@ -52,7 +59,7 @@ return {
                 })
             end,
             mode = { "n", "x" },
-            desc = "Flash jump with custom label logic",
+            desc = "Flash jump to any character with custom label logic",
         },
     },
     opts = function(_, opts)
