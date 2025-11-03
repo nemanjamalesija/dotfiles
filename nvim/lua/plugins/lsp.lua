@@ -13,6 +13,7 @@ return {
                     "eslint",
                     "stylelint_lsp",
                     "marksman",
+                    "jsonls",
                     -- "tailwindcss",
                     -- "intelephense",
                 },
@@ -48,6 +49,9 @@ return {
                         end,
                     })
                 end,
+                settings = {
+                    run = "onSave",
+                },
             })
 
             -- Stylelint
@@ -61,6 +65,13 @@ return {
                     },
                 },
                 filetypes = { "css", "scss", "sass", "less" },
+            }
+
+            --JSON
+            vim.lsp.config.jsonls = {
+                capabilities = capabilities,
+                on_attach = on_attach,
+                filetypes = { "json", "jsonc" },
             }
 
             -- HTML LSP
@@ -150,7 +161,6 @@ return {
             --         },
             --     },
             --     filetypes = { "php" },
-            -- }
 
             -- Keymaps
             vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
