@@ -63,28 +63,56 @@ return {
                 background = "medium",
                 colours_override = function(palette)
                     palette.orange = "#4791e4"
-                    palette.fg = "#666777"
-                    palette.blue = "#666777"
+                    palette.fg = "#707181"
+                    palette.blue = "#707181"
                     palette.aqua = "#2aa198"
-                    -- palette.green = "#008000"
+                    -- palette.green = "#6da101"
                 end,
                 on_highlights = function(hl, palette)
                     hl["@punctuation.bracket"] = { fg = palette.fg }
-                    local orange = "#f57d26"
+                    local orange = "#e47112"
+                    -- local yellow2 = "#859900"
 
+                    -- HTML tags
                     hl["@tag"] = { fg = palette.orange, bold = true }
                     hl["@tag.bracket"] = { fg = palette.fg }
                     hl["@tag.delimiter"] = { fg = palette.fg }
                     hl["@tag.attribute"] = { fg = palette.fg, bg = palette.bg1 }
-                    hl["@tag.attribute.vue"] = { fg = palette.fg, bg = palette.bg1 }
+                    -- hl["@tag.attribute.vue"] = { fg = palette.fg, bg = palette.bg1 }
 
-                    hl["@keyword"] = { fg = palette.red }
-                    hl["@keyword.import.javascript"] = { fg = palette.red }
-                    hl["@keyword.export.javascript"] = { fg = palette.red }
+                    -- Keywords
 
-                    hl["@operator"] = { fg = palette.green }
-                    hl["@operator.javascript"] = { fg = palette.green }
+                    hl["@keyword"] = { fg = palette.red, bold = true }
+                    hl["@keyword.import"] = { fg = palette.red, bold = true }
+                    hl["@keyword.export"] = { fg = palette.red, bold = true }
+                    hl["@keyword.import.javascript"] = { fg = palette.red, bold = true }
+                    hl["@keyword.export.javascript"] = { fg = palette.red, bold = true }
+                    hl["@keyword.return"] = { fg = palette.red, bold = true }
+                    hl["@keyword.operator"] = { fg = palette.red, bold = true }
+                    hl["@keyword.conditional"] = { fg = palette.red, bold = true }
+                    hl["@keyword.repeat"] = { fg = palette.red, bold = true }
+                    hl["@keyword.exception"] = { fg = palette.red, bold = true }
+                    hl["@keyword.modifier"] = { fg = palette.red, bold = true }
+                    hl["@keyword.type"] = { fg = palette.red, bold = true }
+                    hl["@keyword.coroutine"] = { fg = palette.red, bold = true }
+                    hl["@keyword.directive"] = { fg = palette.red, bold = true }
+                    hl["@keyword.function"] = { fg = palette.red, bold = true }
 
+                    hl["@function"] = { fg = palette.green, bold = true }
+                    hl["@function.method"] = { fg = palette.green, bold = true }
+
+                    -- Operators
+                    hl["@operator"] = { fg = palette.red }
+                    hl["@operator.logical"] = { fg = palette.red }
+                    hl["@operator.comparison"] = { fg = palette.red }
+                    hl["@operator.arithmetic"] = { fg = palette.red }
+                    hl["@operator.bitwise"] = { fg = palette.red }
+                    hl["@operator.assignment"] = { fg = palette.red }
+                    hl["@operator.ternary"] = { fg = palette.red }
+                    hl["@operator.spread"] = { fg = palette.red }
+                    hl["@operator.pipeline"] = { fg = palette.red }
+
+                    -- Parameters
                     hl["@variable.parameter"] = { fg = orange }
                     hl["@lsp.type.parameter.vue"] = { fg = orange }
                     hl["@variable.parameter.javascript"] = { fg = orange }
