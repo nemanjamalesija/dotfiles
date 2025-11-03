@@ -30,6 +30,8 @@ alias gcfg='nvim ~/.dotfiles/.gitconfig'
 alias vcfg='cd ~/.dotfiles && nvim nvim'
 alias wcfg='nvim ~/.dotfiles/wezterm.lua'
 alias acfg="nvim /Users/nemanjamalesija/.config/alacritty/alacritty.toml"
+alias tmuxcfg="nvim ~/.tmux.conf"
+alias tmuxsource="tmux source ~/.tmux.conf"
 
 alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
 
@@ -58,9 +60,11 @@ alias nj='cd ~/Desktop/projekti/njuskalo-hr'
 alias njv='cd ~/Desktop/projekti/njuskalo-hr && nvim'
 alias amr='cd ~/Desktop/projekti/web-app/amr-web'
 alias amrv='cd ~/Desktop/projekti/web-app/amr-web && nvim'
+alias total='cd ~/Desktop/Learning/"Total Typescript"/pro-essentials-workshop'
 
 alias dlog='rm -f var/logs/dev.log'
 alias dzlog='rm -f var/logs/zira/dev.log'
+alias dlsplog="rm ~/.local/state/nvim/lsp.log"
 
 alias wold='docker/node npm run watch:development'
 alias pbc='docker/node npm run pb:watch:client:development'
@@ -72,7 +76,6 @@ alias borders-start='brew services start felixkratz/formulae/borders'
 alias borders-stop='brew services stop felixkratz/formulae/borders'
 alias borders-restart='brew services restart felixkratz/formulae/borders'
 alias notes='nvim ~/vaults/njuskalo'
-alias vcls="rm ~/.local/state/nvim/lsp.log"
 
 
 
