@@ -27,8 +27,9 @@ vim.diagnostic.config({
 })
 
 vim.opt.cmdheight = 0
+-- vim.o.timeoutlen = 200
 
 vim.o.background = "light"
-vim.o.timeoutlen = 100
 -- vim.o.background = "dark"
 -- vim.opt.guicursor = { "a:ver25" }
+--
