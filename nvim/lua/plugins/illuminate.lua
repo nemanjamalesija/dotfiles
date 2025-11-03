@@ -270,6 +270,7 @@ return {
         local function set_illuminate_highlights()
             local label_bg = "#EFEBD4"
             local blend = 60
+
             for _, group in ipairs({
                 "IlluminatedWordText",
                 "IlluminatedWordRead",
@@ -283,7 +284,7 @@ return {
                     fg = nil, -- use default foreground
                     bold = false, -- disable bold
                     underline = false, -- disable underline
-                    blend = blend,
+                    -- blend = blend,
                 })
             end
         end
