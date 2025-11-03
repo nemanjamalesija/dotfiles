@@ -33,8 +33,10 @@ TERM = "alacritty"
 opacity = 0.97
 option_as_alt = "Both"
 decorations = "None"
-position = { x= 20, y = 985  }
-dimensions = { columns = 142,lines = 42 }
+# position = { x= 20, y = 985  }
+# dimensions = { columns = 142,lines = 42 }
+position = { x= 440, y = 940  }
+ dimensions = { columns = 105,lines = 40 }
 # startup_mode = "Maximized"
 
 [window.padding]
@@ -42,14 +44,14 @@ x = 2
 y = 0 
 
 [font]
-size = 24.0
-  # offset = { x = -1, y = 0 }
+size = 20.0
+ # offset = { x = -1, y = 1 }
  glyph_offset = { x = 0, y = 1 }
 
 [font.normal]
+family = "MesloLGS Nerd Font Mono"
  # family = "DejaVuSansM Nerd Font Mono"
-family= "Inconsolata Nerd Font Mono"
-# family = "MesloLGS Nerd Font Mono"
+# family= "Inconsolata Nerd Font Mono"
 #family = "JetBrainsMono Nerd Font"
 #family = "RobotoMono Nerd Font"
   # style= "Medium"
