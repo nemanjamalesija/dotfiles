@@ -97,9 +97,9 @@ return {
             lualine_a = { "mode" },
             lualine_b = {
                 {
-                    "filename",
-                    --branch
-                    -- icon = "",
+                    -- "filename",
+                    "branch",
+                    icon = "",
                     color = { gui = "bold" },
                     file_status = true,
                     path = 1,
@@ -111,16 +111,17 @@ return {
                     },
                 },
             },
-            lualine_c = {
+            lualine_c = {},
+            lualine_x = {
+                {
+                    get_active_lsp,
+                },
                 {
                     "diff",
                     source = diff_source,
                 },
             },
-            lualine_x = {
-                {
-                    get_active_lsp,
-                },
+            lualine_y = {
                 {
                     "diagnostics",
                     sources = { "nvim_diagnostic", "coc" },
@@ -145,10 +146,8 @@ return {
                     color = "WarningMsg",
                 },
             },
-            lualine_y = {
-                "progress",
-            },
             lualine_z = {
+                "progress",
                 -- function()
                 --     return os.date("%H:%M")
                 -- end,
