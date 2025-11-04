@@ -33,6 +33,7 @@ alias acfg="nvim /Users/nemanjamalesija/.config/alacritty/alacritty.toml"
 alias tcfg="nvim ~/.tmux.conf"
 alias tsource="tmux source ~/.tmux.conf"
 alias tkill="tmux kill-server"
+alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
 
 alias borders='nvim ~/.dotfiles/borders/bordersrc'
 alias borders-start='brew services start felixkratz/formulae/borders' 
