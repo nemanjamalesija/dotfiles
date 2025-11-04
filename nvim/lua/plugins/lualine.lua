@@ -149,9 +149,9 @@ return {
                 "progress",
             },
             lualine_z = {
-                function()
-                    return os.date("%H:%M")
-                end,
+                -- function()
+                --     return os.date("%H:%M")
+                -- end,
             },
         }
 

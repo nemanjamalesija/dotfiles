@@ -70,7 +70,8 @@ return {
                 end,
                 on_highlights = function(hl, palette)
                     hl["@punctuation.bracket"] = { fg = palette.fg }
-                    local orange = "#e47112"
+                    local customOrange = "#e47112"
+                    -- #f57D26
                     -- local yellow2 = "#859900"
 
                     -- HTML tags
@@ -113,12 +114,12 @@ return {
                     hl["@operator.pipeline"] = { fg = palette.red }
 
                     -- Parameters
-                    hl["@variable.parameter"] = { fg = orange }
-                    hl["@lsp.type.parameter.vue"] = { fg = orange }
-                    hl["@variable.parameter.javascript"] = { fg = orange }
+                    hl["@variable.parameter"] = { fg = customOrange }
+                    hl["@lsp.type.parameter.vue"] = { fg = customOrange }
+                    hl["@variable.parameter.javascript"] = { fg = customOrange }
 
                     hl.DiagnosticUnderlineHint = { fg = palette.aqua, undercurl = true, sp = palette.purple }
-                    hl.DiagnosticUnderlineWarn = { fg = "NONE", undercurl = true, sp = orange }
+                    hl.DiagnosticUnderlineWarn = { fg = "NONE", undercurl = true, sp = customOrange }
                     hl.DiagnosticUnderlineError = { fg = "NONE", undercurl = true, sp = palette.red }
                 end,
 

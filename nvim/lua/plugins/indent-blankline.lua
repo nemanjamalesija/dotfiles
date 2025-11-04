@@ -2,6 +2,9 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     event = "LazyFile",
     opts = function()
+        -- Create custom highlight group for scope only
+        vim.api.nvim_set_hl(0, "IblScope", { fg = "#f57D26" })
+
         return {
             indent = {
                 char = "▏",
@@ -10,9 +13,9 @@ return {
             scope = {
                 enabled = true,
                 show_end = false,
-                highlight = { "Label" },
                 show_start = true,
                 char = "▏",
+                highlight = { "IblScope" },
             },
             exclude = {
                 filetypes = {
