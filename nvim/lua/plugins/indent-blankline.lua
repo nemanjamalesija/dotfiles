@@ -16,6 +16,7 @@ return {
                 show_start = true,
                 char = "▏",
                 highlight = { "IblScope" },
+                -- highlight = { "Label" },
             },
             exclude = {
                 filetypes = {
