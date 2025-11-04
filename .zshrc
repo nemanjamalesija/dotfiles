@@ -30,10 +30,17 @@ alias gcfg='nvim ~/.dotfiles/.gitconfig'
 alias vcfg='cd ~/.dotfiles && nvim nvim'
 alias wcfg='nvim ~/.dotfiles/wezterm.lua'
 alias acfg="nvim /Users/nemanjamalesija/.config/alacritty/alacritty.toml"
-alias tmuxcfg="nvim ~/.tmux.conf"
-alias tmuxsource="tmux source ~/.tmux.conf"
+alias tcfg="nvim ~/.tmux.conf"
+alias tsource="tmux source ~/.tmux.conf"
+alias txkill="tmux kill-server"
 
-alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
+alias borders='nvim ~/.dotfiles/borders/bordersrc'
+alias borders-start='brew services start felixkratz/formulae/borders' 
+alias borders-stop='brew services stop felixkratz/formulae/borders'
+alias borders-restart='brew services restart felixkratz/formulae/borders'
+
+alias notes='nvim ~/vaults/njuskalo'
+alias cls="clear"
 
 alias gdiff='git diff' 
 alias gs='git status' 
@@ -51,7 +58,6 @@ alias grevert-cm='git reset --soft HEAD~1'
 alias greset-one='git reset --hard HEAD^'  
 alias grebase='git rebase'  
 alias grestore='git restore'  
-alias cls="clear"
 grebase-n() {
     git rebase -i HEAD~$1
 }
@@ -60,6 +66,8 @@ alias nj='cd ~/Desktop/projekti/njuskalo-hr'
 alias njv='cd ~/Desktop/projekti/njuskalo-hr && nvim'
 alias amr='cd ~/Desktop/projekti/web-app/amr-web'
 alias amrv='cd ~/Desktop/projekti/web-app/amr-web && nvim'
+alias beaver='cd ~/Desktop/projekti/beaver-iot-web'
+alias beaverv='cd ~/Desktop/projekti/beaver-iot-web && nvim'
 alias total='cd ~/Desktop/Learning/"Total Typescript"/pro-essentials-workshop'
 
 alias dlog='rm -f var/logs/dev.log'
@@ -71,13 +79,6 @@ alias pbc='docker/node npm run pb:watch:client:development'
 alias pbs='docker/node npm run pb:watch:server:development'
 alias pbdbg='docker/node npm run pb:watch:server:development:debugger'
 alias pbgt='docker/node npm run pb:generate:translations'
-alias borders='nvim ~/.dotfiles/borders/bordersrc'
-alias borders-start='brew services start felixkratz/formulae/borders' 
-alias borders-stop='brew services stop felixkratz/formulae/borders'
-alias borders-restart='brew services restart felixkratz/formulae/borders'
-alias notes='nvim ~/vaults/njuskalo'
-
-
 
 zstyle ':prompt:pure:execution_time' show false
 zstyle ':prompt:pure:execution_time' threshold 0
