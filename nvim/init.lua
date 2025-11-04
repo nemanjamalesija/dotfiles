@@ -31,5 +31,3 @@ vim.opt.cmdheight = 0
 
 vim.o.background = "light"
 -- vim.o.background = "dark"
--- vim.opt.guicursor = { "a:ver25" }
---
