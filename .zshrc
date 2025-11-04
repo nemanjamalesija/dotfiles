@@ -32,7 +32,7 @@ alias wcfg='nvim ~/.dotfiles/wezterm.lua'
 alias acfg="nvim /Users/nemanjamalesija/.config/alacritty/alacritty.toml"
 alias tcfg="nvim ~/.tmux.conf"
 alias tsource="tmux source ~/.tmux.conf"
-alias txkill="tmux kill-server"
+alias tkill="tmux kill-server"
 
 alias borders='nvim ~/.dotfiles/borders/bordersrc'
 alias borders-start='brew services start felixkratz/formulae/borders' 
