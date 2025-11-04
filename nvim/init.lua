@@ -31,3 +31,16 @@ vim.opt.cmdheight = 0
 
 vim.o.background = "light"
 -- vim.o.background = "dark"
+
+if vim.env.TMUX then
+    local tmux_pane = vim.env.TMUX_PANE
+
+    vim.api.nvim_create_autocmd({ "BufEnter" }, {
+        callback = function()
+            local file = vim.fn.expand("%:.")
+            if file ~= "" then
+                vim.fn.jobstart(string.format("tmux set -t %s @current_file '%s'", tmux_pane, file), { detach = true })
+            end
+        end,
+    })
+end
