@@ -32,7 +32,6 @@ alias wcfg='nvim ~/.dotfiles/wezterm.lua'
 alias acfg="nvim /Users/nemanjamalesija/.config/alacritty/alacritty.toml"
 alias tcfg="nvim ~/.tmux.conf"
 alias tsource="tmux source ~/.tmux.conf"
-alias tkill="tmux kill-server"
 alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
 
 alias borders='nvim ~/.dotfiles/borders/bordersrc'
@@ -87,3 +86,77 @@ zstyle ':prompt:pure:execution_time' threshold 0
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
 autoload -U promptinit; promptinit
 prompt pure
+
+
+cleanup() {
+    # Colors for output
+    local RED='\033[0;31m'
+    local GREEN='\033[0;32m'
+    local YELLOW='\033[1;33m'
+    local NC='\033[0m' # No Color
+    echo -e "${YELLOW}🧹 Starting cleanup...${NC}\n"
+    # Step 1: Gracefully close Neovim instances in tmux sessions
+    echo -e "${YELLOW}📝 Attempting to close Neovim gracefully in tmux sessions...${NC}"
+    if tmux list-sessions &>/dev/null; then
+        # Send :qa! command to all tmux panes that might have Neovim
+        tmux list-panes -a -F '#{session_name}:#{window_index}.#{pane_index}' | while read pane; do
+            # Try to close Neovim gracefully
+            tmux send-keys -t "$pane" Escape 2>/dev/null
+            tmux send-keys -t "$pane" ':qa!' Enter 2>/dev/null
+        done
+        
+        echo -e "${GREEN}✓ Sent close commands to all tmux panes${NC}"
+        sleep 2  # Give Neovim time to close gracefully
+    else
+        echo -e "${GREEN}✓ No tmux sessions running${NC}"
+    fi
+    # Step 2: Kill LSP servers
+    echo -e "\n${YELLOW}🔧 Killing LSP servers...${NC}"
+    LSP_PIDS=$(pgrep -f "language-server|tsserver" | grep -v grep)
+    if [ -n "$LSP_PIDS" ]; then
+        echo "$LSP_PIDS" | xargs kill -9 2>/dev/null
+        echo -e "${GREEN}✓ Killed LSP servers: $(echo $LSP_PIDS | wc -w | tr -d ' ') processes${NC}"
+    else
+        echo -e "${GREEN}✓ No LSP servers running${NC}"
+    fi
+    # Step 3: Kill any remaining Neovim processes
+    echo -e "\n${YELLOW}📋 Killing remaining Neovim processes...${NC}"
+    NVIM_PIDS=$(pgrep nvim)
+    if [ -n "$NVIM_PIDS" ]; then
+        echo "$NVIM_PIDS" | xargs kill -9 2>/dev/null
+        echo -e "${GREEN}✓ Killed Neovim: $(echo $NVIM_PIDS | wc -w | tr -d ' ') processes${NC}"
+    else
+        echo -e "${GREEN}✓ No Neovim processes running${NC}"
+    fi
+    # Step 4: Kill tmux server
+    echo -e "\n${YELLOW}🖥️  Killing tmux server...${NC}"
+    if tmux list-sessions &>/dev/null; then
+        tmux kill-server 2>/dev/null
+        echo -e "${GREEN}✓ Tmux server killed${NC}"
+    else
+        echo -e "${GREEN}✓ Tmux server not running${NC}"
+    fi
+    # Step 5: Clean LSP log
+    echo -e "\n${YELLOW}📄 Cleaning LSP log...${NC}"
+    LOG_PATH="$HOME/.local/state/nvim/lsp.log"
+    if [ -f "$LOG_PATH" ]; then
+        LOG_SIZE=$(du -h "$LOG_PATH" | cut -f1)
+        rm "$LOG_PATH"
+        echo -e "${GREEN}✓ Deleted LSP log (was $LOG_SIZE)${NC}"
+    else
+        echo -e "${GREEN}✓ No LSP log to clean${NC}"
+    fi
+    # Step 6: Final verification
+    echo -e "\n${YELLOW}🔍 Verifying cleanup...${NC}"
+    sleep 1
+    REMAINING_NVIM=$(pgrep nvim | wc -l | tr -d ' ')
+    REMAINING_LSP=$(pgrep -f "language-server|tsserver" | wc -l | tr -d ' ')
+    if [ "$REMAINING_NVIM" -eq 0 ] && [ "$REMAINING_LSP" -eq 0 ]; then
+        echo -e "${GREEN}✅ Cleanup successful! All processes terminated.${NC}\n"
+    else
+        echo -e "${RED}⚠️  Warning: Some processes may still be running:${NC}"
+        [ "$REMAINING_NVIM" -gt 0 ] && echo -e "${RED}  - Neovim: $REMAINING_NVIM processes${NC}"
+        [ "$REMAINING_LSP" -gt 0 ] && echo -e "${RED}  - LSP: $REMAINING_LSP processes${NC}"
+        echo ""
+    fi
+}
