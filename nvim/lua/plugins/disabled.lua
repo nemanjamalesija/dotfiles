@@ -24,5 +24,6 @@ return {
     { "nvim-mini/mini.operators", enabled = false },
     { "nvim-mini/mini.align", enabled = false },
     { "nvim-mini/mini.diff", enabled = false },
+    { "nvim-mini/mini.animate", enabled = false },
     -- { "folke/noice.nvim", enabled = false },
 }
