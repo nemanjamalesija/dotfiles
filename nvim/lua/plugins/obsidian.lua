@@ -1,7 +1,14 @@
 return {
     "epwalsh/obsidian.nvim",
     version = "*",
-    lazy = false,
+    lazy = true, -- Changed to true
+    cmd = {
+        "ObsidianOpen",
+        "ObsidianNew",
+        "ObsidianQuickSwitch",
+        "ObsidianSearch",
+        "ObsidianWorkspace",
+    },
     dependencies = {
         "nvim-lua/plenary.nvim",
     },
@@ -10,6 +17,9 @@ return {
             { name = "njuskalo", path = "~/vaults/njuskalo" },
             { name = "emasys", path = "~/vaults/emasys" },
             { name = "personal", path = "~/vaults/personal" },
+        },
+        ui = {
+            enable = false,
         },
     },
 }
