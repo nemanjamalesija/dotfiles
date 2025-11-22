@@ -41,6 +41,8 @@ M.config = function()
             end, { desc = "Blame line" })
             vim.keymap.set("n", "<leader>gtd", gs.toggle_deleted, { desc = "Toggle deleted" })
             vim.keymap.set("n", "<leader>gtw", gs.toggle_word_diff, { desc = "Toggle word diff" })
+            vim.keymap.set("n", "<leader>gth", gs.toggle_linehl, { desc = "Toggle word diff" })
+
             -- Text object
             vim.keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Hunk" })
         end,
