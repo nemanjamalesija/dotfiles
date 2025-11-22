@@ -95,6 +95,10 @@ cleanup() {
     local YELLOW='\033[1;33m'
     local NC='\033[0m' # No Color
     echo -e "${YELLOW}🧹 Starting cleanup...${NC}\n"
+
+    # echo -e "${YELLOW}Cleaning Neovim cache...${NC}\n"
+    # rm -rf ~/.cache/nvim ~/.local/share/nvim/ ~/.local/state/nvim
+     
     # Step 1: Gracefully close Neovim instances in tmux sessions
     echo -e "${YELLOW}📝 Attempting to close Neovim gracefully in tmux sessions...${NC}"
     if tmux list-sessions &>/dev/null; then
@@ -159,4 +163,4 @@ cleanup() {
         [ "$REMAINING_LSP" -gt 0 ] && echo -e "${RED}  - LSP: $REMAINING_LSP processes${NC}"
         echo ""
     fi
-}
+} 
