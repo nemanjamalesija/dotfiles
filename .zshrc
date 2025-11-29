@@ -58,6 +58,7 @@ alias grevert-cm='git reset --soft HEAD~1'
 alias greset-one='git reset --hard HEAD^'  
 alias grebase='git rebase'  
 alias grestore='git restore'  
+alias gdelete='git push origin --delete'
 grebase-n() {
     git rebase -i HEAD~$1
 }
