@@ -6,7 +6,7 @@
 --
 
 -- File operations
-vim.keymap.set("n", "<leader>s", "<cmd>w<cr>", { desc = "Save file" })
+vim.keymap.set("n", "<leader>fw", "<cmd>w<cr>", { desc = "Save file" })
 vim.keymap.set("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit buffer" })
 
 -- vim.keymap.set("n", "<leader>ts", function()
@@ -18,6 +18,8 @@ vim.keymap.set("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit buffer" })
 --         print("Switched to dark mode")
 --     end
 -- end, { desc = "Toggle between light and dark mode" })
+
+vim.api.nvim_create_user_command("W", "w", {})
 
 local function dive_with_count_object()
     local count = vim.v.count1 -- Gets the count prefix (defaults to 1)
@@ -57,7 +59,6 @@ vim.keymap.set("n", "vi{", dive_with_count_object, { desc = "Dive inside nth { b
 vim.keymap.set("n", "vi(", dive_with_count_paren, { desc = "Dive inside nth ( block" })
 
 -- Buffer control
-vim.keymap.set("n", "<M-w>", "<cmd>bdelete<cr>", { desc = "Buffer delete" })
 vim.keymap.set("n", "<M-i>", "<cmd>vertical resize +5<cr>", { desc = "Increase buffer width" })
 vim.keymap.set("n", "<M-d>", "<cmd>vertical resize -5<cr>", { desc = "Decrease buffer width" })
 vim.keymap.set("n", "<M-I>", "<cmd>resize +5<cr>", { desc = "Increase buffer height" })
