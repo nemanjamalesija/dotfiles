@@ -53,7 +53,7 @@ return {
         end
 
         for i = 1, 5 do
-            vim.keymap.set("n", "<M-" .. i .. ">", function()
+            vim.keymap.set("n", "<leader>h" .. i, function()
                 safe_select(i)
             end, { desc = "Harpoon to File " .. i })
         end
