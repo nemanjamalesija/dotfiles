@@ -1,6 +1,5 @@
 local HEIGHT_RATIO = 0.8
 local WIDTH_RATIO = 0.5
-
 return {
     {
         "nvim-tree/nvim-tree.lua",
@@ -9,10 +8,14 @@ return {
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
+        keys = {
+            { "<leader>e", false },
+        },
         config = function()
             require("nvim-tree").setup({
                 git = {
                     enable = false,
+                    ignore = true,
                 },
                 sort = {
                     sorter = "case_sensitive",
@@ -47,12 +50,41 @@ return {
                     dotfiles = false,
                     custom = { "^.DS_Store$", "^node_modules$" },
                 },
+                -- Performance optimizations
+                filesystem_watchers = {
+                    enable = true,
+                    debounce_delay = 50,
+                    ignore_dirs = {
+                        "node_modules",
+                        ".git",
+                        "target",
+                        "build",
+                        "dist",
+                    },
+                },
+                renderer = {
+                    highlight_git = false,
+                    highlight_opened_files = "none",
+                    icons = {
+                        show = {
+                            git = false,
+                            k,
+                        },
+                    },
+                },
+                update_focused_file = {
+                    enable = false,
+                },
+                diagnostics = {
+                    enable = false,
+                },
             })
 
-            -- File explorer
+            vim.keymap.set("n", "<leader>o", "<cmd>NvimTreeFindFileToggle<cr>", { desc = "Toggle NvimTree (floating)" })
+
             vim.keymap.set(
                 "n",
-                "<leader>o",
+                "<leader>e",
                 "<cmd>NvimTreeFindFileToggle<cr>",
                 { desc = "Toggle NvimTree (reveal file)" }
             )

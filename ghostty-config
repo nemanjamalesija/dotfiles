@@ -1,11 +1,18 @@
-# adjust-cell-width = "-5%"
-# adjust-cell-height = "5%"
+  adjust-cell-width = "-2%"
+  # adjust-cell-height = "-5%"
 
 font-size = 20
 # font-family = MesloLGS Nerd Font Mono 
 #  font-family = RobotoMono Nerd Font Mono
-# font-family = Inconsolata Nerd Font Mono
-font-family = Consolas
+  # font-family = Inconsolata Nerd Font Mono
+  font-family = JetBrainsMono Nerd Font Mono
+  # font-family = Consolas
+
+# adjust-underline-position = 8
+adjust-underline-thickness = 1
+alpha-blending = linear-corrected
+# font-thicken = true
+  
 
 title = " "
 macos-titlebar-proxy-icon = hidden
@@ -16,10 +23,10 @@ macos-option-as-alt = true
 window-padding-x = 0
 window-padding-y = 0
 window-decoration = none
-# background-opacity = 0.98
+ background-opacity = 0.98
 
- theme = Builtin Solarized Light
-# theme = Catppuccin Macchiato
+ # theme = Builtin Solarized Light
+  theme = Catppuccin Macchiato
 
 # theme = Rose Pine Dawn
 # theme = tokyonight_moon

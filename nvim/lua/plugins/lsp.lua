@@ -14,6 +14,7 @@ return {
                     "stylelint_lsp",
                     "marksman",
                     "jsonls",
+                    "vue_ls",
                     -- "tailwindcss",
                     -- "intelephense",
                 },
@@ -27,6 +28,8 @@ return {
             inlay_hints = { enabled = false },
         },
         config = function()
+            vim.lsp.set_log_level("off")
+
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -51,9 +54,12 @@ return {
                 end,
                 settings = {
                     run = "onSave",
+                    workingDirectory = { mode = "auto" },
+                    experimental = {
+                        useFlatConfig = true,
+                    },
                 },
             })
-
             -- Stylelint
             vim.lsp.config.stylelint_lsp = {
                 capabilities = capabilities,
