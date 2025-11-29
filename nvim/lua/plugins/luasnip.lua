@@ -49,10 +49,6 @@ return {
         -- file filetype with :set ft
         -- Custom snippets
 
-        -- #####################################################################
-        --                            Markdown
-        -- #####################################################################
-
         -- Helper function to create code block snippets
         local function create_code_block_snippet(lang)
             return s({
@@ -276,30 +272,30 @@ return {
         table.insert(
             vue_snippets,
             s({
-                trig = "sfsj",
-                name = "Vue SFC with Javascript Setup",
-                desc = "Create a Vue Single-File Component with Javascript setup syntax",
+                trig = "sfst",
+                name = "Vue SFC with Typescript Setup",
+                desc = "Create a Vue Single-File Component with TypeScript setup syntax",
             }, {
-                t({ "<script setup>", "" }),
-                i(1, "// script content"),
-                t({ "", "</script>", "<template>", "" }),
-                i(2, "<!-- template content -->"),
-                t({ "", "</template>" }),
+                t({ "<template>", "\t" }),
+                i(1, "<!-- template content -->"),
+                t({ "", "</template>", "", "<script setup lang='ts'>", "" }),
+                i(2, "// script content"),
+                t({ "", "</script>" }),
             })
         )
 
         table.insert(
             vue_snippets,
             s({
-                trig = "sfst",
-                name = "Vue SFC with Typescript Setup",
-                desc = "Create a Vue Single-File Component with TypeScript setup syntax",
+                trig = "sfsj",
+                name = "Vue SFC with Javascript Setup",
+                desc = "Create a Vue Single-File Component with Javascript setup syntax",
             }, {
-                t({ "<script setup lang='ts'>", "" }),
-                i(1, "// script content"),
-                t({ "", "</script>", "<template>", "" }),
-                i(2, "<!-- template content -->"),
-                t({ "", "</template>" }),
+                t({ "<template>", "\t" }),
+                i(1, "<!-- template content -->"),
+                t({ "", "</template>", "", "<script setup>", "" }),
+                i(2, "// script content"),
+                t({ "", "</script>" }),
             })
         )
 
@@ -343,10 +339,11 @@ return {
                 desc = "Insert common @use SCSS imports",
             }, {
                 t({
-                    "@use 'app/config/colors' as *;",
-                    "@use 'app/utils-generic/config/index' as *;",
-                    "@use 'app/config/breakpoints' as *;",
-                    "@use 'app/config/dimensions' as *;",
+
+                    "@use 'src:#app/config/colors' as *;",
+                    "@use 'src:#app/utils-generic/config/index' as *;",
+                    "@use 'src:#app/config/breakpoints' as *;",
+                    "@use 'src:#app/config/dimensions' as *;",
                 }),
             })
         )
