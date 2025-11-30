@@ -4,17 +4,12 @@ return {
         highlight = {
             timer = 150,
         },
+        ring = {
+            enabled = false,
+        },
     },
     dependencies = { "folke/snacks.nvim" },
     keys = {
-        {
-            "<leader>yh",
-            function()
-                Snacks.picker.yanky()
-            end,
-            mode = { "n", "x" },
-            desc = "Open Yank History",
-        },
         {
             "p",
             "<Plug>(YankyPutAfter)",
@@ -28,13 +23,13 @@ return {
             desc = "Yanky Put Before",
         },
         {
-            "]p",
+            "-p",
             "<Plug>(YankyPutIndentAfterLinewise)",
             mode = "n",
             desc = "Put below (linewise, indent)",
         },
         {
-            "[p",
+            "_p",
             "<Plug>(YankyPutIndentBeforeLinewise)",
             mode = "n",
             desc = "Put above (linewise, indent)",
@@ -62,12 +57,6 @@ return {
             "<Plug>(YankyPutIndentBeforeShiftLeft)",
             mode = "n",
             desc = "Put above and shift left",
-        },
-        {
-            "<leader>yc",
-            ":YankyClearHistory<CR>",
-            mode = "n",
-            desc = "Clear Yanky Yank History",
         },
     },
 }
