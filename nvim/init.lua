@@ -1,9 +1,3 @@
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.opt.termguicolors = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-
 require("config.lazy")
 
 vim.filetype.add({
@@ -26,35 +20,5 @@ vim.diagnostic.config({
     },
 })
 
-vim.opt.cmdheight = 0
--- vim.o.timeoutlen = 200
-
-vim.o.background = "light"
--- vim.o.background = "dark"
-
-if vim.env.TMUX then
-    local tmux_pane = vim.env.TMUX_PANE
-
-    vim.api.nvim_create_autocmd({ "BufEnter" }, {
-        callback = function()
-            local file = vim.fn.expand("%:.")
-            if file ~= "" then
-                vim.fn.jobstart(string.format("tmux set -t %s @current_file '%s'", tmux_pane, file), { detach = true })
-            end
-        end,
-    })
-end
-
-vim.api.nvim_create_autocmd("BufAdd", {
-    callback = function()
-        local bufs = vim.fn.getbufinfo({ buflisted = 1 })
-        if #bufs > 10 then
-            for _, buf in ipairs(bufs) do
-                if buf.bufnr ~= vim.api.nvim_get_current_buf() then
-                    vim.cmd("bdelete " .. buf.bufnr)
-                    break
-                end
-            end
-        end
-    end,
-})
+-- vim.o.background = "light"
+vim.o.background = "dark"

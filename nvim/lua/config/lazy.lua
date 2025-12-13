@@ -26,22 +26,8 @@ require("lazy").setup({
         { import = "lazyvim.plugins.extras.coding.luasnip" },
         { import = "lazyvim.plugins.extras.linting.eslint" },
         { import = "lazyvim.plugins.extras.coding.nvim-cmp" },
-        { import = "lazyvim.plugins.extras.editor.illuminate" },
         { import = "lazyvim.plugins.extras.lang.php" },
-        { import = "lazyvim.plugins.extras.lang.tailwind" },
-        --[[ {
-            "github/copilot.vim",
-            config = function()
-                -- Disable Copilot by default
-                vim.cmd("Copilot disable")
-
-                -- Map <C-c> in insert mode to enable Copilot and trigger a suggestion
-                vim.api.nvim_set_keymap("i", "<C-c>", "<Cmd>Copilot enable<CR>", { noremap = true, silent = true })
-
-                -- Optional: Disable <Tab> remapping if you previously changed it
-                -- vim.g.copilot_no_tab_map = false
-            end,
-        }, ]]
+        -- { import = "lazyvim.plugins.extras.lang.tailwind" },
         { import = "plugins" },
     },
     defaults = {
