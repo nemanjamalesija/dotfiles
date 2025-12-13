@@ -23,7 +23,8 @@ return {
     { "akinsho/bufferline.nvim", enabled = false },
     { "windwp/nvim-ts-autotag", enabled = false },
     { "nvim-mini/mini.pairs", enabled = false },
-    { "nvim-mini/mini.animate", opts = { cursor = { enable = false } } },
+    -- { "nvim-mini/mini.animate", opts = { cursor = { enable = false } } },
+    { "nvim-mini/mini.animate", enabled = false },
     { "nvim-mini/mini.icons", enabled = false },
     { "nvim-mini/mini.bufremove", version = false },
     { "nvim-mini/mini.surround", enabled = false },
@@ -31,6 +32,4 @@ return {
     { "nvim-mini/mini.operators", enabled = false },
     { "nvim-mini/mini.align", enabled = false },
     { "nvim-mini/mini.diff", enabled = false },
-    { "nvim-mini/mini.animate", enabled = false },
-    { "nvim-neo-tree/neo-tree.nvim", enabled = false },
 }

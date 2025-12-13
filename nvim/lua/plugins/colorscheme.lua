@@ -2,8 +2,8 @@ return {
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        -- priority = 1000,
-        -- lazy = false,
+        priority = 1000,
+        lazy = false,
         config = function()
             require("catppuccin").setup({
                 flavour = "macchiato",
@@ -104,7 +104,7 @@ return {
                     hl.DiagnosticUnderlineError = { fg = "NONE", undercurl = true, sp = palette.red }
                 end,
 
-                vim.cmd.colorscheme("everforest"),
+                -- vim.cmd.colorscheme("everforest"),
             })
         end,
     },

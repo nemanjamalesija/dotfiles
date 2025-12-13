@@ -9,9 +9,6 @@ return {
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
-        keys = {
-            { "<leader>e", false },
-        },
         config = function()
             require("nvim-tree").setup({
                 git = {
