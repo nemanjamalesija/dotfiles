@@ -80,11 +80,9 @@ return {
                 },
             })
 
-            -- vim.keymap.set("n", "<leader>o", "<cmd>NvimTreeFindFileToggle<cr>", { desc = "Toggle NvimTree (floating)" })
-
             vim.keymap.set(
                 "n",
-                "<leader>e",
+                "<leader>fe",
                 "<cmd>NvimTreeFindFileToggle<cr>",
                 { desc = "Toggle NvimTree (reveal file)" }
             )

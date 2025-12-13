@@ -13,6 +13,10 @@ return {
                 enabled = true,
             },
         },
+        keys = {
+            { "<leader>fe", false },
+            { "<leader>fE", false },
+        },
     },
     { "folke/tokyonight.nvim", enabled = false },
     { "folke/persistence.nvim", enabled = false },
@@ -28,5 +32,5 @@ return {
     { "nvim-mini/mini.align", enabled = false },
     { "nvim-mini/mini.diff", enabled = false },
     { "nvim-mini/mini.animate", enabled = false },
-    -- { "folke/noice.nvim", enabled = false },
+    { "nvim-neo-tree/neo-tree.nvim", enabled = false },
 }
