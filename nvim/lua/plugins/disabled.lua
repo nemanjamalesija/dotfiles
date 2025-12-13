@@ -9,6 +9,9 @@ return {
             notify = { enabled = false },
             notifier = { enabled = false },
             indent = { enabled = false },
+            image = {
+                enabled = true,
+            },
         },
     },
     { "folke/tokyonight.nvim", enabled = false },
