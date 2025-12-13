@@ -1,5 +1,6 @@
 local HEIGHT_RATIO = 0.8
 local WIDTH_RATIO = 0.5
+
 return {
     {
         "nvim-tree/nvim-tree.lua",
@@ -68,7 +69,6 @@ return {
                     icons = {
                         show = {
                             git = false,
-                            k,
                         },
                     },
                 },
@@ -80,7 +80,7 @@ return {
                 },
             })
 
-            vim.keymap.set("n", "<leader>o", "<cmd>NvimTreeFindFileToggle<cr>", { desc = "Toggle NvimTree (floating)" })
+            -- vim.keymap.set("n", "<leader>o", "<cmd>NvimTreeFindFileToggle<cr>", { desc = "Toggle NvimTree (floating)" })
 
             vim.keymap.set(
                 "n",

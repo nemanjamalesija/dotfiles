@@ -60,3 +60,7 @@ map("n", "<leader>On", ":ObsidianNew<CR>", { desc = "Obsidian: New Note in Works
 map("n", "<leader>Os", ":ObsidianSearch<CR>", { desc = "Obsidian: Search Notes in Workspace" })
 map("n", "<leader>Ol", ":ObsidianQuickSwitch<CR>", { desc = "Obsidian: List Notes in Workspace" })
 map("n", "<leader>Ot", ":ObsidianToday<CR>", { desc = "Obsidian: Notes for today" })
+
+-- Insert blank lines without entering insert mode
+map("n", "<leader>o", ":put _<CR>", { desc = "Insert line below", silent = true })
+map("n", "<leader>O", ":put! _<CR>", { desc = "Insert line above", silent = true })
