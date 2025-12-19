@@ -1,56 +1,62 @@
 return {
     "saghen/blink.cmp",
-    enabled = false,
-
-    --[[ "saghen/blink.cmp",
-    -- optional: provides snippets for the snippet source
-    dependencies = { "rafamadriz/friendly-snippets" },
-
-    -- use a release tag to download pre-built binaries
+    dependencies = { "rafamadriz/friendly-snippets", "giuxtaposition/blink-cmp-copilot" },
     version = "1.*",
-    -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-    -- build = 'cargo build --release',
-    -- If you use nix, you can build from source using latest nightly rust with:
-    -- build = 'nix run .#build-plugin',
-
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-        -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
-        -- 'super-tab' for mappings similar to vscode (tab to accept)
-        -- 'enter' for enter to accept
-        -- 'none' for no mappings
-        --
-        -- All presets have the following mappings:
-        -- C-space: Open menu or open docs if already open
-        -- C-n/C-p or Up/Down: Select next/previous item
-        -- C-e: Hide menu
-        -- C-k: Toggle signature help (if signature.enabled = true)
-        --
-        -- See :h blink-cmp-config-keymap for defining your own keymap
-        keymap = { preset = "default" },
-
+        keymap = {
+            preset = "default",
+            ["<C-e>"] = { "hide" },
+            ["<C-j>"] = { "select_next", "fallback" },
+            ["<C-k>"] = { "select_prev", "fallback" },
+            ["<C-f>"] = { "scroll_documentation_up", "fallback" },
+            ["<C-v>"] = { "scroll_documentation_down", "fallback" },
+        },
         appearance = {
-            -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-            -- Adjusts spacing to ensure icons are aligned
             nerd_font_variant = "mono",
         },
-
-        -- (Default) Only show the documentation popup when manually triggered
-        completion = { documentation = { auto_show = false } },
-
-        -- Default list of enabled providers defined so that you can extend it
-        -- elsewhere in your config, without redefining it, due to `opts_extend`
-        sources = {
-            default = { "lsp", "path", "snippets", "buffer" },
+        completion = {
+            documentation = {
+                auto_show = true,
+                auto_show_delay_ms = 100,
+            },
+            menu = {
+                draw = {
+                    columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+                },
+            },
+            trigger = {
+                show_on_insert_on_trigger_character = true,
+                show_on_insert_after_debounce_ms = 200,
+            },
         },
-
-        -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
-        -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
-        -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
-        --
-        -- See the fuzzy documentation for more information
+        sources = {
+            default = { "lsp", "path", "snippets", "buffer", "copilot" },
+            min_keyword_length = 3,
+            providers = {
+                copilot = {
+                    name = "copilot",
+                    module = "blink-cmp-copilot",
+                    score_offset = 100,
+                    async = true,
+                },
+                lsp = {
+                    async = true,
+                    score_offset = 90,
+                },
+                snippets = {
+                    score_offset = 80,
+                },
+                path = {
+                    score_offset = 30,
+                },
+                buffer = {
+                    score_offset = 10,
+                },
+            },
+        },
         fuzzy = { implementation = "prefer_rust_with_warning" },
     },
-    opts_extend = { "sources.default" }, ]]
+    opts_extend = { "sources.default" },
 }
