@@ -5,16 +5,16 @@ return {
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "ts_ls",
-                    "html",
-                    "cssls",
                     "lua_ls",
+                    "html",
                     "emmet_ls",
+                    "cssls",
+                    "vtsls",
+                    "vue_ls",
                     "eslint",
                     "stylelint_lsp",
-                    "marksman",
                     "jsonls",
-                    "vue_ls",
+                    "marksman",
                     -- "tailwindcss",
                     -- "intelephense",
                 },
@@ -33,7 +33,7 @@ return {
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-            local on_attach = function(client, bufnr)
+            local on_attach = function(client)
                 client.server_capabilities.documentFormattingProvider = true
                 client.server_capabilities.documentRangeFormattingProvider = true
             end
@@ -43,7 +43,7 @@ return {
             lspconfig.eslint.setup({
                 capabilities = capabilities,
                 on_attach = function(client, bufnr)
-                    on_attach(client, bufnr)
+                    on_attach(client)
 
                     vim.api.nvim_create_autocmd("BufWritePre", {
                         buffer = bufnr,
@@ -60,6 +60,7 @@ return {
                     },
                 },
             })
+
             -- Stylelint
             vim.lsp.config.stylelint_lsp = {
                 capabilities = capabilities,
@@ -98,23 +99,22 @@ return {
                 },
             }
 
-            local vue_ls_path = vim.fn.expand("$MASON/packages/vue-language-server")
-            local vue_plugin_path = vue_ls_path .. "/node_modules/@vue/language-server"
-
-            -- TypeScript with Vue plugin
-            vim.lsp.config.ts_ls = {
+            -- vtsls (TypeScript/JavaScript)
+            vim.lsp.config.vtsls = {
                 capabilities = capabilities,
-                on_attach = on_attach,
-                init_options = {
-                    plugins = {
-                        {
-                            name = "@vue/typescript-plugin",
-                            location = vue_plugin_path,
-                            languages = { "vue" },
-                        },
-                    },
+                on_attach = function(client)
+                    client.server_capabilities.documentHighlightProvider = false
+                    on_attach(client)
+                end,
+                filetypes = {
+                    "javascript",
+                    "javascriptreact",
+                    "javascript.jsx",
+                    "typescript",
+                    "typescriptreact",
+                    "typescript.tsx",
+                    "vue",
                 },
-                filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
             }
 
             -- Twig LSP
@@ -147,8 +147,7 @@ return {
             --         "vue",
             --     },
             -- }
-            --
-            --
+
             -- PHP Intelephense
             -- vim.lsp.config.intelephense = {
             --     capabilities = capabilities,
@@ -167,6 +166,7 @@ return {
             --         },
             --     },
             --     filetypes = { "php" },
+            -- }
 
             -- Keymaps
             vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
