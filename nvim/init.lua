@@ -20,5 +20,5 @@ vim.diagnostic.config({
     },
 })
 
--- vim.o.background = "light"
-vim.o.background = "dark"
+vim.o.background = "light"
+-- vim.o.background = "dark"

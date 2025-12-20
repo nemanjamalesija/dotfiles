@@ -4,9 +4,10 @@
 font-size = 20
 # font-family = MesloLGS Nerd Font Mono 
 #  font-family = RobotoMono Nerd Font Mono
-  # font-family = Inconsolata Nerd Font Mono
-  font-family = JetBrainsMono Nerd Font Mono
-  # font-family = Consolas
+# font-family = Inconsolata Nerd Font Mono
+# font-family = Consolas
+ font-family = JetBrainsMono Nerd Font Mono
+  
 
 # adjust-underline-position = 8
 adjust-underline-thickness = 1
@@ -25,8 +26,9 @@ window-padding-y = 0
 window-decoration = none
  background-opacity = 0.98
 
- # theme = Builtin Solarized Light
-  theme = Catppuccin Macchiato
+  theme = Builtin Solarized Light
+  # theme = Catppuccin Macchiato
+  
 
 # theme = Rose Pine Dawn
 # theme = tokyonight_moon
