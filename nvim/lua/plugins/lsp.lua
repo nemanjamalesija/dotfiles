@@ -1,178 +1,62 @@
 return {
-    { "mason-org/mason.nvim" },
-    {
-        "mason-org/mason-lspconfig.nvim",
-        config = function()
-            require("mason-lspconfig").setup({
-                ensure_installed = {
-                    "lua_ls",
-                    "html",
-                    "emmet_ls",
-                    "cssls",
-                    "vtsls",
-                    "vue_ls",
-                    "eslint",
-                    "stylelint_lsp",
-                    "jsonls",
-                    "marksman",
-                    -- "tailwindcss",
-                    -- "intelephense",
-                },
-                automatic_installation = true,
-            })
-        end,
-    },
+    -- {
+    --     "mason-org/mason-lspconfig.nvim",
+    --     opts = function(_, opts)
+    --         opts.ensure_installed = opts.ensure_installed or {}
+    --         -- Remove vue_ls if it exists
+    --         opts.ensure_installed = vim.tbl_filter(function(server)
+    --             return server ~= "vue_ls"
+    --         end, opts.ensure_installed)
+    --     end,
+    -- },
     {
         "neovim/nvim-lspconfig",
-        opts = {
-            inlay_hints = { enabled = false },
-        },
-        config = function()
-            vim.lsp.set_log_level("off")
+        opts = function(_, opts)
+            opts.servers = opts.servers or {}
 
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-            local on_attach = function(client)
-                client.server_capabilities.documentFormattingProvider = true
-                client.server_capabilities.documentRangeFormattingProvider = true
-            end
-
-            local lspconfig = require("lspconfig")
-
-            lspconfig.eslint.setup({
-                capabilities = capabilities,
-                on_attach = function(client, bufnr)
-                    on_attach(client)
-
-                    vim.api.nvim_create_autocmd("BufWritePre", {
-                        buffer = bufnr,
-                        callback = function()
-                            vim.cmd("EslintFixAll")
-                        end,
-                    })
-                end,
-                settings = {
-                    run = "onSave",
-                    workingDirectory = { mode = "auto" },
-                    experimental = {
-                        useFlatConfig = true,
-                    },
-                },
-            })
-
-            -- Stylelint
-            vim.lsp.config.stylelint_lsp = {
-                capabilities = capabilities,
-                on_attach = on_attach,
-                settings = {
-                    stylelintplus = {
-                        autoFixOnSave = true,
-                        autoFixOnFormat = true,
-                    },
-                },
-                filetypes = { "css", "scss", "sass", "less" },
-            }
-
-            --JSON
-            vim.lsp.config.jsonls = {
-                capabilities = capabilities,
-                on_attach = on_attach,
-                filetypes = { "json", "jsonc" },
-            }
-
-            -- HTML LSP
-            vim.lsp.config.html = {
-                capabilities = capabilities,
-                on_attach = on_attach,
-                filetypes = { "html" },
-            }
-
-            -- Emmet LSP
-            vim.lsp.config.emmet_ls = {
-                capabilities = capabilities,
-                on_attach = on_attach,
+            opts.servers.emmet_ls = {
                 filetypes = {
                     "html",
                     "css",
                     "scss",
-                },
-            }
-
-            -- vtsls (TypeScript/JavaScript)
-            vim.lsp.config.vtsls = {
-                capabilities = capabilities,
-                on_attach = function(client)
-                    client.server_capabilities.documentHighlightProvider = false
-                    on_attach(client)
-                end,
-                filetypes = {
-                    "javascript",
+                    "sass",
                     "javascriptreact",
-                    "javascript.jsx",
-                    "typescript",
                     "typescriptreact",
-                    "typescript.tsx",
-                    "vue",
+                    -- "vue" is intentionally removed
                 },
             }
 
-            -- Twig LSP
-            lspconfig.twiggy_language_server.setup({
-                capabilities = capabilities,
-                on_attach = on_attach,
-                filetypes = { "twig" },
-                root_dir = lspconfig.util.root_pattern(".git", "."),
-            })
+            -- Completely disable vue_ls
+            opts.servers.vue_ls = opts.servers.vue_ls or {}
+            opts.servers.vue_ls.enabled = false
 
-            -- Markdown LSP
-            vim.lsp.config.markdown = {
-                capabilities = capabilities,
-                on_attach = on_attach,
-                filetypes = { "markdown" },
+            -- -- Disable volar too (same binary as vue_ls)
+            -- opts.servers.volar = opts.servers.volar or {}
+            -- opts.servers.volar.enabled = false
+
+            -- Disable inlay hints for vtsls
+            opts.servers.vtsls = opts.servers.vtsls or {}
+            opts.servers.vtsls.settings = opts.servers.vtsls.settings or {}
+            opts.servers.vtsls.settings.typescript = opts.servers.vtsls.settings.typescript or {}
+            opts.servers.vtsls.settings.typescript.inlayHints = {
+                enumMemberValues = { enabled = false },
+                functionLikeReturnTypes = { enabled = false },
+                parameterNames = { enabled = "none" },
+                parameterTypes = { enabled = false },
+                propertyDeclarationTypes = { enabled = false },
+                variableTypes = { enabled = false },
+            }
+            opts.servers.vtsls.settings.javascript = opts.servers.vtsls.settings.javascript or {}
+            opts.servers.vtsls.settings.javascript.inlayHints = {
+                enumMemberValues = { enabled = false },
+                functionLikeReturnTypes = { enabled = false },
+                parameterNames = { enabled = "none" },
+                parameterTypes = { enabled = false },
+                propertyDeclarationTypes = { enabled = false },
+                variableTypes = { enabled = false },
             }
 
-            -- Tailwind CSS LSP
-            -- vim.lsp.config.tailwindcss = {
-            --     capabilities = capabilities,
-            --     on_attach = on_attach,
-            --     filetypes = {
-            --         "html",
-            --         "css",
-            --         "scss",
-            --         "javascript",
-            --         "javascriptreact",
-            --         "typescript",
-            --         "typescriptreact",
-            --         "vue",
-            --     },
-            -- }
-
-            -- PHP Intelephense
-            -- vim.lsp.config.intelephense = {
-            --     capabilities = capabilities,
-            --     on_attach = on_attach,
-            --     settings = {
-            --         intelephense = {
-            --             stubs = {
-            --                 "symfony",
-            --                 "Core",
-            --                 "PDO",
-            --                 "json",
-            --                 "mbstring",
-            --                 "curl",
-            --                 "openssl",
-            --             },
-            --         },
-            --     },
-            --     filetypes = { "php" },
-            -- }
-
-            -- Keymaps
-            vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
-            vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-            vim.keymap.set("n", "<leader>cr", vim.lsp.buf.references, { desc = "Find references" })
-            vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
+            return opts
         end,
     },
 }
