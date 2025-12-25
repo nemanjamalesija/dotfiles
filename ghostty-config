@@ -26,9 +26,10 @@ window-padding-y = 0
 window-decoration = none
  background-opacity = 0.98
 
-  theme = Builtin Solarized Light
-  # theme = Catppuccin Macchiato
-  
+# theme = Builtin Solarized Light
+# theme = Catppuccin Macchiato
+theme = One Double Dark
+	  
 
 # theme = Rose Pine Dawn
 # theme = tokyonight_moon
