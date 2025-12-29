@@ -75,7 +75,7 @@ return {
         end
 
         local function set_illuminate_highlights()
-            local underline_color = get_function_fg()
+            local underline_color = 0xbf68d9
             for _, group in ipairs({
                 "IlluminatedWordText",
                 "IlluminatedWordRead",

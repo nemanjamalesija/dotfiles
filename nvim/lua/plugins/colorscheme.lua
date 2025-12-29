@@ -1,13 +1,13 @@
 return {
     {
         "navarasu/onedark.nvim",
-        priority = 1000, -- make sure to load this before all the other start plugins
+        priority = 1000,
         config = function()
             require("onedark").setup({
                 style = "darker",
                 -- transparent = true,
             })
-            require("onedark").load()
+            -- require("onedark").load()
         end,
     },
     {
@@ -115,21 +115,21 @@ return {
                     hl.DiagnosticUnderlineError = { fg = "NONE", undercurl = true, sp = palette.red }
                 end,
 
-                -- vim.cmd.colorscheme("everforest"),
+                vim.cmd.colorscheme("everforest"),
             })
         end,
     },
-    -- {
-    --     "Mofiqul/vscode.nvim",
-    --     -- priority = 1000,
-    --     config = function()
-    --         vim.o.background = "dark"
-    --         require("vscode").setup({
-    --             background = "hard",
-    --             transparent = true,
-    --             terminal_colors = true,
-    --         })
-    --         -- vim.cmd.colorscheme("vscode")
-    --     end,
-    -- },
+    {
+        "Mofiqul/vscode.nvim",
+        -- priority = 1000,
+        config = function()
+            vim.o.background = "dark"
+            require("vscode").setup({
+                background = "hard",
+                -- transparent = true,
+                terminal_colors = true,
+            })
+            -- vim.cmd.colorscheme("vscode")
+        end,
+    },
 }
