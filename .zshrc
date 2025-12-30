@@ -21,6 +21,7 @@ njuBranch () {
     git checkout -b "${JIRA_ID}-${SLUGIFIED_BRANCH_NAME}"
 }
 
+alias v='nvim'
 alias dot='cd ~/.dotfiles'
 
 alias zcfg='nvim ~/.dotfiles/.zshrc'
