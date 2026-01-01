@@ -3,7 +3,6 @@ return {
     event = "LazyFile",
     opts = function()
         vim.api.nvim_set_hl(0, "IblScope", { fg = "#bf68d9" })
-
         return {
             indent = {
                 char = "┃",
@@ -11,11 +10,28 @@ return {
             },
             scope = {
                 enabled = true,
-                show_end = false,
                 show_start = true,
+                show_end = true,
                 char = "▏",
                 highlight = { "IblScope" },
-                -- highlight = { "Label" },
+                include = {
+                    node_type = {
+                        javascript = {
+                            "object_pattern",
+                            "object",
+                            "array",
+                            "arguments",
+                            "statement_block",
+                        },
+                        typescript = {
+                            "object_pattern",
+                            "object",
+                            "array",
+                            "arguments",
+                            "statement_block",
+                        },
+                    },
+                },
             },
             exclude = {
                 filetypes = {
