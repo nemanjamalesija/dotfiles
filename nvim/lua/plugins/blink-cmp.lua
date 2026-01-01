@@ -11,12 +11,16 @@ return {
     ---@type blink.cmp.Config
     opts = {
         sources = {
-            default = { "lsp", "path", "snippets", "buffer", "copilot" },
+            default = { "snippets", "lsp", "path", "buffer", "copilot" },
             providers = {
+                snippets = {
+                    name = "snippets",
+                    score_offset = 100,
+                },
                 copilot = {
                     name = "copilot",
                     module = "blink-cmp-copilot",
-                    score_offset = 100,
+                    score_offset = 99,
                     async = true,
                 },
             },
