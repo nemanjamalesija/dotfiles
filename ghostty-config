@@ -27,13 +27,14 @@ macos-option-as-alt = true
 window-padding-x = 0
 window-padding-y = 0
 window-decoration = none
-background-opacity = 0.98
+# background-opacity = 0.98
 
-# theme = Builtin Solarized Light
-# theme = Catppuccin Macchiato
-# theme = One Double Dark
-	  
+#  theme = Builtin Solarized Light
+#  theme = Rose Pine Dawn
 
- theme = Rose Pine Dawn
-# theme = tokyonight_moon
-# theme = Everforest Dark - Hard
+   theme = Dark Modern
+
+#  theme = Catppuccin Macchiato
+#  theme = Catppuccin Latte
+
+#  theme = One Double Dark
