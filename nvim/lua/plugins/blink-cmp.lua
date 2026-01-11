@@ -39,6 +39,7 @@ return {
             ["<C-v>"] = { "scroll_documentation_down", "fallback" },
             ["<C-l>"] = { "snippet_forward", "fallback" },
             ["<C-h>"] = { "snippet_backward", "fallback" },
+            ["<M-Space>"] = { "show", "fallback" },
         },
     },
 }
