@@ -12,8 +12,22 @@ return {
     {
         "neovim/nvim-lspconfig",
         opts = function(_, opts)
+            opts.diagnostics = {
+                underline = true,
+                update_in_insert = false,
+                virtual_text = false,
+                virtual_lines = false,
+                severity_sort = true,
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = "E",
+                        [vim.diagnostic.severity.WARN] = "W",
+                        [vim.diagnostic.severity.HINT] = "H",
+                        [vim.diagnostic.severity.INFO] = "I",
+                    },
+                },
+            }
             opts.servers = opts.servers or {}
-
             opts.servers.emmet_ls = {
                 filetypes = {
                     "html",
