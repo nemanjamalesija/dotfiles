@@ -10,6 +10,11 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
+        appearance = {
+            -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+            -- Adjusts spacing to ensure icons are aligned
+            nerd_font_variant = "mono",
+        },
         sources = {
             default = { "snippets", "lsp", "path", "buffer", "copilot" },
             providers = {
@@ -25,9 +30,13 @@ return {
                 },
             },
         },
+        fuzzy = { implementation = "prefer_rust_with_warning" },
         completion = {
             ghost_text = {
                 enabled = false,
+            },
+            menu = {
+                auto_show = true,
             },
         },
         keymap = {
