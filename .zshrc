@@ -102,7 +102,8 @@ alias borders-restart='brew services restart felixkratz/formulae/borders'
 alias notes='nvim ~/vaults/njuskalo'
 alias cls="clear"
 
-alias gdiff='git diff' 
+alias smerge='"/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge" .'
+alias gdiff='git diff'
 alias gs='git status' 
 alias ga='git add' 
 alias gcm='git commit -m'
