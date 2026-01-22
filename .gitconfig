@@ -3,17 +3,6 @@
 	email = malesija.nemanja@gmail.com
 [core]
 	editor = nvim
-	pager = delta
-[interactive]
-	diffFilter = delta --color-only
-[delta]
-  light = true
- syntax-theme = Solarized (light)
- #  dark = true
- # syntax-theme = Monokai Extended Bright
-  line-numbers = true
-  decorations = true
-  side-by-side = false
 [merge]
 	conflictStyle = zdiff3
 	tool = sublimemerge
