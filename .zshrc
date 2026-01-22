@@ -36,7 +36,7 @@ alias tsource="tmux source ~/.tmux.conf"
 alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
 alias gcfg="nvim ~/.dotfiles/ghostty-config"
 
-# Theme switcher - syncs Ghostty and Neovim colorschemes
+# Theme switcher - syncs Ghostty, Neovim, and tmux colorschemes
 # Usage: theme light  (Builtin Solarized Light + Everforest)
 #        theme dark   (Catppuccin Macchiato + Catppuccin)
 theme() {
@@ -54,12 +54,16 @@ theme() {
     echo "$mode" > "$HOME/.theme-mode"
 
     if [[ "$mode" == "light" ]]; then
+        # Ghostty light theme
         sed -i '' 's/^theme = .*/theme = Builtin Solarized Light/' "$ghostty_config"
         sed -i '' 's/^background-opacity = .*/background-opacity = 1.0/' "$ghostty_config"
-        echo "Switched to light theme (Solarized light + Everforest)"
+
+        echo "Switched to light theme (Solarized Light + Everforest)"
     else
+        # Ghostty dark theme
         sed -i '' 's/^theme = .*/theme = Catppuccin Macchiato/' "$ghostty_config"
         sed -i '' 's/^background-opacity = .*/background-opacity = 0.95/' "$ghostty_config"
+
         echo "Switched to dark theme (Catppuccin Macchiato)"
     fi
 
