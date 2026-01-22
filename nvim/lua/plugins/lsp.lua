@@ -25,7 +25,6 @@ return {
                     border = "single",
                     max_height = 10,
                     max_width = 130,
-                    close_events = { "CursorMoved", "BufLeave", "WinLeave", "InsertEnter" },
                 },
             }
 
@@ -51,27 +50,28 @@ return {
                 set_qflist(0)
             end, { desc = "See Quickfix List for Current Buffer" })
 
-            -- automatically show diagnostic in float win for current line
-            api.nvim_create_autocmd("CursorHold", {
-                pattern = "*",
-                callback = function()
-                    if #vim.diagnostic.get(0) == 0 then
-                        return
-                    end
-
-                    if not vim.b.diagnostics_pos then
-                        vim.b.diagnostics_pos = { nil, nil }
-                    end
-
-                    local cursor_pos = api.nvim_win_get_cursor(0)
-
-                    if not vim.deep_equal(cursor_pos, vim.b.diagnostics_pos) then
-                        diagnostic.open_float({})
-                    end
-
-                    vim.b.diagnostics_pos = cursor_pos
-                end,
-            })
+            -- Disabled: auto-popup conflicts with manual focusable float
+            -- Use <leader>cd instead to open focusable diagnostic float
+            -- api.nvim_create_autocmd("CursorHold", {
+            --     pattern = "*",
+            --     callback = function()
+            --         if #vim.diagnostic.get(0) == 0 then
+            --             return
+            --         end
+            --
+            --         if not vim.b.diagnostics_pos then
+            --             vim.b.diagnostics_pos = { nil, nil }
+            --         end
+            --
+            --         local cursor_pos = api.nvim_win_get_cursor(0)
+            --
+            --         if not vim.deep_equal(cursor_pos, vim.b.diagnostics_pos) then
+            --             diagnostic.open_float({})
+            --         end
+            --
+            --         vim.b.diagnostics_pos = cursor_pos
+            --     end,
+            -- })
             opts.servers = opts.servers or {}
             opts.servers.emmet_ls = {
                 filetypes = {
