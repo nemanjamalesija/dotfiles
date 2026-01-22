@@ -6,8 +6,10 @@
 local map = vim.keymap.set
 
 -- File operations
-map("n", "<leader>fw", "<cmd>w<cr>", { desc = "Save file" })
-map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit buffer" })
+map("n", "<leader>fw", "<cmd>w<cr>", { desc = "Save File" })
+
+-- Close current buffer
+map("n", "<leader>qb", "<cmd>q<cr>", { desc = "Quit Buffer" })
 
 vim.api.nvim_create_user_command("W", "w", {})
 
@@ -64,6 +66,3 @@ map("n", "<leader>Ot", ":ObsidianToday<CR>", { desc = "Obsidian: Notes for today
 -- Insert blank lines without entering insert mode
 map("n", "<leader>o", ":put _<CR>", { desc = "Insert line below", silent = true })
 map("n", "<leader>O", ":put! _<CR>", { desc = "Insert line above", silent = true })
-
--- LSP
-map("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Go to definition" })
