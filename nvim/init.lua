@@ -1,3 +1,16 @@
+-- Read theme mode from ~/.theme-mode (set by `theme` shell command)
+-- Must be set BEFORE lazy loads plugins
+local theme_file = vim.fn.expand("~/.theme-mode")
+local theme_mode = "light" -- default
+if vim.fn.filereadable(theme_file) == 1 then
+    local content = vim.fn.readfile(theme_file)
+    if content[1] == "dark" then
+        theme_mode = "dark"
+    end
+end
+vim.o.background = theme_mode
+vim.g.theme_mode = theme_mode
+
 require("config.lazy")
 
 vim.filetype.add({
@@ -7,18 +20,3 @@ vim.filetype.add({
         scss = "sass",
     },
 })
-
-vim.diagnostic.config({
-    virtual_text = false,
-    underline = true,
-    signs = true,
-    update_in_insert = false,
-    float = {
-        max_width = 80,
-        wrap = true,
-        border = "rounded",
-    },
-})
-
-vim.o.background = "light"
--- vim.o.background = "dark"

@@ -1,6 +1,9 @@
 # adjust-cell-width = "-2%"
 # adjust-cell-height = "-5%"
 
+window-decoration = none 
+background-opacity = 0.98
+
 font-size = 20
 
 # font-family = MesloLGS Nerd Font Mono 
@@ -24,17 +27,9 @@ macos-titlebar-style = tabs
 macos-option-as-alt = true
 
 
-window-padding-x = 0
-window-padding-y = 0
-window-decoration = none
-# background-opacity = 0.98
+# Theme - managed by `theme` shell command (light/dark)
+theme = Catppuccin Macchiato
 
-#  theme = Builtin Solarized Light
-#  theme = Rose Pine Dawn
+# Keybindings
+ keybind = ctrl+t>t=text:tt\r
 
-   theme = Dark Modern
-
-#  theme = Catppuccin Macchiato
-#  theme = Catppuccin Latte
-
-#  theme = One Double Dark

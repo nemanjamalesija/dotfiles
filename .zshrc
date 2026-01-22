@@ -34,6 +34,55 @@ alias acfg="nvim /Users/nemanjamalesija/.config/alacritty/alacritty.toml"
 alias tcfg="nvim ~/.tmux.conf"
 alias tsource="tmux source ~/.tmux.conf"
 alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
+alias gcfg="nvim ~/.dotfiles/ghostty-config"
+
+# Theme switcher - syncs Ghostty and Neovim colorschemes
+# Usage: theme light  (Builtin Solarized Light + Everforest)
+#        theme dark   (Catppuccin Macchiato + Catppuccin)
+theme() {
+    local mode="$1"
+    local ghostty_config="$HOME/.dotfiles/ghostty-config"
+
+    if [[ "$mode" != "light" && "$mode" != "dark" ]]; then
+        echo "Usage: theme [light|dark]"
+        echo "  light - Builtin Solarized Light (Ghostty) + Everforest (Neovim)"
+        echo "  dark  - Catppuccin Macchiato (Ghostty) + Catppuccin (Neovim)"
+        return 1
+    fi
+
+    # Write theme mode for Neovim to read
+    echo "$mode" > "$HOME/.theme-mode"
+
+    if [[ "$mode" == "light" ]]; then
+        sed -i '' 's/^theme = .*/theme = Builtin Solarized Light/' "$ghostty_config"
+        sed -i '' 's/^background-opacity = .*/background-opacity = 1.0/' "$ghostty_config"
+        echo "Switched to light theme (Solarized light + Everforest, opaque)"
+    else
+        sed -i '' 's/^theme = .*/theme = Catppuccin Macchiato/' "$ghostty_config"
+        sed -i '' 's/^background-opacity = .*/background-opacity = 0.98/' "$ghostty_config"
+        echo "Switched to dark theme (Catppuccin Macchiato, transparent)"
+    fi
+
+    # Reload Ghostty config (Cmd+Shift+,)
+    osascript -e 'tell application "System Events" to keystroke "," using {command down, shift down}'
+}
+
+toggleTheme() {
+  theme_file="$HOME/.theme-mode"
+  # Default to dark if file is missing or empty
+  if [ ! -f "$theme_file" ]; then
+      theme light 
+      return
+  fi
+  mode="$(cat "$theme_file")"
+  if [[ "$mode" == "light" ]]; then
+    theme dark
+  else
+    theme light
+  fi
+}
+
+alias tt=toggleTheme
 
 alias borders='nvim ~/.dotfiles/borders/bordersrc'
 alias borders-start='brew services start felixkratz/formulae/borders' 

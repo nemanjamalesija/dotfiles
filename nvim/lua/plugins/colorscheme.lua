@@ -1,20 +1,9 @@
 return {
     {
-        "navarasu/onedark.nvim",
-        priority = 1000,
-        config = function()
-            require("onedark").setup({
-                style = "darker",
-                -- transparent = true,
-            })
-            -- require("onedark").load()
-        end,
-    },
-    {
         "catppuccin/nvim",
         name = "catppuccin",
-        -- priority = 1000,
-        -- lazy = false,
+        lazy = false,
+        priority = 1000,
         config = function()
             require("catppuccin").setup({
                 flavour = "macchiato",
@@ -38,6 +27,10 @@ return {
                     },
                 },
             })
+            -- Load catppuccin if dark theme
+            if vim.g.theme_mode == "dark" then
+                vim.cmd.colorscheme("catppuccin")
+            end
         end,
     },
     {
@@ -61,38 +54,30 @@ return {
                 on_highlights = function(hl, palette)
                     local solarizedYellow = "#b58900"
                     local customOrange = "#e47112"
-                    -- #f57D26
 
                     hl["@punctuation.bracket"] = { fg = palette.fg }
 
                     -- HTML tags
-                    hl["@tag"] = { fg = palette.orange, bold = true }
+                    hl["@tag"] = { fg = palette.orange, bold = false }
                     hl["@tag.bracket"] = { fg = palette.fg }
                     hl["@tag.delimiter"] = { fg = palette.fg }
                     hl["@tag.attribute"] = { fg = palette.fg, bg = palette.bg1 }
-                    -- hl["@tag.attribute.vue"] = { fg = palette.fg, bg = palette.bg1 }
 
-                    -- Keywords
+                    hl["@keyword"] = { fg = solarizedYellow, bold = false }
+                    hl["@keyword.import"] = { fg = solarizedYellow, bold = false }
+                    hl["@keyword.export"] = { fg = solarizedYellow, bold = false }
+                    hl["@keyword.import.javascript"] = { fg = solarizedYellow, bold = false }
+                    hl["@keyword.export.javascript"] = { fg = solarizedYellow, bold = false }
+                    hl["@keyword.return"] = { fg = solarizedYellow, bold = false }
+                    hl["@keyword.operator"] = { fg = solarizedYellow, bold = false }
+                    hl["@keyword.repeat"] = { fg = solarizedYellow, bold = false }
+                    hl["@keyword.exception"] = { fg = solarizedYellow, bold = false }
+                    hl["@keyword.modifier"] = { fg = solarizedYellow, bold = false }
+                    hl["@keyword.type"] = { fg = solarizedYellow, bold = false }
+                    hl["@keyword.coroutine"] = { fg = solarizedYellow, bold = false }
+                    hl["@keyword.directive"] = { fg = solarizedYellow, bold = false }
+                    hl["@keyword.function"] = { fg = solarizedYellow, bold = false }
 
-                    hl["@keyword"] = { fg = solarizedYellow, bold = true }
-                    hl["@keyword.import"] = { fg = solarizedYellow, bold = true }
-                    hl["@keyword.export"] = { fg = solarizedYellow, bold = true }
-                    hl["@keyword.import.javascript"] = { fg = solarizedYellow, bold = true }
-                    hl["@keyword.export.javascript"] = { fg = solarizedYellow, bold = true }
-                    hl["@keyword.return"] = { fg = solarizedYellow, bold = true }
-                    hl["@keyword.operator"] = { fg = solarizedYellow, bold = true }
-                    hl["@keyword.repeat"] = { fg = solarizedYellow, bold = true }
-                    hl["@keyword.exception"] = { fg = solarizedYellow, bold = true }
-                    hl["@keyword.modifier"] = { fg = solarizedYellow, bold = true }
-                    hl["@keyword.type"] = { fg = solarizedYellow, bold = true }
-                    hl["@keyword.coroutine"] = { fg = solarizedYellow, bold = true }
-                    hl["@keyword.directive"] = { fg = solarizedYellow, bold = true }
-                    hl["@keyword.function"] = { fg = solarizedYellow, bold = true }
-
-                    -- hl["@function"] = { fg = palette.green, bold = true }
-                    -- hl["@function.method"] = { fg = palette.green, bold = true }
-
-                    -- Operators
                     hl["@operator"] = { fg = solarizedYellow }
                     hl["@operator.logical"] = { fg = solarizedYellow }
                     hl["@operator.comparison"] = { fg = solarizedYellow }
@@ -104,7 +89,6 @@ return {
                     hl["@operator.pipeline"] = { fg = solarizedYellow }
                     hl["@keyword.conditional"] = { fg = solarizedYellow }
 
-                    -- Parameters
                     hl["@variable.parameter"] = { fg = customOrange }
                     hl["@lsp.type.parameter.vue"] = { fg = customOrange }
                     hl["@lsp.type.parameter.javascript"] = { fg = customOrange }
@@ -114,19 +98,20 @@ return {
                     hl.DiagnosticUnderlineWarn = { fg = "NONE", undercurl = true, sp = customOrange }
                     hl.DiagnosticUnderlineError = { fg = "NONE", undercurl = true, sp = palette.red }
                 end,
-
-                vim.cmd.colorscheme("everforest"),
             })
+            -- Load everforest if light theme
+            if vim.g.theme_mode == "light" then
+                vim.o.background = "light"
+                vim.cmd.colorscheme("everforest")
+            end
         end,
     },
     {
         "Mofiqul/vscode.nvim",
-        -- priority = 1000,
         config = function()
-            vim.o.background = "dark"
             require("vscode").setup({
                 background = "hard",
-                -- transparent = true,
+                transparent = true,
                 terminal_colors = true,
             })
             -- vim.cmd.colorscheme("vscode")
