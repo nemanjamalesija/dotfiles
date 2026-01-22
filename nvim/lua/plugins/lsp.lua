@@ -89,9 +89,11 @@ return {
             opts.servers.vue_ls = opts.servers.vue_ls or {}
             opts.servers.vue_ls.enabled = false
 
-            -- Disable inlay hints for vtsls
+            -- Configure vtsls for performance
             opts.servers.vtsls = opts.servers.vtsls or {}
             opts.servers.vtsls.settings = opts.servers.vtsls.settings or {}
+
+            -- Disable inlay hints
             opts.servers.vtsls.settings.typescript = opts.servers.vtsls.settings.typescript or {}
             opts.servers.vtsls.settings.typescript.inlayHints = {
                 enumMemberValues = { enabled = false },
@@ -109,6 +111,22 @@ return {
                 parameterTypes = { enabled = false },
                 propertyDeclarationTypes = { enabled = false },
                 variableTypes = { enabled = false },
+            }
+
+            -- Performance: reduce file watcher overhead
+            opts.servers.vtsls.settings.vtsls = opts.servers.vtsls.settings.vtsls or {}
+            opts.servers.vtsls.settings.vtsls.experimental = {
+                completion = {
+                    enableServerSideFuzzyMatch = true, -- faster completions
+                },
+            }
+
+            -- Performance: tsserver preferences
+            opts.servers.vtsls.settings.typescript.preferences = {
+                includePackageJsonAutoImports = "off", -- don't scan package.json for auto-imports
+            }
+            opts.servers.vtsls.settings.javascript.preferences = {
+                includePackageJsonAutoImports = "off",
             }
 
             return opts
