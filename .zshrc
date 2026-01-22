@@ -56,11 +56,11 @@ theme() {
     if [[ "$mode" == "light" ]]; then
         sed -i '' 's/^theme = .*/theme = Builtin Solarized Light/' "$ghostty_config"
         sed -i '' 's/^background-opacity = .*/background-opacity = 1.0/' "$ghostty_config"
-        echo "Switched to light theme (Solarized light + Everforest, opaque)"
+        echo "Switched to light theme (Solarized light + Everforest)"
     else
         sed -i '' 's/^theme = .*/theme = Catppuccin Macchiato/' "$ghostty_config"
         sed -i '' 's/^background-opacity = .*/background-opacity = 0.98/' "$ghostty_config"
-        echo "Switched to dark theme (Catppuccin Macchiato, transparent)"
+        echo "Switched to dark theme (Catppuccin Macchiato)"
     fi
 
     # Reload Ghostty config (Cmd+Shift+,)
