@@ -20,7 +20,7 @@ return {
                 },
             },
             winopts = {
-                width = 0.8,
+                width = 0.88,
                 height = 0.8,
                 row = 0.5,
                 col = 0.5,
@@ -80,8 +80,8 @@ return {
             return args
         end
 
-        local function get_rg_exclude_globs()
-            local excludes = {
+        local function get_rg_exclude_patterns()
+            return {
                 "__install",
                 "__project",
                 "_db_diff",
@@ -103,13 +103,6 @@ return {
                 ".git/logs",
                 "var/cache/dev",
             }
-
-            local globs = {}
-            for _, exclude in ipairs(excludes) do
-                table.insert(globs, "--glob")
-                table.insert(globs, "!**/" .. exclude .. "/**")
-            end
-            return globs
         end
 
         vim.keymap.set("n", "<leader><leader>", function()
@@ -133,28 +126,60 @@ return {
         end, { desc = "Fuzzy search in current buffer" })
 
         vim.keymap.set("n", "<leader>fg", function()
-            local rg_opts = "--column --line-number --no-heading --color=always --hidden --no-ignore --fixed-strings"
-            local exclude_globs = get_rg_exclude_globs()
-
-            -- Convert globs table to string
-            local globs_str = ""
-            for i = 1, #exclude_globs, 2 do
-                globs_str = globs_str .. " " .. exclude_globs[i] .. " '" .. exclude_globs[i + 1] .. "'"
-            end
-
             fzf_lua.live_grep({
-                rg_opts = rg_opts .. globs_str,
+                rg_opts = "--column --line-number --no-heading --color=always --smart-case --hidden",
+                file_ignore_patterns = get_rg_exclude_patterns(),
                 exec_empty_query = true,
                 fzf_opts = {
                     ["--layout"] = "reverse",
                 },
                 winopts = {
                     preview = {
-                        hidden = false, -- show preview for this picker
+                        hidden = false,
                     },
                 },
             })
-        end, { desc = "Live grep (project wide)" })
+        end, { desc = "Live grep (smart search)" })
+
+        -- Literal/fixed-string search mode (for exact string matching, useful for special chars)
+        vim.keymap.set("n", "<leader>fG", function()
+            fzf_lua.live_grep({
+                rg_opts = "--column --line-number --no-heading --color=always --fixed-strings --hidden",
+                file_ignore_patterns = get_rg_exclude_patterns(),
+                exec_empty_query = true,
+                fzf_opts = {
+                    ["--layout"] = "reverse",
+                },
+                winopts = {
+                    preview = { hidden = false },
+                },
+            })
+        end, { desc = "Live grep (literal/fixed-string mode)" })
+
+        -- Search ALL files (no exclusions, no gitignore) - last resort when you can't find something
+        vim.keymap.set("n", "<leader>fxg", function()
+            fzf_lua.live_grep({
+                rg_opts = "--column --line-number --no-heading --color=always --smart-case --hidden --no-ignore",
+                exec_empty_query = true,
+                fzf_opts = {
+                    ["--layout"] = "reverse",
+                },
+                winopts = {
+                    preview = { hidden = false },
+                },
+            })
+        end, { desc = "Live grep (search EVERYWHERE - no exclusions)" })
+
+        -- Find ALL files (no exclusions) - useful for finding files in excluded directories
+        vim.keymap.set("n", "<leader>fx<leader>", function()
+            fzf_lua.files({
+                fd_opts = "--type f --hidden --follow --color=never --no-ignore",
+                cwd_prompt = false,
+                fzf_opts = {
+                    ["--layout"] = "reverse",
+                },
+            })
+        end, { desc = "Find ALL files (no exclusions)" })
 
         vim.keymap.set("v", "<leader>fsf", function()
             -- Yank current selection to unnamed register
