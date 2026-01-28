@@ -6,13 +6,14 @@
 [merge]
 	conflictStyle = zdiff3
 	tool = sublimemerge
+
 [diff]
-  tool = sublimemerge
+	tool = sublimemerge
 [difftool "sublimemerge"]
-    cmd = \"/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge\" diff \"$LOCAL\" \"$REMOTE\"
-    path = /Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge
+	cmd = \"/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge\" diff \"$LOCAL\" \"$REMOTE\"
+	path = /Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge
 [mergetool "sublimemerge"]
-    cmd = \"/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge\" mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
-    trustExitCode = true
+	cmd = \"/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge\" mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+	trustExitCode = true
 
 [alias]
