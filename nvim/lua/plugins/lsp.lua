@@ -1,6 +1,9 @@
 return {
     {
         "neovim/nvim-lspconfig",
+        -- NOTE: LSP hover and signature help borders are now configured in noice.lua
+        -- noice.nvim handles these UI elements and overrides vim.lsp.handlers
+        -- See nvim/lua/plugins/noice.lua for hover/signature configuration
         opts = function(_, opts)
             local diagnostic = vim.diagnostic
             local api = vim.api
@@ -22,7 +25,7 @@ return {
                     source = true,
                     header = "Diagnostics:",
                     prefix = " ",
-                    border = "single",
+                    border = "rounded",
                     max_height = 10,
                     max_width = 130,
                 },
