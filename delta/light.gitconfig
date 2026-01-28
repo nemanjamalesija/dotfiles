@@ -1,0 +1,5 @@
+[delta]
+  light = true
+  syntax-theme = Solarized (light)
+  line-numbers = true
+  decorations = true

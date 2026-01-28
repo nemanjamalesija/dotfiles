@@ -1,19 +1,38 @@
 [user]
 	name = Nemanja Malesija
 	email = malesija.nemanja@gmail.com
+
+# Include Catppuccin themes for delta
+[include]
+	path = ~/.dotfiles/delta/catppuccin-themes.gitconfig
+
+# Theme switching: delta will use the theme defined by ~/.theme-mode
+# To switch themes, use: theme light | theme dark
+# Light mode: Solarized Light
+# Dark mode: Catppuccin Macchiato
+[include]
+	path = ~/.dotfiles/delta/theme.gitconfig
+
 [core]
 	editor = nvim
+	pager = delta
+
 [merge]
 	conflictStyle = zdiff3
 	tool = sublimemerge
 
 [diff]
 	tool = sublimemerge
+
 [difftool "sublimemerge"]
 	cmd = \"/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge\" diff \"$LOCAL\" \"$REMOTE\"
 	path = /Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge
+
 [mergetool "sublimemerge"]
 	cmd = \"/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge\" mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
 	trustExitCode = true
+
+[interactive]
+	diffFilter = delta --color-only
 
 [alias]
