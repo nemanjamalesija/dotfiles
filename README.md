@@ -1,0 +1,73 @@
+# Dotfiles
+
+Personal dotfiles for macOS development environment.
+
+## Installation
+
+```bash
+git clone git@github.com:nemanjamalesija/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+./install.sh
+```
+
+The install script creates symlinks for all configurations and sets up the theme system.
+
+## What's Included
+
+| Tool | Config File |
+|------|-------------|
+| Zsh | `.zshrc`, `.zprofile` |
+| Git | `.gitconfig` |
+| Neovim | `nvim/` |
+| tmux | `tmux.conf` |
+| Ghostty | `ghostty-config` |
+| Alacritty | `alacritty/alacritty.toml` |
+| WezTerm | `wezterm.lua` |
+| Borders | `borders/bordersrc` |
+| Delta | `delta/` (git diff themes) |
+| Bat | `bat/themes/` (syntax themes) |
+
+## Theme Switching
+
+Unified theme switching across Ghostty, Neovim, tmux, and delta:
+
+```bash
+theme light    # Solarized Light + Everforest
+theme dark     # Catppuccin Macchiato
+tt             # Toggle between themes
+```
+
+## Key Aliases
+
+### Git
+- `gs` - git status
+- `ga` - git add
+- `gcm` - git commit -m
+- `gco` - git checkout
+- `gp` - git push
+- `gpl` - git pull -r
+
+### Config Editing
+- `zcfg` - edit .zshrc
+- `vcfg` - edit nvim config
+- `tcfg` - edit tmux.conf
+
+### Navigation
+- `dot` - cd to ~/.dotfiles
+- `v` - open nvim
+
+## Dependencies
+
+Install via Homebrew:
+
+```bash
+brew install neovim tmux git-delta bat fzf ripgrep fd
+```
+
+## Post-Install
+
+After running `install.sh`:
+
+1. Restart your terminal or run `source ~/.zshrc`
+2. Open Neovim to install plugins automatically
+3. Set your preferred theme with `theme light` or `theme dark`
