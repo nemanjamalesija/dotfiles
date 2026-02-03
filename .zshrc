@@ -133,12 +133,12 @@ grebase-n() {
 
 # Fuzzy project switcher
 proj() {
-    local dir=$(find ~/Desktop/projekti -maxdepth 2 -type d 2>/dev/null | fzf --height 40% --reverse)
+    local dir=$(find ~/Desktop/projekti -mindepth 1 -maxdepth 1 -type d 2>/dev/null | fzf --height 40% --reverse)
     [[ -n "$dir" ]] && cd "$dir"
 }
 
 projv() {
-    local dir=$(find ~/Desktop/projekti -maxdepth 2 -type d 2>/dev/null | fzf --height 40% --reverse)
+    local dir=$(find ~/Desktop/projekti -mindepth 1 -maxdepth 1 -type d 2>/dev/null | fzf --height 40% --reverse)
     [[ -n "$dir" ]] && cd "$dir" && nvim
 }
 
