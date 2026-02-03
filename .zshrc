@@ -159,8 +159,8 @@ alias pbs='docker/node npm run pb:watch:server:development'
 alias pbdbg='docker/node npm run pb:watch:server:development:debugger'
 alias pbgt='docker/node npm run pb:generate:translations'
 
-zstyle ':prompt:pure:execution_time' show false
-zstyle ':prompt:pure:execution_time' threshold 0
+zstyle ':prompt:pure:execution_time' show true
+zstyle ':prompt:pure:execution_time' threshold 5
 
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
 autoload -U promptinit; promptinit
