@@ -136,6 +136,8 @@ git commit -m "Description"
 git push
 ```
 
+**Important**: Do NOT add "Co-Authored-By" lines to commits. The user prefers clean commit messages without AI attribution.
+
 #### Adding a New Plugin to Neovim
 1. Create new file in `nvim/lua/plugins/` (e.g., `nvim/lua/plugins/my-plugin.lua`)
 2. Return plugin spec:
