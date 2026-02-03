@@ -131,6 +131,17 @@ grebase-n() {
     git rebase -i HEAD~$1
 }
 
+# Fuzzy project switcher
+proj() {
+    local dir=$(find ~/Desktop/projekti -maxdepth 2 -type d 2>/dev/null | fzf --height 40% --reverse)
+    [[ -n "$dir" ]] && cd "$dir"
+}
+
+projv() {
+    local dir=$(find ~/Desktop/projekti -maxdepth 2 -type d 2>/dev/null | fzf --height 40% --reverse)
+    [[ -n "$dir" ]] && cd "$dir" && nvim
+}
+
 alias nj='cd ~/Desktop/projekti/njuskalo-hr'
 alias njv='cd ~/Desktop/projekti/njuskalo-hr && nvim'
 alias amr='cd ~/Desktop/projekti/web-app/amr-web'
