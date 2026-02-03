@@ -127,6 +127,7 @@ alias greset-one='git reset --hard HEAD^'
 alias grebase='git rebase'  
 alias grestore='git restore'  
 alias gdelete='git push origin --delete'
+alias gclean='git branch --merged | grep -v "main\|master\|\*" | xargs -n 1 git branch -d'
 grebase-n() {
     git rebase -i HEAD~$1
 }
