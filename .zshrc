@@ -147,8 +147,6 @@ alias nj='cd ~/Desktop/projekti/njuskalo-hr'
 alias njv='cd ~/Desktop/projekti/njuskalo-hr && nvim'
 alias amr='cd ~/Desktop/projekti/web-app/amr-web'
 alias amrv='cd ~/Desktop/projekti/web-app/amr-web && nvim'
-alias beaver='cd ~/Desktop/projekti/beaver-iot-web'
-alias beaverv='cd ~/Desktop/projekti/beaver-iot-web && nvim'
 alias total='cd ~/Desktop/Learning/"Total Typescript"/pro-essentials-workshop'
 
 alias dlog='rm -f var/logs/dev.log'
