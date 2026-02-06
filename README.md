@@ -16,7 +16,7 @@ The install script creates symlinks for all configurations and sets up the theme
 
 | Tool | Config File |
 |------|-------------|
-| Zsh | `.zshrc`, `.zprofile` |
+| Zsh | `.zshrc`, `.zprofile`, `zsh/` |
 | Git | `.gitconfig` |
 | Neovim | `nvim/` |
 | tmux | `tmux.conf` |
@@ -36,6 +36,21 @@ theme light    # Solarized Light + Everforest
 theme dark     # Catppuccin Macchiato
 tt             # Toggle between themes
 ```
+
+## Shell Config Structure
+
+`.zshrc` is a thin loader that sources modular files:
+
+```
+zsh/
+  aliases.zsh       # Git, config editing, utility aliases
+  functions.zsh     # Theme switcher, cleanup, slugify
+  prompt.zsh        # Pure prompt setup
+  local/            # Your personal configs (gitignored)
+    work.zsh        # Project shortcuts, work-specific aliases
+```
+
+To add your own personal aliases, create any `.zsh` file in `zsh/local/` — it will be sourced automatically and won't be tracked by git. See `zsh/local.example` for a template.
 
 ## Key Aliases
 
