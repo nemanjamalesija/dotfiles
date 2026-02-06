@@ -1,0 +1,23 @@
+# Example personal/work config — copy to zsh/local/work.zsh and customize.
+# Files in zsh/local/ are gitignored and won't appear in the public repo.
+
+# Project shortcuts
+# alias myproject='cd ~/path/to/project'
+# alias myprojectv='cd ~/path/to/project && nvim'
+
+# Fuzzy project switcher (set your own projects root)
+# proj() {
+#     local dir=$(find ~/projects -mindepth 1 -maxdepth 1 -type d 2>/dev/null | fzf --height 40% --reverse)
+#     [[ -n "$dir" ]] && cd "$dir"
+# }
+
+# JIRA branch helper
+# jiraBranch() {
+#     echo "JIRA ID:"; read JIRA_ID
+#     echo "Branch name:"; read BRANCH_NAME
+#     git checkout -b "${JIRA_ID}-$(slugify ${BRANCH_NAME})"
+# }
+
+# Dev server aliases
+# alias dev-watch='npm run watch:development'
+# alias dev-build='npm run build'

@@ -10,10 +10,10 @@ DOTFILES="$HOME/.dotfiles"
 echo "Installing dotfiles from $DOTFILES"
 
 # Create necessary directories
-mkdir -p ~/.config/alacritty
 mkdir -p ~/.config/borders
 mkdir -p ~/.config/bat
 mkdir -p ~/.config/lazygit
+mkdir -p "$DOTFILES/zsh/local"
 mkdir -p ~/Library/Application\ Support/com.mitchellh.ghostty
 
 # Helper function to create symlink (backs up existing files)
@@ -49,9 +49,6 @@ link "$DOTFILES/nvim" ~/.config/nvim
 
 # Ghostty
 link "$DOTFILES/ghostty-config" ~/Library/Application\ Support/com.mitchellh.ghostty/config
-
-# Alacritty
-link "$DOTFILES/alacritty/alacritty.toml" ~/.config/alacritty/alacritty.toml
 
 # Borders
 link "$DOTFILES/borders/bordersrc" ~/.config/borders/bordersrc

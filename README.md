@@ -21,8 +21,6 @@ The install script creates symlinks for all configurations and sets up the theme
 | Neovim | `nvim/` |
 | tmux | `tmux.conf` |
 | Ghostty | `ghostty-config` |
-| Alacritty | `alacritty/alacritty.toml` |
-| WezTerm | `wezterm.lua` |
 | Borders | `borders/bordersrc` |
 | Delta | `delta/` (git diff themes) |
 | Bat | `bat/themes/` (syntax themes) |
