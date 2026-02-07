@@ -42,14 +42,10 @@ return {
             require("everforest").setup({
                 background = "medium",
                 colours_override = function(palette)
-                    -- palette.fg = "#707181"
-                    -- palette.blue = "#707181"
                     palette.orange = "#4791e4"
                     palette.fg = "#586e75"
                     palette.blue = "#586e75"
                     palette.aqua = "#2aa198"
-                    -- palette.green = "#719e07"
-                    -- palette.green = "#859900"
                 end,
                 on_highlights = function(hl, palette)
                     local solarizedYellow = "#b58900"
