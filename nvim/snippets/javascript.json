@@ -1,0 +1,152 @@
+{
+  "Codeblock txt": {
+    "prefix": "txt",
+    "body": ["```txt", "$1", "```"],
+    "description": "txt codeblock"
+  },
+  "Codeblock lua": {
+    "prefix": "lua",
+    "body": ["```lua", "$1", "```"],
+    "description": "lua codeblock"
+  },
+  "Codeblock sql": {
+    "prefix": "sql",
+    "body": ["```sql", "$1", "```"],
+    "description": "sql codeblock"
+  },
+  "Codeblock regex": {
+    "prefix": "regex",
+    "body": ["```regex", "$1", "```"],
+    "description": "regex codeblock"
+  },
+  "Codeblock bash": {
+    "prefix": "bash",
+    "body": ["```bash", "$1", "```"],
+    "description": "bash codeblock"
+  },
+  "Codeblock markdown": {
+    "prefix": "markdown",
+    "body": ["```markdown", "$1", "```"],
+    "description": "markdown codeblock"
+  },
+  "Codeblock markdown_inline": {
+    "prefix": "markdown_inline",
+    "body": ["```markdown_inline", "$1", "```"],
+    "description": "markdown_inline codeblock"
+  },
+  "Codeblock yaml": {
+    "prefix": "yaml",
+    "body": ["```yaml", "$1", "```"],
+    "description": "yaml codeblock"
+  },
+  "Codeblock json": {
+    "prefix": "json",
+    "body": ["```json", "$1", "```"],
+    "description": "json codeblock"
+  },
+  "Codeblock jsonc": {
+    "prefix": "jsonc",
+    "body": ["```jsonc", "$1", "```"],
+    "description": "jsonc codeblock"
+  },
+  "Codeblock cpp": {
+    "prefix": "cpp",
+    "body": ["```cpp", "$1", "```"],
+    "description": "cpp codeblock"
+  },
+  "Codeblock csv": {
+    "prefix": "csv",
+    "body": ["```csv", "$1", "```"],
+    "description": "csv codeblock"
+  },
+  "Codeblock java": {
+    "prefix": "java",
+    "body": ["```java", "$1", "```"],
+    "description": "java codeblock"
+  },
+  "Codeblock javascript": {
+    "prefix": "javascript",
+    "body": ["```javascript", "$1", "```"],
+    "description": "javascript codeblock"
+  },
+  "Codeblock vue": {
+    "prefix": "vue",
+    "body": ["```vue", "$1", "```"],
+    "description": "vue codeblock"
+  },
+  "Codeblock dockerfile": {
+    "prefix": "dockerfile",
+    "body": ["```dockerfile", "$1", "```"],
+    "description": "dockerfile codeblock"
+  },
+  "Codeblock html": {
+    "prefix": "html",
+    "body": ["```html", "$1", "```"],
+    "description": "html codeblock"
+  },
+  "Codeblock css": {
+    "prefix": "css",
+    "body": ["```css", "$1", "```"],
+    "description": "css codeblock"
+  },
+  "Codeblock sass": {
+    "prefix": "sass",
+    "body": ["```sass", "$1", "```"],
+    "description": "sass codeblock"
+  },
+  "Codeblock templ": {
+    "prefix": "templ",
+    "body": ["```templ", "$1", "```"],
+    "description": "templ codeblock"
+  },
+  "Codeblock php": {
+    "prefix": "php",
+    "body": ["```php", "$1", "```"],
+    "description": "php codeblock"
+  },
+  "Console log": {
+    "prefix": "log",
+    "body": ["console.log(\"${1:message}\", ${2:value});"],
+    "description": "Console.log with message and value"
+  },
+  "Dynamic import": {
+    "prefix": "dimport",
+    "body": ["import ${1:name} from '${2:path}'$0"],
+    "description": "Dynamic import statement"
+  },
+  "Arrow Function": {
+    "prefix": "afn",
+    "body": ["const ${1:functionName} = (${2:param}) =>"],
+    "description": "Create an arrow function"
+  },
+  "Comment block": {
+    "prefix": "comm",
+    "body": ["/**", " * ${1:COMMENT}", " */"],
+    "description": "Add COMMENT: item"
+  },
+  "TODO": {
+    "prefix": "todo",
+    "body": ["/** TODO: $1*/"],
+    "description": "Add TODO: item"
+  },
+  "NOTE": {
+    "prefix": "note",
+    "body": ["/** NOTE: $1*/"],
+    "description": "Add NOTE: item"
+  },
+  "Prettier ignore": {
+    "prefix": "prettierignore",
+    "body": ["/* eslint-disable prettier/prettier */", "${1:// code to ignore}", "/* eslint-enable */"],
+    "description": "Creates a block to disable prettier formatting"
+  },
+  "HTML Button": {
+    "prefix": "btn",
+    "body": ["<button type=\"${1:type}\">${2:content}</button>"],
+    "description": "Create an HTML button element"
+  },
+  "Class Attribute": {
+    "prefix": "cls",
+    "body": ["class=\"${1:className}\""],
+    "description": "Insert class attribute with placeholder"
+  }
+}

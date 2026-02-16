@@ -1,0 +1,70 @@
+{
+  "Vue computed property": {
+    "prefix": "scomp",
+    "body": ["computed(() => {", "  ${1:// code here}", "})"],
+    "description": "Create a Vue computed property"
+  },
+  "Vue onMounted (composition)": {
+    "prefix": "smoun",
+    "body": ["onMounted(() => {", "  ${1:// code here}", "}),"],
+    "description": "Initiates onMounted lifecycle hook"
+  },
+  "Vue mounted (options)": {
+    "prefix": "moun",
+    "body": ["mounted() {", "  ${1:// code here}", "},"],
+    "description": "Initiates mounted lifecycle hook"
+  },
+  "Vue SFC Options API": {
+    "prefix": "sfo",
+    "body": [
+      "<template>",
+      "<!-- template content -->",
+      "</template>",
+      "<script>",
+      "export default {",
+      "  components: {},",
+      "  props: {},",
+      "  data() {",
+      "    return {};",
+      "  },",
+      "  computed: {",
+      "    //",
+      "  },",
+      "  mounted() {",
+      "    //",
+      "  },",
+      "  methods: {",
+      "    //",
+      "  },",
+      "}",
+      "</script>"
+    ],
+    "description": "Create a Vue Single-File Component with Options API structure"
+  },
+  "Vue SFC TypeScript Setup": {
+    "prefix": "sfst",
+    "body": [
+      "<template>",
+      "\t${1:<!-- template content -->}",
+      "</template>",
+      "",
+      "<script setup lang='ts'>",
+      "${2:// script content}",
+      "</script>"
+    ],
+    "description": "Create a Vue Single-File Component with TypeScript setup syntax"
+  },
+  "Vue SFC JavaScript Setup": {
+    "prefix": "sfsj",
+    "body": [
+      "<template>",
+      "\t${1:<!-- template content -->}",
+      "</template>",
+      "",
+      "<script setup>",
+      "${2:// script content}",
+      "</script>"
+    ],
+    "description": "Create a Vue Single-File Component with Javascript setup syntax"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "SCSS Use Imports": {
+    "prefix": "scssuse",
+    "body": [
+      "@use 'src:#app/config/colors' as *;",
+      "@use 'src:#app/utils-generic/config/index' as *;",
+      "@use 'src:#app/config/breakpoints' as *;",
+      "@use 'src:#app/config/dimensions' as *;"
+    ],
+    "description": "Insert common @use SCSS imports"
+  }
+}

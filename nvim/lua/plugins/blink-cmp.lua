@@ -1,12 +1,7 @@
 return {
     "saghen/blink.cmp",
     version = "1.*",
-    dependencies = {
-        "zbirenbaum/copilot.lua",
-        {
-            "giuxtaposition/blink-cmp-copilot",
-        },
-    },
+    dependencies = {},
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
@@ -16,17 +11,11 @@ return {
             nerd_font_variant = "mono",
         },
         sources = {
-            default = { "snippets", "lsp", "path", "buffer", "copilot" },
+            default = { "snippets", "lsp", "path", "buffer" },
             providers = {
                 snippets = {
                     name = "snippets",
                     score_offset = 100,
-                },
-                copilot = {
-                    name = "copilot",
-                    module = "blink-cmp-copilot",
-                    score_offset = 99,
-                    async = true,
                 },
             },
         },

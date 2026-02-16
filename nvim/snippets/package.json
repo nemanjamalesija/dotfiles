@@ -1,0 +1,10 @@
+{
+  "name": "custom-snippets",
+  "contributes": {
+    "snippets": [
+      { "language": ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue"], "path": "./javascript.json" },
+      { "language": ["vue"], "path": "./vue.json" },
+      { "language": ["sass", "vue"], "path": "./sass.json" }
+    ]
+  }
+}

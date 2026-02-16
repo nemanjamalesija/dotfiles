@@ -17,13 +17,13 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     spec = {
         { "LazyVim/LazyVim", import = "lazyvim.plugins", opts = {
-            colorscheme = "catppuccin",
+            colorscheme = "tokyonight-moon",
         } },
         { import = "lazyvim.plugins.extras.lang.typescript" },
         { import = "lazyvim.plugins.extras.lang.json" },
         { import = "lazyvim.plugins.extras.ui.mini-animate" },
         { import = "lazyvim.plugins.extras.lang.vue" },
-        { import = "lazyvim.plugins.extras.coding.luasnip" },
+        -- { import = "lazyvim.plugins.extras.coding.luasnip" },
         { import = "lazyvim.plugins.extras.linting.eslint" },
         { import = "lazyvim.plugins.extras.lang.php" },
         -- { import = "lazyvim.plugins.extras.coding.nvim-cmp" },
