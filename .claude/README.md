@@ -71,7 +71,7 @@ Your dotfiles include a unified theme system:
 - **State file**: `~/.theme-mode` (contains "light" or "dark")
 - **Commands**: `theme [light|dark]` or `tt` to toggle
 - **Synced tools**: Ghostty, Neovim, tmux
-- **Dark theme**: Catppuccin Macchiato
+- **Dark theme**: TokyoNight Moon
 - **Light theme**: Solarized Light + Everforest
 
 The agent knows to update all related configs when making theme changes.

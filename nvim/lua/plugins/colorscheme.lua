@@ -1,35 +1,21 @@
 return {
     {
-        "catppuccin/nvim",
-        name = "catppuccin",
+        "folke/tokyonight.nvim",
         lazy = false,
         priority = 1000,
         config = function()
-            require("catppuccin").setup({
-                flavour = "macchiato",
-                no_italic = true,
-                transparent_background = true,
-                float = {
-                    enabled = true,
-                    transparent = false,
-                    solid = false,
-                },
-                lsp_styles = {
-                    underlines = {
-                        errors = { "undercurl" },
-                        hints = { "undercurl" },
-                        warnings = { "undercurl" },
-                        information = { "undercurl" },
-                        ok = { "undercurl" },
-                    },
-                    inlay_hints = {
-                        background = true,
-                    },
+            require("tokyonight").setup({
+                style = "moon",
+                transparent = false,
+                terminal_colors = true,
+                styles = {
+                    comments = { italic = false },
+                    keywords = { italic = false },
                 },
             })
-            -- Load catppuccin if dark theme
+            -- Load tokyonight if dark theme
             if vim.g.theme_mode == "dark" then
-                vim.cmd.colorscheme("catppuccin")
+                vim.cmd.colorscheme("tokyonight-moon")
             end
         end,
     },
@@ -100,6 +86,36 @@ return {
                 vim.o.background = "light"
                 vim.cmd.colorscheme("everforest")
             end
+        end,
+    },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("catppuccin").setup({
+                flavour = "macchiato",
+                no_italic = true,
+                -- transparent_background = true,
+                float = {
+                    enabled = true,
+                    transparent = false,
+                    solid = false,
+                },
+                lsp_styles = {
+                    underlines = {
+                        errors = { "undercurl" },
+                        hints = { "undercurl" },
+                        warnings = { "undercurl" },
+                        information = { "undercurl" },
+                        ok = { "undercurl" },
+                    },
+                    inlay_hints = {
+                        background = true,
+                    },
+                },
+            })
         end,
     },
     {

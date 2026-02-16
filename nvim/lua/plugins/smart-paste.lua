@@ -1,7 +1,6 @@
 return {
-    {
-        "nemanjamalesija/smart-paste.nvim",
-        branch = "add-structured-key-config",
-        config = true,
-    },
+    "nemanjamalesija/smart-paste.nvim",
+    config = function()
+        require("smart-paste").setup()
+    end,
 }

@@ -38,7 +38,7 @@ This dotfiles repository contains configurations for:
 This dotfiles setup includes a sophisticated theme switching system that syncs across multiple applications:
 
 ### Theme Modes
-- **Dark Mode**: Catppuccin Macchiato (Ghostty) + Catppuccin (Neovim) + Catppuccin (tmux)
+- **Dark Mode**: TokyoNight Moon (Ghostty) + Catppuccin (Neovim) + Catppuccin (tmux)
 - **Light Mode**: Builtin Solarized Light (Ghostty) + Everforest (Neovim) + Custom light theme (tmux)
 
 ### Theme Files

@@ -18,7 +18,6 @@ return {
             { "<leader>fE", false },
         },
     },
-    { "folke/tokyonight.nvim", enabled = false },
     { "folke/persistence.nvim", enabled = false },
     { "akinsho/bufferline.nvim", enabled = false },
     { "windwp/nvim-ts-autotag", enabled = false },
@@ -31,4 +30,6 @@ return {
     { "nvim-mini/mini.operators", enabled = false },
     { "nvim-mini/mini.align", enabled = false },
     { "nvim-mini/mini.diff", enabled = false },
+    { "zbirenbaum/copilot.lua", enabled = false },
+    { "giuxtaposition/blink-cmp-copilot", enabled = false },
 }

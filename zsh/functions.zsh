@@ -15,7 +15,7 @@ grebase-n() {
 
 # Theme switcher - syncs Ghostty, Neovim, tmux, and delta colorschemes
 # Usage: theme light  (Builtin Solarized Light + Everforest)
-#        theme dark   (Catppuccin Macchiato + Catppuccin)
+#        theme dark   (TokyoNight Moon + Catppuccin)
 theme() {
     local mode="$1"
     local ghostty_config="$HOME/.dotfiles/ghostty-config"
@@ -24,7 +24,7 @@ theme() {
     if [[ "$mode" != "light" && "$mode" != "dark" ]]; then
         echo "Usage: theme [light|dark]"
         echo "  light - Builtin Solarized Light (Ghostty) + Everforest (Neovim) + Solarized Light (delta)"
-        echo "  dark  - Catppuccin Macchiato (Ghostty) + Catppuccin (Neovim) + Catppuccin Macchiato (delta)"
+        echo "  dark  - TokyoNight Moon (Ghostty) + Catppuccin (Neovim) + Catppuccin Macchiato (delta)"
         return 1
     fi
 
@@ -42,13 +42,13 @@ theme() {
         echo "Switched to light theme (Solarized Light + Everforest)"
     else
         # Ghostty dark theme
-        sed -i '' 's/^theme = .*/theme = Catppuccin Macchiato/' "$ghostty_config"
+        sed -i '' 's/^theme = .*/theme = TokyoNight Moon/' "$ghostty_config"
         sed -i '' 's/^background-opacity = .*/background-opacity = 0.95/' "$ghostty_config"
 
         # Delta dark theme
         ln -sf "$HOME/.dotfiles/delta/dark.gitconfig" "$delta_theme_link"
 
-        echo "Switched to dark theme (Catppuccin Macchiato)"
+        echo "Switched to dark theme (TokyoNight Moon)"
     fi
 
     # Reload Ghostty config (Cmd+Shift+,)
