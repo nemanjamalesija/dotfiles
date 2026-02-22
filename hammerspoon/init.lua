@@ -1,8 +1,14 @@
 -- Tmux window switching via keyboard triggers
 -- Type ;;1 through ;;9 anywhere to switch to that tmux window
 
+local tmux = "/opt/homebrew/bin/tmux"
+
+local function tmuxRun(args)
+  hs.task.new(tmux, nil, args):start()
+end
+
 local function switchTmuxWindow(n)
-  hs.execute("/opt/homebrew/bin/tmux select-window -t :" .. n, true)
+  tmuxRun({"select-window", "-t", ":" .. n})
 end
 
 local buffer = ""
@@ -46,7 +52,7 @@ local keyWatcher = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function
         hs.eventtap.keyStroke({}, "delete", 0)
       end
       hs.timer.doAfter(0.05, function()
-        hs.execute("/opt/homebrew/bin/tmux new-window", true)
+        tmuxRun({"new-window"})
       end)
     end)
   end
@@ -59,7 +65,7 @@ local keyWatcher = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function
         hs.eventtap.keyStroke({}, "delete", 0)
       end
       hs.timer.doAfter(0.05, function()
-        hs.execute("/opt/homebrew/bin/tmux kill-window", true)
+        tmuxRun({"kill-window"})
       end)
     end)
   end
@@ -72,7 +78,7 @@ local keyWatcher = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function
         hs.eventtap.keyStroke({}, "delete", 0)
       end
       hs.timer.doAfter(0.05, function()
-        hs.execute("/opt/homebrew/bin/tmux set-window-option automatic-rename off", true)
+        tmuxRun({"set-window-option", "automatic-rename", "off"})
         hs.eventtap.keyStroke({"ctrl"}, "b", 0)
         hs.eventtap.keyStroke({}, ",", 0)
       end)
