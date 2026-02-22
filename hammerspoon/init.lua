@@ -89,3 +89,19 @@ local keyWatcher = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function
 end)
 
 keyWatcher:start()
+
+-- Re-enable the event tap after macOS disables it (sleep/wake, screen lock, etc.)
+local function restartKeyWatcher()
+  if not keyWatcher:isEnabled() then
+    keyWatcher:start()
+  end
+end
+
+local caffeinateWatcher = hs.caffeinate.watcher.new(function(event)
+  if event == hs.caffeinate.watcher.systemDidWake
+    or event == hs.caffeinate.watcher.screensDidUnlock
+    or event == hs.caffeinate.watcher.screensDidWake then
+    hs.timer.doAfter(1, restartKeyWatcher)
+  end
+end)
+caffeinateWatcher:start()
