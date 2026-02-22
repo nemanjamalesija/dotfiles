@@ -38,6 +38,32 @@ local keyWatcher = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function
     end)
   end
 
+  -- Trigger: ;c — new tmux window
+  if buffer:match(";c$") then
+    buffer = ""
+    hs.timer.doAfter(0.02, function()
+      for _ = 1, 2 do -- delete 2 chars: ;c
+        hs.eventtap.keyStroke({}, "delete", 0)
+      end
+      hs.timer.doAfter(0.05, function()
+        hs.execute("/opt/homebrew/bin/tmux new-window", true)
+      end)
+    end)
+  end
+
+  -- Trigger: ;x — close current tmux window
+  if buffer:match(";x$") then
+    buffer = ""
+    hs.timer.doAfter(0.02, function()
+      for _ = 1, 2 do -- delete 2 chars: ;x
+        hs.eventtap.keyStroke({}, "delete", 0)
+      end
+      hs.timer.doAfter(0.05, function()
+        hs.execute("/opt/homebrew/bin/tmux kill-window", true)
+      end)
+    end)
+  end
+
   return false
 end)
 
