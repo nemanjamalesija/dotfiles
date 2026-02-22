@@ -72,11 +72,9 @@ local keyWatcher = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function
         hs.eventtap.keyStroke({}, "delete", 0)
       end
       hs.timer.doAfter(0.05, function()
-        local client = hs.execute("/opt/homebrew/bin/tmux list-clients -F '#{client_name}' | /usr/bin/head -1", true):gsub("%s+$", "")
-        if client == "" then return end
-        local winId = hs.execute("/opt/homebrew/bin/tmux display-message -t " .. client .. " -p '#{window_id}'", true):gsub("%s", "")
-        if winId == "" then return end
-        hs.execute("/opt/homebrew/bin/tmux set-window-option -t " .. winId .. " automatic-rename off ; /opt/homebrew/bin/tmux command-prompt -t " .. client .. " -I '#W' 'rename-window %%'", true)
+        hs.execute("/opt/homebrew/bin/tmux set-window-option automatic-rename off", true)
+        hs.eventtap.keyStroke({"ctrl"}, "b", 0)
+        hs.eventtap.keyStroke({}, ",", 0)
       end)
     end)
   end
