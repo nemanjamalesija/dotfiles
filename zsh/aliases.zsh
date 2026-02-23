@@ -41,7 +41,7 @@ alias gdelete='git push origin --delete'
 alias gclean='git branch --merged | grep -v "main\|master\|\*" | xargs -n 1 git branch -d'
 
 # Hammerspoon
-alias rhsp='killall Hammerspoon && open -a Hammerspoon'
+alias rsh='killall Hammerspoon && open -a Hammerspoon'
 
 # Utility
 alias dlsplog="rm ~/.local/state/nvim/lsp.log"
