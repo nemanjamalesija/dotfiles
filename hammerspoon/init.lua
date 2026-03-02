@@ -1,107 +1,92 @@
--- Tmux window switching via keyboard triggers
--- Type ;;1 through ;;9 anywhere to switch to that tmux window
+-- Tmux shortcuts: ;1–;9, ;c, ;x, ;r
+-- Dead-key approach: ';' is consumed and held. If a trigger follows,
+-- the action fires. Otherwise ';' is re-injected via return value
+-- (bypasses the tap). No synthetic keystrokes = macOS won't disable the tap.
 
 local tmux = "/opt/homebrew/bin/tmux"
+local function tmuxRun(args) hs.task.new(tmux, nil, args):start() end
 
-local function tmuxRun(args)
-  hs.task.new(tmux, nil, args):start()
+local triggers = {}
+for i = 1, 9 do
+  triggers[tostring(i)] = function() tmuxRun({"select-window", "-t", ":" .. i}) end
+end
+triggers["c"] = function() tmuxRun({"new-window"}) end
+triggers["x"] = function() tmuxRun({"kill-window"}) end
+triggers["r"] = function()
+  tmuxRun({"set-option", "-w", "automatic-rename", "off"})
+  tmuxRun({"command-prompt", "-I", "#W", "rename-window '%%'"})
 end
 
-local function switchTmuxWindow(n)
-  tmuxRun({"select-window", "-t", ":" .. n})
+local pending = false
+local timer = nil
+local function semiEvent(down)
+  return hs.eventtap.event.newKeyEvent({}, ";", down)
 end
 
-local buffer = ""
-local BUFFER_SIZE = 5
-
-local keyWatcher = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
+local tap = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
   local flags = event:getFlags()
   if flags.cmd or flags.ctrl or flags.alt then
-    buffer = ""
+    if pending then
+      pending = false
+      if timer then timer:stop(); timer = nil end
+      return true, { semiEvent(true), semiEvent(false), event:copy() }
+    end
     return false
   end
 
-  local char = event:getCharacters()
-  if not char or #char ~= 1 then return false end
-
-  buffer = buffer .. char
-  if #buffer > BUFFER_SIZE then
-    buffer = buffer:sub(-BUFFER_SIZE)
+  local c = event:getCharacters()
+  if not c or #c ~= 1 then
+    if pending then
+      pending = false
+      if timer then timer:stop(); timer = nil end
+    end
+    return false
   end
 
-  -- Trigger: ;1 through ;9
-  local windowNum = buffer:match(";([1-9])$")
-  if windowNum then
-    buffer = ""
-    local n = tonumber(windowNum)
-    hs.timer.doAfter(0.02, function()
-      for _ = 1, 2 do -- delete 2 chars: ;N
-        hs.eventtap.keyStroke({}, "delete", 0)
+  if c == ";" and not pending then
+    pending = true
+    if timer then timer:stop() end
+    timer = hs.timer.doAfter(0.3, function()
+      if pending then
+        pending = false
+        tap:stop()
+        hs.eventtap.keyStroke({}, ";", 0)
+        tap:start()
       end
-      hs.timer.doAfter(0.05, function()
-        switchTmuxWindow(n)
-      end)
     end)
+    return true
   end
 
-  -- Trigger: ;c — new tmux window
-  if buffer:match(";c$") then
-    buffer = ""
-    hs.timer.doAfter(0.02, function()
-      for _ = 1, 2 do -- delete 2 chars: ;c
-        hs.eventtap.keyStroke({}, "delete", 0)
-      end
-      hs.timer.doAfter(0.05, function()
-        tmuxRun({"new-window"})
-      end)
-    end)
-  end
-
-  -- Trigger: ;x — close current tmux window
-  if buffer:match(";x$") then
-    buffer = ""
-    hs.timer.doAfter(0.02, function()
-      for _ = 1, 2 do -- delete 2 chars: ;x
-        hs.eventtap.keyStroke({}, "delete", 0)
-      end
-      hs.timer.doAfter(0.05, function()
-        tmuxRun({"kill-window"})
-      end)
-    end)
-  end
-
-  -- Trigger: ;r — rename current tmux window
-  if buffer:match(";r$") then
-    buffer = ""
-    hs.timer.doAfter(0.02, function()
-      for _ = 1, 2 do -- delete 2 chars: ;r
-        hs.eventtap.keyStroke({}, "delete", 0)
-      end
-      hs.timer.doAfter(0.05, function()
-        tmuxRun({"set-window-option", "automatic-rename", "off"})
-        hs.eventtap.keyStroke({"ctrl"}, "b", 0)
-        hs.eventtap.keyStroke({}, ",", 0)
-      end)
-    end)
+  if pending then
+    pending = false
+    if timer then timer:stop(); timer = nil end
+    if triggers[c] then
+      triggers[c]()
+      return true
+    end
+    return true, { semiEvent(true), semiEvent(false), event:copy() }
   end
 
   return false
 end)
 
-keyWatcher:start()
+tap:start()
 
--- Re-enable the event tap after macOS disables it (sleep/wake, screen lock, etc.)
-local function restartKeyWatcher()
-  if not keyWatcher:isEnabled() then
-    keyWatcher:start()
-  end
+-- Safety net: re-enable if macOS disables the tap
+local function ensureTap()
+  if not tap:isEnabled() then tap:stop(); tap:start() end
 end
 
-local caffeinateWatcher = hs.caffeinate.watcher.new(function(event)
-  if event == hs.caffeinate.watcher.systemDidWake
-    or event == hs.caffeinate.watcher.screensDidUnlock
-    or event == hs.caffeinate.watcher.screensDidWake then
-    hs.timer.doAfter(1, restartKeyWatcher)
+hs.timer.new(5, ensureTap):start()
+
+hs.application.watcher.new(function(_, e)
+  if e == hs.application.watcher.activated then ensureTap() end
+end):start()
+
+hs.caffeinate.watcher.new(function(e)
+  if e == hs.caffeinate.watcher.systemDidWake
+    or e == hs.caffeinate.watcher.screensDidUnlock
+    or e == hs.caffeinate.watcher.screensDidWake then
+    hs.timer.doAfter(1, ensureTap)
   end
-end)
-caffeinateWatcher:start()
+end):start()
