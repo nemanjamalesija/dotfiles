@@ -43,6 +43,11 @@ alias gclean='git branch --merged | grep -v "main\|master\|\*" | xargs -n 1 git 
 # Hammerspoon
 alias rsh='killall Hammerspoon && open -a Hammerspoon'
 
+# Claude Code
+alias claudeNj="CLAUDE_CONFIG_DIR=~/.claude-njuskalo command claude"
+alias claudeP="CLAUDE_CONFIG_DIR=~/.claude-personal command claude"
+alias claude='echo "Use: claudeNj or claudeP"'
+
 # Utility
 alias dlsplog="rm ~/.local/state/nvim/lsp.log"
 alias tt=toggleTheme
