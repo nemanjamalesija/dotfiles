@@ -9,7 +9,7 @@ local map = vim.keymap.set
 map("n", "<leader>fw", "<cmd>w<cr>", { desc = "Save File" })
 
 -- Close current buffer
-map("n", "<leader>qb", "<cmd>q<cr>", { desc = "Quit Buffer" })
+map("n", "<leader>qb", "<cmd>bdelete<cr>", { desc = "Quit Buffer" })
 
 vim.api.nvim_create_user_command("W", "w", {})
 
