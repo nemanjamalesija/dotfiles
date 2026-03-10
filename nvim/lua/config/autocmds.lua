@@ -10,9 +10,17 @@
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 --
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "markdown", "text", "gitcommit" }, -- Adjust file types as needed
+    pattern = { "markdown", "text", "gitcommit" },
     callback = function()
-        vim.opt.spell = false
+        vim.opt_local.spell = false
+    end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "markdown" },
+    callback = function()
+        vim.opt_local.wrap = false
+        vim.opt_local.sidescrolloff = 4
     end,
 })
 
