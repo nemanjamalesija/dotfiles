@@ -16,13 +16,6 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "markdown" },
-    callback = function()
-        vim.opt_local.wrap = false
-        vim.opt_local.sidescrolloff = 4
-    end,
-})
 
 if vim.env.TMUX then
     local tmux_pane = vim.env.TMUX_PANE
