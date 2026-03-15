@@ -13,8 +13,8 @@ return {
                     keywords = { italic = false },
                 },
             })
-            -- Load tokyonight if dark theme
             if vim.g.theme_mode == "dark" then
+                vim.o.background = "dark"
                 vim.cmd.colorscheme("tokyonight-moon")
             end
         end,

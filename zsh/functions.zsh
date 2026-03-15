@@ -14,7 +14,7 @@ grebase-n() {
 }
 
 # Theme switcher - syncs Ghostty, Neovim, tmux, and delta colorschemes
-# Usage: theme light  (Builtin Solarized Light + Everforest)
+# Usage: theme light  (iTerm2 Solarized Light + Everforest)
 #        theme dark   (TokyoNight Moon + Catppuccin)
 theme() {
     local mode="$1"
@@ -23,7 +23,7 @@ theme() {
 
     if [[ "$mode" != "light" && "$mode" != "dark" ]]; then
         echo "Usage: theme [light|dark]"
-        echo "  light - Builtin Solarized Light (Ghostty) + Everforest (Neovim) + Solarized Light (delta)"
+        echo "  light - iTerm2 Solarized Light (Ghostty) + Everforest (Neovim) + Solarized Light (delta)"
         echo "  dark  - TokyoNight Moon (Ghostty) + Catppuccin (Neovim) + Catppuccin Macchiato (delta)"
         return 1
     fi
@@ -33,7 +33,7 @@ theme() {
 
     if [[ "$mode" == "light" ]]; then
         # Ghostty light theme
-        sed -i '' 's/^theme = .*/theme = Builtin Solarized Light/' "$ghostty_config"
+        sed -i '' 's/^theme = .*/theme = iTerm2 Solarized Light/' "$ghostty_config"
         sed -i '' 's/^background-opacity = .*/background-opacity = 1.0/' "$ghostty_config"
 
         # Delta light theme
