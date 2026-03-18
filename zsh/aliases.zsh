@@ -48,6 +48,9 @@ alias claudeNj="CLAUDE_CONFIG_DIR=~/.claude-njuskalo command claude"
 alias claudeP="CLAUDE_CONFIG_DIR=~/.claude-personal command claude"
 alias claude='echo "Use: claudeNj or claudeP"'
 
+# Docker
+alias caclear='docker/cli bin/console cache:clear'
+
 # Utility
 alias dlsplog="rm ~/.local/state/nvim/lsp.log"
 alias tt=toggleTheme
