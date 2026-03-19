@@ -11,11 +11,15 @@ return {
             nerd_font_variant = "mono",
         },
         sources = {
-            default = { "snippets", "lsp", "path", "buffer" },
+            default = { "lsp", "snippets", "path", "buffer" },
             providers = {
+                lsp = {
+                    name = "lsp",
+                    score_offset = 100,
+                },
                 snippets = {
                     name = "snippets",
-                    score_offset = 100,
+                    score_offset = 0,
                 },
             },
         },
