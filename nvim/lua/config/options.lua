@@ -8,6 +8,8 @@ vim.opt.termguicolors = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.cmdheight = 0
+vim.opt.updatetime = 100
+vim.opt.virtualedit = "block"
 
 -- Cursor color (magenta) - use autocommand so it persists after colorscheme changes
 vim.opt.guicursor = "n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor"

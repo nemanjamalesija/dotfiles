@@ -64,6 +64,21 @@ map("n", "<leader>Ol", ":ObsidianQuickSwitch<CR>", { desc = "Obsidian: List Note
 map("n", "<leader>Ot", ":ObsidianToday<CR>", { desc = "Obsidian: Notes for today" })
 map("n", "<leader>Ow", ":ObsidianWorkspace<CR>", { desc = "Obsidian: List Workspaces" })
 
+-- Straight-line scroll: temporarily enable virtualedit during C-d/C-u
+local function straight_scroll(key)
+    return function()
+        local col = vim.fn.virtcol(".")
+        vim.opt.virtualedit = "all"
+        local escaped = vim.api.nvim_replace_termcodes(key, true, false, true)
+        vim.api.nvim_feedkeys(escaped, "nx", false)
+        vim.fn.cursor(0, col)
+        vim.opt.virtualedit = "block"
+    end
+end
+
+map("n", "<C-d>", straight_scroll("<C-d>"), { desc = "Scroll down (straight line)" })
+map("n", "<C-u>", straight_scroll("<C-u>"), { desc = "Scroll up (straight line)" })
+
 -- Insert blank lines without entering insert mode
 map("n", "<leader>o", ":put _<CR>", { desc = "Insert line below", silent = true })
 map("n", "<leader>O", ":put! _<CR>", { desc = "Insert line above", silent = true })
