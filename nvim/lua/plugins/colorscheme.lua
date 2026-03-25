@@ -13,10 +13,10 @@ return {
                     keywords = { italic = false },
                 },
             })
-            if vim.g.theme_mode == "dark" then
-                vim.o.background = "dark"
-                vim.cmd.colorscheme("tokyonight-moon")
-            end
+            -- if vim.g.theme_mode == "dark" then
+            --     vim.o.background = "dark"
+            --     vim.cmd.colorscheme("tokyonight-moon")
+            -- end
         end,
     },
     {
@@ -120,13 +120,18 @@ return {
     },
     {
         "Mofiqul/vscode.nvim",
+        lazy = false,
+        priority = 1000,
         config = function()
             require("vscode").setup({
                 background = "hard",
-                transparent = true,
+                -- transparent = true,
                 terminal_colors = true,
             })
-            -- vim.cmd.colorscheme("vscode")
+            if vim.g.theme_mode == "dark" then
+                vim.o.background = "dark"
+                vim.cmd.colorscheme("vscode")
+            end
         end,
     },
 }

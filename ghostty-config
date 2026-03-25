@@ -1,14 +1,14 @@
 # adjust-cell-width = "-2%"
 # adjust-cell-height = "-5%"
 
-window-decoration = none 
-background-opacity = 0.95
+window-decoration = none
+# background-opacity = 0.95
 
 font-size = 20
 
- font-family = MesloLGS Nerd Font Mono 
+font-family = MesloLGS Nerd Font Mono
 # font-family = RobotoMono Nerd Font Mono
- # font-family = Inconsolata Nerd Font Mono
+# font-family = Inconsolata Nerd Font Mono
 # font-family = Consolas
 
 # font-family = JetBrainsMono Nerd Font Mono
@@ -16,7 +16,7 @@ font-size = 20
 # font-thicken = true
 # adjust-underline-position = 8
 
-adjust-underline-thickness = 1
+adjust-underline-thickness = 2
 alpha-blending = linear-corrected
 font-feature = -calt
 
@@ -28,8 +28,11 @@ macos-option-as-alt = true
 
 
 # Theme - managed by `theme` shell command (light/dark)
-theme = TokyoNight Moon
+theme = Dark+
+
+# Cursor color - override theme cursor to magenta (must be after theme)
+cursor-color = #bf68d9
 
 # Keybindings
- keybind = ctrl+t>t=text:tt\r
+keybind = ctrl+t>t=text:tt\r
 

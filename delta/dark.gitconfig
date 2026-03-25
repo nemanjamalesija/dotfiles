@@ -1,4 +1,4 @@
 [delta]
-  features = catppuccin-macchiato
+  syntax-theme = Visual Studio Dark+
   line-numbers = true
   decorations = true
