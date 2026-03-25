@@ -24,7 +24,7 @@ theme() {
     if [[ "$mode" != "light" && "$mode" != "dark" ]]; then
         echo "Usage: theme [light|dark]"
         echo "  light - iTerm2 Solarized Light (Ghostty) + Everforest (Neovim) + Solarized Light (delta)"
-        echo "  dark  - TokyoNight Moon (Ghostty) + Catppuccin (Neovim) + Catppuccin Macchiato (delta)"
+        echo "  dark  - Dark+ (Ghostty) + VS Code (Neovim) + Visual Studio Dark+ (delta)"
         return 1
     fi
 
@@ -42,13 +42,13 @@ theme() {
         echo "Switched to light theme (Solarized Light + Everforest)"
     else
         # Ghostty dark theme
-        sed -i '' 's/^theme = .*/theme = TokyoNight Moon/' "$ghostty_config"
+        sed -i '' 's/^theme = .*/theme = Dark+/' "$ghostty_config"
         sed -i '' 's/^background-opacity = .*/background-opacity = 0.95/' "$ghostty_config"
 
         # Delta dark theme
         ln -sf "$HOME/.dotfiles/delta/dark.gitconfig" "$delta_theme_link"
 
-        echo "Switched to dark theme (TokyoNight Moon)"
+        echo "Switched to dark theme (Dark+ / VS Code)"
     fi
 
     # Reload Ghostty config (Cmd+Shift+,)
