@@ -20,6 +20,29 @@ return {
                 snippets = {
                     name = "snippets",
                     score_offset = 0,
+                    transform_items = function(_, items)
+                        local cursor = vim.api.nvim_win_get_cursor(0)
+                        local line = vim.api.nvim_get_current_line()
+                        local before_cursor = line:sub(1, cursor[2])
+                        local keyword = before_cursor:match(";(%w*)$")
+                        if keyword then
+                            local semi_col = cursor[2] - #keyword - 1
+                            local lsp_line = cursor[1] - 1
+                            for _, item in ipairs(items) do
+                                item.score_offset = (item.score_offset or 0) + 200
+                                item.additionalTextEdits = {
+                                    {
+                                        newText = "",
+                                        range = {
+                                            start = { line = lsp_line, character = semi_col },
+                                            ["end"] = { line = lsp_line, character = semi_col + 1 },
+                                        },
+                                    },
+                                }
+                            end
+                        end
+                        return items
+                    end,
                 },
             },
         },
