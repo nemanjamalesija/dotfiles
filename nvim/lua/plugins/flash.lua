@@ -23,7 +23,8 @@ return {
                         multi_window = false,
                     },
                     jump = { autojump = true },
-                    label = { after = false, before = { 0, 0 }, uppercase = false, style = "inline", distance = true },
+                    labels = "1234567890",
+                    label = { before = false, after = { 0, 1 }, uppercase = false, style = "overlay", distance = true, rainbow = { enabled = true } },
                     pattern = vim.pesc(char),
                     matcher = function(win)
                         local matches = {}
