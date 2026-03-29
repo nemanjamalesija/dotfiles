@@ -1,5 +1,15 @@
 return {
     {
+        "stevearc/conform.nvim",
+        opts = {
+            formatters_by_ft = {
+                css = { "prettier" },
+                scss = { "prettier" },
+                sass = { "prettier" },
+            },
+        },
+    },
+    {
         "neovim/nvim-lspconfig",
         -- NOTE: LSP hover and signature help borders are now configured in noice.lua
         -- noice.nvim handles these UI elements and overrides vim.lsp.handlers
@@ -85,6 +95,15 @@ return {
                     "javascriptreact",
                     "typescriptreact",
                     -- "vue" is intentionally removed
+                },
+            }
+
+            opts.servers.stylelint_lsp = {
+                filetypes = { "css", "scss", "sass" },
+                settings = {
+                    stylelint = {
+                        validate = { "css", "scss", "sass", "postcss" },
+                    },
                 },
             }
 
