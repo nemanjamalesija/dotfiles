@@ -46,7 +46,7 @@ return {
                 },
             },
         },
-        fuzzy = { implementation = "prefer_rust_with_warning" },
+        fuzzy = { implementation = "rust" },
         completion = {
             ghost_text = {
                 enabled = false,
