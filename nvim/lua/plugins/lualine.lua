@@ -58,13 +58,14 @@ local function get_active_lsp()
         return msg
     end
 
+    local names = {}
     for _, client in ipairs(clients) do
         local filetypes = client.config.filetypes
         if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-            return client.name
+            table.insert(names, client.name)
         end
     end
-    return msg
+    return #names > 0 and table.concat(names, ", ") or msg
 end
 
 local function diff_source()
