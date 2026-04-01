@@ -23,7 +23,7 @@ return {
     { "windwp/nvim-ts-autotag", enabled = false },
     { "nvim-mini/mini.pairs", enabled = false },
     {
-        "echasnovski/mini.animate",
+        "nvim-mini/mini.animate",
         opts = {
             cursor = { enable = false },
         },
