@@ -46,7 +46,7 @@ return {
                 },
                 filters = {
                     dotfiles = false,
-                    custom = { "^.DS_Store$", "^node_modules$" },
+                    custom = { "^.DS_Store$" },
                 },
                 -- Performance optimizations
                 filesystem_watchers = {

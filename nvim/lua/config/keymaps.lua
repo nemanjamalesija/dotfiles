@@ -8,6 +8,16 @@ local map = vim.keymap.set
 -- File operations
 map("n", "<leader>fw", "<cmd>w<cr>", { desc = "Save File" })
 
+-- Override LazyVim's <leader>fn "New File" with file finder in node_modules
+pcall(vim.keymap.del, "n", "<leader>fn")
+map("n", "<leader>fn", function()
+    require("fzf-lua").files({
+        cmd = "fd --type f --hidden --follow --no-ignore --color=never . node_modules",
+        cwd_prompt = false,
+        fzf_opts = { ["--layout"] = "reverse" },
+    })
+end, { desc = "Find files in node_modules" })
+
 -- Close current buffer
 map("n", "<leader>qb", "<cmd>bdelete<cr>", { desc = "Quit Buffer" })
 
