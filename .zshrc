@@ -24,15 +24,4 @@ if [[ ! " ${plugins[@]} " =~ " zsh-syntax-highlighting " ]]; then
     plugins+=(zsh-syntax-highlighting)
 fi
 
-# Load forge shell plugin (commands, completions, keybindings) if not already loaded
-if [[ -z "$_FORGE_PLUGIN_LOADED" ]]; then
-    eval "$(forge zsh plugin)"
-fi
-
-# Editor for editing prompts (set during setup)
-# To change: update FORGE_EDITOR or remove to use $EDITOR
-export FORGE_EDITOR="nvim"
-# <<< forge initialize <<<
-
-# Disable forge right prompt (model/agent display)
 RPROMPT=''

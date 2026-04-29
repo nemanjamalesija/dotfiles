@@ -15,7 +15,8 @@ The install script creates symlinks for all configurations and sets up the theme
 ### Dependencies
 
 ```bash
-brew install neovim tmux git-delta bat fzf ripgrep fd
+brew install neovim tmux git-delta bat fzf ripgrep fd pure lazygit
+brew install felixkratz/formulae/borders
 ```
 
 ### Post-install
