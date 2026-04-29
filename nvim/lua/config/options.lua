@@ -4,6 +4,11 @@
 vim.opt.swapfile = false
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+-- Disable LazyVim's eslint extras autoformat, which uses textDocument/formatting.
+-- We use the official lspconfig pattern instead (BufWritePre + LspEslintFixAll),
+-- wired up in lua/plugins/lsp.lua. See lspconfig/lsp/eslint.lua for the docs.
+vim.g.lazyvim_eslint_auto_format = false
 vim.opt.termguicolors = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4

@@ -2,6 +2,14 @@ return {
     {
         "stevearc/conform.nvim",
         opts = {
+            -- Don't let conform fall back to vim.lsp.buf.format(). Vue files have
+            -- vue_ls + vtsls + eslint all attached; an unfiltered LSP format call
+            -- picks whichever responds first and races our :LspEslintFixAll autocmd.
+            -- eslint is now the sole formatter for js/ts/vue (via the BufWritePre
+            -- autocmd above); conform stays in charge of css/scss/sass via prettier.
+            default_format_opts = {
+                lsp_format = "never",
+            },
             formatters_by_ft = {
                 css = { "prettier" },
                 scss = { "prettier" },
@@ -17,6 +25,25 @@ return {
         opts = function(_, opts)
             local diagnostic = vim.diagnostic
             local api = vim.api
+
+            -- Format on save via eslint using the official lspconfig pattern.
+            -- :LspEslintFixAll runs eslint.applyAllFixes (workspace/executeCommand),
+            -- which is the supported path — textDocument/formatting times out and
+            -- corrupts the buffer with partial edits on errors.
+            -- See ~/.local/share/nvim/lazy/nvim-lspconfig/lsp/eslint.lua docstring.
+            api.nvim_create_autocmd("LspAttach", {
+                group = api.nvim_create_augroup("EslintFixOnSave", { clear = true }),
+                callback = function(args)
+                    local client = vim.lsp.get_client_by_id(args.data.client_id)
+                    if not client or client.name ~= "eslint" then
+                        return
+                    end
+                    api.nvim_create_autocmd("BufWritePre", {
+                        buffer = args.buf,
+                        command = "LspEslintFixAll",
+                    })
+                end,
+            })
 
             opts.diagnostics = {
                 underline = false,
@@ -106,10 +133,6 @@ return {
                     },
                 },
             }
-
-            -- Completely disable vue_ls
-            opts.servers.vue_ls = opts.servers.vue_ls or {}
-            opts.servers.vue_ls.enabled = false
 
             -- Configure vtsls for performance
             opts.servers.vtsls = opts.servers.vtsls or {}
