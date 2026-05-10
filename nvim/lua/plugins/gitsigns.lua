@@ -40,8 +40,11 @@ M.config = function()
                 gs.blame_line({ full = true })
             end, { desc = "Blame line" })
             vim.keymap.set("n", "<leader>gtd", gs.toggle_deleted, { desc = "Toggle deleted" })
-            vim.keymap.set("n", "<leader>gtw", gs.toggle_word_diff, { desc = "Toggle word diff" })
-            vim.keymap.set("n", "<leader>gth", gs.toggle_linehl, { desc = "Toggle word diff" })
+            vim.keymap.set("n", "<leader>gta", gs.toggle_linehl, { desc = "Toggle added/changed line highlight" })
+            vim.keymap.set("n", "<leader>gtt", function()
+                local v = gs.toggle_deleted()
+                gs.toggle_linehl(v)
+            end, { desc = "Toggle full diff (deleted + line highlight)" })
 
             -- Text object
             vim.keymap.set({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Hunk" })
