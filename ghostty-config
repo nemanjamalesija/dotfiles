@@ -6,17 +6,13 @@ window-decoration = none
 
 font-size = 20
 
-font-family = MesloLGS Nerd Font Mono
-# font-family = RobotoMono Nerd Font Mono
-# font-family = Inconsolata Nerd Font Mono
-# font-family = Consolas
-
-# font-family = JetBrainsMono Nerd Font Mono
+ # font-family = MesloLGS Nerd Font Mono
+ font-family = JetBrainsMono Nerd Font Mono
   
 # font-thicken = true
 # adjust-underline-position = 8
 
-adjust-underline-thickness = 2
+adjust-underline-thickness = 1
 alpha-blending = linear-corrected
 font-feature = -calt
 
@@ -30,8 +26,8 @@ macos-option-as-alt = true
 # Theme - managed by `theme` shell command (light/dark)
 theme = Dark+
 
-# Cursor color - override theme cursor to magenta (must be after theme)
-cursor-color = #bf68d9
+# Cursor color - override theme cursor to matrix green (must be after theme)
+cursor-color = #00ff41
 
 # Keybindings
 keybind = ctrl+t>t=text:tt\r
