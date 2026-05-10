@@ -181,6 +181,23 @@ return {
             })
         end, { desc = "Find ALL files (no exclusions)" })
 
+        -- Override LazyVim's <leader>fn "New File" with file finder in node_modules.
+        -- Deferred to VeryLazy so we run after LazyVim sets its default mapping.
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "VeryLazy",
+            once = true,
+            callback = function()
+                pcall(vim.keymap.del, "n", "<leader>fn")
+                vim.keymap.set("n", "<leader>fn", function()
+                    fzf_lua.files({
+                        cmd = "fd --type f --hidden --follow --no-ignore --color=never . node_modules",
+                        cwd_prompt = false,
+                        fzf_opts = { ["--layout"] = "reverse" },
+                    })
+                end, { desc = "Find files in node_modules" })
+            end,
+        })
+
         vim.keymap.set("v", "<leader>fsf", function()
             -- Yank current selection to unnamed register
             vim.cmd("normal! y")
@@ -224,33 +241,6 @@ return {
                 },
             })
         end, { desc = "Live grep for selection (project-wide)" })
-
-        vim.keymap.set("n", "<leader>fdf", function()
-            local dir = vim.fn.input("files directory: ")
-            vim.cmd("redraw")
-            if dir ~= "" then
-                require("fzf-lua").files({
-                    cwd = dir,
-                    fzf_opts = {
-                        ["--layout"] = "reverse",
-                    },
-                })
-            end
-        end, { desc = "Find files in specified directory" })
-
-        vim.keymap.set("n", "<leader>fdg", function()
-            local dir = vim.fn.input("grep directory: ")
-            vim.cmd("redraw")
-            if dir ~= "" then
-                fzf_lua.live_grep({
-                    cwd = dir,
-                    fzf_opts = {
-                        ["--layout"] = "reverse",
-                    },
-                    winopts = { preview = { hidden = false } },
-                })
-            end
-        end, { desc = "Live grep in specified directory" })
 
         vim.keymap.set("n", "<leader>pf", function()
             fzf_lua.files({
