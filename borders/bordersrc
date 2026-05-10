@@ -1,12 +1,17 @@
 #!/bin/bash
+
+# Theme-aware accent: blue (dark) / magenta (light)
+if [ -f "$HOME/.theme-mode" ] && [ "$(cat "$HOME/.theme-mode" | tr -d '[:space:]')" = "dark" ]; then
+    accent=0xff0a7aca # blue
+else
+    accent=0xffbf68d9 # magenta
+fi
+
 options=(
     style=round
     width=10.0
     hidpi=off
-    # active_color=0xff8f9fa
-    # active_color=0xff93b259 # green
-    active_color=0xffbf68d9 # magenta
-    # active_color=0xff8aadf4 # blue
+    active_color=$accent
     inactive_color=0xff333333
 )
 borders "${options[@]}"

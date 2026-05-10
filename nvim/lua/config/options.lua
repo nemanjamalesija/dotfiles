@@ -16,12 +16,12 @@ vim.opt.cmdheight = 0
 vim.opt.updatetime = 100
 vim.opt.virtualedit = "block"
 
--- Cursor color (magenta) - use autocommand so it persists after colorscheme changes
+-- Cursor color (theme-driven via vim.g.accent_color) - autocmd persists it across colorscheme changes
 vim.opt.guicursor = "n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor"
 
 local function set_cursor_hl()
-    vim.api.nvim_set_hl(0, "Cursor", { fg = "#1e1e2e", bg = "#bf68d9" })
-    vim.api.nvim_set_hl(0, "lCursor", { fg = "#1e1e2e", bg = "#bf68d9" })
+    vim.api.nvim_set_hl(0, "Cursor", { fg = "#1e1e2e", bg = vim.g.accent_color })
+    vim.api.nvim_set_hl(0, "lCursor", { fg = "#1e1e2e", bg = vim.g.accent_color })
 end
 
 set_cursor_hl()

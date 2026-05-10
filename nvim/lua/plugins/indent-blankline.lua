@@ -2,7 +2,7 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     event = "LazyFile",
     opts = function()
-        vim.api.nvim_set_hl(0, "IblScope", { fg = "#bf68d9" })
+        vim.api.nvim_set_hl(0, "IblScope", { fg = vim.g.accent_color })
         return {
             indent = {
                 char = "┃",
