@@ -32,14 +32,25 @@ end
 
 vim.api.nvim_create_autocmd("BufAdd", {
     callback = function()
-        local bufs = vim.fn.getbufinfo({ buflisted = 1 })
-        if #bufs > 10 then
+        vim.schedule(function()
+            local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+            if #bufs <= 10 then
+                return
+            end
+            table.sort(bufs, function(a, b)
+                return (a.lastused or 0) < (b.lastused or 0)
+            end)
+            local current = vim.api.nvim_get_current_buf()
             for _, buf in ipairs(bufs) do
-                if buf.bufnr ~= vim.api.nvim_get_current_buf() then
-                    vim.cmd("bdelete " .. buf.bufnr)
+                if
+                    buf.bufnr ~= current
+                    and #buf.windows == 0
+                    and buf.changed == 0
+                then
+                    pcall(vim.cmd, "bdelete " .. buf.bufnr)
                     break
                 end
             end
-        end
+        end)
     end,
 })
