@@ -2,6 +2,10 @@
 	name = Nemanja Malesija
 	email = malesija.nemanja@gmail.com
 
+# Njuškalo (Trikoder) — only the njuskalo-hr repo
+[includeIf "gitdir:~/Desktop/projekti/njuskalo-hr/"]
+	path = ~/.gitconfig-njuskalo
+
 # Include Catppuccin themes for delta
 [include]
 	path = ~/.dotfiles/delta/catppuccin-themes.gitconfig
