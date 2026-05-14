@@ -53,6 +53,9 @@ link "$DOTFILES/ghostty-config" ~/Library/Application\ Support/com.mitchellh.gho
 # Borders
 link "$DOTFILES/borders/bordersrc" ~/.config/borders/bordersrc
 
+# Hammerspoon
+link "$DOTFILES/hammerspoon" ~/.hammerspoon
+
 # Bat themes
 link "$DOTFILES/bat/themes" ~/.config/bat/themes
 

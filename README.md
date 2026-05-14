@@ -17,6 +17,7 @@ The install script creates symlinks for all configurations and sets up the theme
 ```bash
 brew install neovim tmux git-delta bat fzf ripgrep fd pure lazygit
 brew install felixkratz/formulae/borders
+brew install --cask hammerspoon
 ```
 
 ### Post-install
@@ -37,6 +38,7 @@ brew install felixkratz/formulae/borders
 | Delta | `delta/` | Themed git diffs (light/dark) |
 | Bat | `bat/themes/` | Syntax highlighting themes |
 | Borders | `borders/bordersrc` | Window border styling |
+| Hammerspoon | `hammerspoon/init.lua` | macOS automation (`;`-prefix tmux shortcuts) |
 
 ## Features
 
