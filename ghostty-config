@@ -1,7 +1,9 @@
 # adjust-cell-width = "-2%"
 # adjust-cell-height = "-5%"
 
-window-decoration = none
+# Keep a regular macOS window (standard corner radius — JankyBorders matches
+# that cleanly) but hide the titlebar to preserve the minimal look.
+window-decoration = auto
 # background-opacity = 0.95
 
 font-size = 20
@@ -19,15 +21,15 @@ font-feature = -calt
   
 title = " "
 macos-titlebar-proxy-icon = hidden
-macos-titlebar-style = tabs
+macos-titlebar-style = hidden
 macos-option-as-alt = true
 
 
 # Theme - managed by `theme` shell command (light/dark)
-theme = Dark+
+theme = iTerm2 Solarized Light
 
 # Cursor color - override theme cursor to matrix green (must be after theme)
-cursor-color = #00ff41
+cursor-color = #bf68d9
 
 # Keybindings
 keybind = ctrl+t>t=text:tt\r
