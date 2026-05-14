@@ -3,6 +3,10 @@
 -- the action fires. Otherwise ';' is re-injected via return value
 -- (bypasses the tap). No synthetic keystrokes = macOS won't disable the tap.
 
+-- Enable the `hs` CLI so we can query Hammerspoon state from a terminal
+-- (e.g. `hs -c "return tap:isEnabled()"`). Pure introspection, no behavior change.
+require("hs.ipc")
+
 -- Module-scope refs kept alive for the life of the Hammerspoon Lua state.
 local recheckTimer, appWatcher, sleepWatcher
 
@@ -33,6 +37,9 @@ local tap = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
   local etype = event:getType()
   if etype == hs.eventtap.event.types.tapDisabledByTimeout
     or etype == hs.eventtap.event.types.tapDisabledByUserInput then
+    print(string.format("[%s] eventtap disabled (type=%d) — re-enabling", os.date(), etype))
+    pending = false
+    if timer then timer:stop(); timer = nil end
     tap:start()
     return false
   end
@@ -85,9 +92,17 @@ end)
 
 tap:start()
 
--- Safety net: re-enable if macOS disables the tap
+-- Safety net: re-enable if macOS disables the tap. Also reset any stale
+-- `pending` state, in case a stuck flag (not just a dead tap) is what
+-- broke things — that scenario is silent and isEnabled() wouldn't catch it.
 local function ensureTap()
-  if not tap:isEnabled() then tap:stop(); tap:start() end
+  if not tap:isEnabled() then
+    print(string.format("[%s] ensureTap: tap was disabled, cycling", os.date()))
+    pending = false
+    if timer then timer:stop(); timer = nil end
+    tap:stop()
+    tap:start()
+  end
 end
 
 -- Retain refs at module scope. hs.timer / hs.*.watcher userdata that goes
@@ -161,3 +176,10 @@ end
 -- Dock toggle is handled natively by macOS' Cmd+Opt+D (symbolic hotkey 52,
 -- "Turn Dock Hiding On/Off") — smooth animation, no Dock restart needed.
 -- Intentionally not bound here to avoid intercepting it.
+
+-- Minimize focused window. Native Cmd+M does the same, this is for
+-- muscle-memory consistency with the other Alt+Cmd+<key> bindings above.
+local minimizeHotkey = hs.hotkey.bind({"alt", "cmd"}, "m", function()
+  local win = hs.window.focusedWindow()
+  if win then win:minimize() end
+end)
