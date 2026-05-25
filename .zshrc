@@ -5,6 +5,7 @@ export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="nvim"
 export VISUAL="nvim"
+# export CLAUDE_CODE_NO_FLICKER=1
 
 # Source general shell modules
 for file in ~/.dotfiles/zsh/*.zsh; do

@@ -53,7 +53,8 @@ theme() {
         echo "Switched to dark theme (Dark+ / VS Code)"
     fi
 
-    # Reload Ghostty config (Cmd+Shift+,)
+    # Reload Ghostty config (Cmd+Shift+,) — sent to whatever app is frontmost,
+    # which is Ghostty when you're running `tt` from a shell prompt.
     osascript -e 'tell application "System Events" to keystroke "," using {command down, shift down}'
 
     # Reload tmux config if tmux is running
