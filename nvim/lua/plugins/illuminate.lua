@@ -26,26 +26,24 @@ return {
             end,
         }):map("<leader>ux")
 
-        -- Optimized navigation using vim's built-in search
+        -- Jump to the next / previous occurrence of the word under the cursor
+        -- using Vim's own search engine -- the same one * # n N use -- so it
+        -- behaves identically: whole-word, works from anywhere inside the word,
+        -- and always wraps around the file. Nothing is left highlighted and the
+        -- user's last search (the / register and 'hlsearch' state) is restored.
         local function jump_to_reference(direction)
-            -- Get word under cursor
-            local word = vim.fn.expand("<cword>")
-            if word == "" or word:match("^%s*$") then
+            if vim.fn.expand("<cword>") == "" then
                 return
             end
-
-            -- Escape special regex characters and use word boundaries
-            local pattern = "\\<" .. vim.fn.escape(word, "\\") .. "\\>"
-
-            -- Search flags: W = don't wrap, w = wrap around
-            local flags = direction == "next" and "W" or "bW"
-            local pos = vim.fn.searchpos(pattern, flags)
-
-            -- If not found, wrap around
-            if pos[1] == 0 then
-                flags = direction == "next" and "w" or "bw"
-                vim.fn.searchpos(pattern, flags)
-            end
+            local save_search = vim.fn.getreg("/")
+            local save_hlsearch = vim.v.hlsearch
+            local save_wrapscan = vim.o.wrapscan
+            vim.o.wrapscan = true -- always loop around the file
+            -- '*' = next whole-word match, '#' = previous
+            vim.cmd("silent! normal! " .. (direction == "next" and "*" or "#"))
+            vim.o.wrapscan = save_wrapscan
+            vim.fn.setreg("/", save_search)
+            vim.v.hlsearch = save_hlsearch
         end
 
         local function map(key, dir, buffer)
@@ -61,13 +59,23 @@ return {
         map("]]", "next")
         map("[[", "prev")
 
+        -- Re-apply on every FileType so these win over the buffer-local [[ / ]]
+        -- maps that many ftplugins (python, ruby, rust, go, php, ...) install.
         vim.api.nvim_create_autocmd("FileType", {
-            callback = function()
-                local buffer = vim.api.nvim_get_current_buf()
-                map("]]", "next", buffer)
-                map("[[", "prev", buffer)
+            callback = function(ev)
+                map("]]", "next", ev.buf)
+                map("[[", "prev", ev.buf)
             end,
         })
+
+        -- The plugin loads after the first file's FileType has already fired,
+        -- so cover buffers that are open by the time we get here.
+        for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.api.nvim_buf_is_loaded(buffer) then
+                map("]]", "next", buffer)
+                map("[[", "prev", buffer)
+            end
+        end
 
         -- Light theme: override everforest's bold-only IlluminatedWord with a magenta underline.
         -- Dark theme: leave vscode.nvim's default background highlight in place.
