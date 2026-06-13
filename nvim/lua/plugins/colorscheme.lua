@@ -1,5 +1,17 @@
 return {
     {
+        "loctvl842/monokai-pro.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("monokai-pro").setup()
+            if vim.g.theme_mode == "dark" then
+                vim.o.background = "dark"
+                vim.cmd.colorscheme("monokai-pro")
+            end
+        end,
+    },
+    {
         "folke/tokyonight.nvim",
         lazy = false,
         priority = 1000,
@@ -130,7 +142,7 @@ return {
             })
             if vim.g.theme_mode == "dark" then
                 vim.o.background = "dark"
-                vim.cmd.colorscheme("vscode")
+                -- vim.cmd.colorscheme("vscode")
             end
         end,
     },

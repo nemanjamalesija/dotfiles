@@ -24,7 +24,7 @@ theme() {
     if [[ "$mode" != "light" && "$mode" != "dark" ]]; then
         echo "Usage: theme [light|dark]"
         echo "  light - iTerm2 Solarized Light (Ghostty) + Everforest (Neovim) + Solarized Light (delta)"
-        echo "  dark  - Dark+ (Ghostty) + VS Code (Neovim) + Visual Studio Dark+ (delta)"
+        echo "  dark  - Monokai Pro (Ghostty) + Monokai Pro (Neovim) + Visual Studio Dark+ (delta)"
         return 1
     fi
 
@@ -43,14 +43,14 @@ theme() {
         echo "Switched to light theme (Solarized Light + Everforest)"
     else
         # Ghostty dark theme
-        sed -i '' 's/^theme = .*/theme = Dark+/' "$ghostty_config"
+        sed -i '' 's/^theme = .*/theme = Monokai Pro/' "$ghostty_config"
         sed -i '' 's/^background-opacity = .*/background-opacity = 0.95/' "$ghostty_config"
-        sed -i '' 's/^cursor-color = .*/cursor-color = #00ff41/' "$ghostty_config"
+        sed -i '' 's/^cursor-color = .*/cursor-color = #ffd866/' "$ghostty_config"
 
         # Delta dark theme
         ln -sf "$HOME/.dotfiles/delta/dark.gitconfig" "$delta_theme_link"
 
-        echo "Switched to dark theme (Dark+ / VS Code)"
+        echo "Switched to dark theme (Monokai Pro)"
     fi
 
     # Reload Ghostty config (Cmd+Shift+,) — sent to whatever app is frontmost,

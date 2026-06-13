@@ -1,15 +1,13 @@
 # adjust-cell-width = "-2%"
 # adjust-cell-height = "-5%"
 
-# Keep a regular macOS window (standard corner radius — JankyBorders matches
-# that cleanly) but hide the titlebar to preserve the minimal look.
 window-decoration = auto
 # background-opacity = 0.95
 
 font-size = 20
 
- # font-family = MesloLGS Nerd Font Mono
- font-family = JetBrainsMono Nerd Font Mono
+# font-family = MesloLGS Nerd Font Mono
+  font-family = JetBrainsMono Nerd Font Mono
   
 # font-thicken = true
 # adjust-underline-position = 8
@@ -28,7 +26,7 @@ macos-option-as-alt = true
 # Theme - managed by `theme` shell command (light/dark)
 theme = iTerm2 Solarized Light
 
-# Cursor color - override theme cursor to matrix green (must be after theme)
+# Cursor color - override theme cursor to monokai yellow (matches borders; must be after theme)
 cursor-color = #bf68d9
 
 # Keybindings

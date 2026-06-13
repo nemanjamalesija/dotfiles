@@ -11,7 +11,7 @@ end
 vim.o.background = theme_mode
 vim.g.theme_mode = theme_mode
 -- Accent color propagates to cursor, smear-cursor, illuminate, indent-blankline
-vim.g.accent_color = theme_mode == "dark" and "#00ff41" or "#bf68d9"
+vim.g.accent_color = theme_mode == "dark" and "#ffd866" or "#bf68d9"
 
 require("config.lazy")
 
