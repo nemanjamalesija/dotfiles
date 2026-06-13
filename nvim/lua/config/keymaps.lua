@@ -13,7 +13,7 @@ map("n", "<leader>qb", "<cmd>bdelete<cr>", { desc = "Quit Buffer" })
 
 vim.api.nvim_create_user_command("W", "w", {})
 
-local function dive_with_count_object()
+local function rive_with_count_object()
     local count = vim.v.count1 -- Gets the count prefix (defaults to 1)
     local original_pos = vim.fn.getpos(".")
 
@@ -47,8 +47,8 @@ local function dive_with_count_paren()
     vim.cmd("normal! vi(")
 end
 
-map("n", "vi{", dive_with_count_object, { desc = "Dive inside nth { block" })
-map("n", "vi(", dive_with_count_paren, { desc = "Dive inside nth ( block" })
+-- map("n", "vi{", dive_with_count_object, { desc = "Dive inside nth { block" })
+-- map("n", "vi(", dive_with_count_paren, { desc = "Dive inside nth ( block" })
 
 -- Buffer control
 map("n", "<M-i>", "<cmd>vertical resize +5<cr>", { desc = "Increase buffer width" })
