@@ -17,9 +17,6 @@ for file in ~/.dotfiles/zsh/local/*.zsh(N); do
   source "$file"
 done
 
-# MFA code lookup from Redis (dev helper)
-mfa() { docker exec emasys-dev-redis-1 redis-cli hget "auth-mfa:$1" code; }
-
 # Add required zsh plugins if not already present
 if [[ ! " ${plugins[@]} " =~ " zsh-syntax-highlighting " ]]; then
     plugins+=(zsh-syntax-highlighting)

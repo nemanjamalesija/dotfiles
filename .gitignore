@@ -4,3 +4,6 @@ delta-theme.gitconfig
 # Personal/work-specific shell configs
 zsh/local/*
 !zsh/local/.gitkeep
+
+# Machine-local Neovim config (templates: *.example.lua are tracked)
+nvim/lua/config/local.lua

@@ -62,9 +62,7 @@ This dotfiles setup includes a sophisticated theme switching system that syncs a
 ### Navigation
 - `dot` - cd to ~/.dotfiles
 - `v` - Open nvim
-- `nj` - cd to njuskalo project
-- `amr` - cd to amr-web project
-- `beaver` - cd to beaver-iot-web project
+- Work/project nav shortcuts (e.g. project `cd` aliases) live in the gitignored `zsh/local/`
 
 ### Config Editing
 - `zcfg` - Edit .zshrc
@@ -86,7 +84,6 @@ This dotfiles setup includes a sophisticated theme switching system that syncs a
 - `gp` - git push
 - `gpl` - git pull -r
 - `grebase-n [N]` - Interactive rebase last N commits
-- `njuBranch` - Create a branch with JIRA ID prefix
 
 ### Utilities
 - `cleanup` - Comprehensive cleanup script that:

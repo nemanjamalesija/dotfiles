@@ -74,12 +74,18 @@ zsh/
 
 All aliases and functions live in `zsh/*.zsh` — browse them directly for the full list.
 
-### Personal configs
+### Machine-local / work-specific config
 
-Project shortcuts, work-specific aliases, and anything personal goes in `zsh/local/`. Files there are gitignored and sourced automatically.
+Anything personal or work-specific (project shortcuts, work aliases, internal
+project names, per-repo git identity) is kept **out of this public repo**. Each
+tool has a tracked `*.example` template and a gitignored real file:
 
-Copy the template to get started:
+| Tool | Template (tracked) | Real file (gitignored) | Loaded by |
+|------|--------------------|------------------------|-----------|
+| Zsh  | `zsh/local.example` | `zsh/local/*.zsh` | `.zshrc` sources `zsh/local/*.zsh` |
+| Git  | `.gitconfig.local.example` | `~/.gitconfig.local` | `[include]` in `.gitconfig` |
+| Neovim | `nvim/lua/config/local.example.lua` | `nvim/lua/config/local.lua` | `pcall(require, "config.local")` in plugin specs |
 
-```bash
-cp zsh/local.example zsh/local/work.zsh
-```
+`./install.sh` seeds each real file from its template on a fresh machine (it
+never overwrites an existing file). After install, fill the seeded files with
+your own values — nothing work-specific ever lands in git.

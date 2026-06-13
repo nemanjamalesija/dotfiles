@@ -242,23 +242,10 @@ return {
             })
         end, { desc = "Live grep for selection (project-wide)" })
 
-        vim.keymap.set("n", "<leader>pf", function()
-            fzf_lua.files({
-                cwd = "presentation-backend",
-                fzf_opts = {
-                    ["--layout"] = "reverse",
-                },
-            })
-        end, { desc = "Find files in presentation-backend" })
-
-        vim.keymap.set("n", "<leader>pg", function()
-            fzf_lua.live_grep({
-                cwd = "presentation-backend",
-                fzf_opts = {
-                    ["--layout"] = "reverse",
-                },
-                winopts = { preview = { hidden = false } },
-            })
-        end, { desc = "Live grep in presentation-backend" })
+        -- Project-specific fzf keymaps from machine-local config (gitignored).
+        local ok, localcfg = pcall(require, "config.local")
+        if ok and type(localcfg) == "table" and localcfg.fzf_keymaps then
+            localcfg.fzf_keymaps(fzf_lua)
+        end
     end,
 }

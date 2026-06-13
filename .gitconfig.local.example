@@ -1,0 +1,11 @@
+# Machine-local git config — copy to ~/.gitconfig.local and customize.
+# Loaded automatically via the `[include]` in the tracked .gitconfig.
+# This template is tracked; ~/.gitconfig.local is NOT.
+
+# Per-repo identity override for a work project tree, e.g.:
+# [includeIf "gitdir:~/path/to/work-project/"]
+#     path = ~/.gitconfig-work
+#
+# where ~/.gitconfig-work contains:
+# [user]
+#     email = you@company.com
