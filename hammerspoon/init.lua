@@ -5,7 +5,7 @@ require("hs.ipc")
 -- (otherwise Lua GC collects them and watchers/timers stop firing silently).
 local themeWatcher
 
--- ';' dead-key tmux bindings. Re-enabled when working without my external keyboard.
+--[[ Disabled for now — kept in case I want the ';' dead-key back later.
 -- Tmux shortcuts: ;1–;9, ;c, ;x, ;r
 -- Dead-key approach: ';' is consumed and held. If a trigger follows,
 -- the action fires. Otherwise ';' is re-injected via return value
@@ -116,6 +116,7 @@ sleepWatcher = hs.caffeinate.watcher.new(function(e)
   end
 end)
 sleepWatcher:start()
+]]
 
 -- Theme-change side-effect: when `tt` writes ~/.theme-mode, re-issue
 -- borders options to the running daemon (live update over its socket —

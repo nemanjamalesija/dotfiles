@@ -24,10 +24,10 @@ macos-option-as-alt = true
 
 
 # Theme - managed by `theme` shell command (light/dark)
-theme = iTerm2 Solarized Light
+theme = Monokai Pro
 
 # Cursor color - override theme cursor to monokai yellow (matches borders; must be after theme)
-cursor-color = #bf68d9
+cursor-color = #ffd866
 
 # Keybindings
 keybind = ctrl+t>t=text:tt\r
