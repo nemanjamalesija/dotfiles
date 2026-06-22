@@ -9,6 +9,13 @@ return {
             notify = { enabled = false },
             notifier = { enabled = false },
             indent = { enabled = false },
+            -- Disable Snacks "words": it owns the buffer-local ]] / [[ ->
+            -- Snacks.words.jump maps (the "No more references" jump). With the
+            -- module off, those LSP keymaps are never created (they're gated on
+            -- Snacks.words.is_enabled()), freeing ]] / [[ for vim-illuminate's
+            -- own next/prev-occurrence maps. Word-under-cursor highlighting is
+            -- also handled by vim-illuminate, so nothing is lost here.
+            words = { enabled = false },
             image = {
                 enabled = true,
             },

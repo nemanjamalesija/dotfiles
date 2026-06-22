@@ -26,6 +26,12 @@ return {
             local diagnostic = vim.diagnostic
             local api = vim.api
 
+            opts.keys = opts.keys or {}
+            vim.list_extend(opts.keys, {
+                { "]]", false },
+                { "[[", false },
+            })
+
             -- Format on save via eslint using the official lspconfig pattern.
             -- :LspEslintFixAll runs eslint.applyAllFixes (workspace/executeCommand),
             -- which is the supported path — textDocument/formatting times out and
