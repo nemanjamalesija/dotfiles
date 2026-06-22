@@ -171,7 +171,7 @@ return {
         end, { desc = "Live grep (search EVERYWHERE - no exclusions)" })
 
         -- Find ALL files (no exclusions) - useful for finding files in excluded directories
-        vim.keymap.set("n", "<leader>fx<leader>", function()
+        vim.keymap.set("n", "<leader>f<leader>", function()
             fzf_lua.files({
                 fd_opts = "--type f --hidden --follow --color=never --no-ignore",
                 cwd_prompt = false,
