@@ -141,6 +141,8 @@ local apps = {
   ["2"] = "com.google.Chrome",
   ["3"] = "com.microsoft.teams2",
   ["4"] = "com.sublimemerge",
+  ["5"] = "md.obsidian",
+  ["6"] = "com.atlassian.trello",
 }
 
 local appHotkeys = {}
