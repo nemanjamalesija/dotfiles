@@ -5,10 +5,10 @@ return {
         priority = 1000,
         config = function()
             require("monokai-pro").setup()
-            if vim.g.theme_mode == "dark" then
-                vim.o.background = "dark"
-                vim.cmd.colorscheme("monokai-pro")
-            end
+            -- if vim.g.theme_mode == "dark" then
+            --     vim.o.background = "dark"
+            --     vim.cmd.colorscheme("monokai-pro")
+            -- end
         end,
     },
     {
@@ -25,10 +25,10 @@ return {
                     keywords = { italic = false },
                 },
             })
-            -- if vim.g.theme_mode == "dark" then
-            --     vim.o.background = "dark"
-            --     vim.cmd.colorscheme("tokyonight-moon")
-            -- end
+            if vim.g.theme_mode == "dark" then
+                vim.o.background = "dark"
+                vim.cmd.colorscheme("tokyonight-moon")
+            end
         end,
     },
     {

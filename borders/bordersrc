@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Theme-aware accent: monokai yellow (dark) / magenta (light)
+# Theme-aware accent: matrix green (dark) / magenta (light)
 if [ -f "$HOME/.theme-mode" ] && [ "$(cat "$HOME/.theme-mode" | tr -d '[:space:]')" = "dark" ]; then
-    accent=0xffffd866 # monokai yellow
+    accent=0xff00ff41 # matrix green
 else
     accent=0xffbf68d9 # magenta
 fi
