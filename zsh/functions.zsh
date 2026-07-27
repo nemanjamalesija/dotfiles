@@ -79,230 +79,61 @@ toggleTheme() {
   fi
 }
 
+# Closes the tmux session tree and whatever it leaves behind. Safe to run with
+# other apps and editors open: nothing outside tmux and its leftovers is touched.
 cleanup() {
-    local RED='\033[0;31m'
     local GREEN='\033[0;32m'
     local YELLOW='\033[1;33m'
     local NC='\033[0m'
 
-    echo -e "${YELLOW}Starting cleanup...${NC}\n"
+    echo -e "${YELLOW}Cleaning up...${NC}\n"
 
-    # Step 1: Calculate memory used by target processes before cleanup
-    local NVIM_MEM=0
-    local LSP_MEM=0
-    local COPILOT_MEM=0
-    local NODE_MEM=0
-
-    NVIM_PIDS=$(pgrep nvim)
-    if [ -n "$NVIM_PIDS" ]; then
-        NVIM_MEM=$(ps -p $NVIM_PIDS -o rss= 2>/dev/null | awk '{sum+=$1} END {print sum/1024}')
-    fi
-
-    COPILOT_PIDS=$(pgrep -f "copilot|github.copilot")
-    if [ -n "$COPILOT_PIDS" ]; then
-        COPILOT_MEM=$(ps -p $COPILOT_PIDS -o rss= 2>/dev/null | awk '{sum+=$1} END {print sum/1024}')
-    fi
-
-    LSP_PIDS=$(pgrep -f "language-server|tsserver|vtsls|vue-language-server|eslint")
-    if [ -n "$LSP_PIDS" ]; then
-        LSP_MEM=$(ps -p $LSP_PIDS -o rss= 2>/dev/null | awk '{sum+=$1} END {print sum/1024}')
-    fi
-
-    NODE_PIDS=$(pgrep -f "node.*mason|node.*copilot|node.*typescript")
-    if [ -n "$NODE_PIDS" ]; then
-        NODE_MEM=$(ps -p $NODE_PIDS -o rss= 2>/dev/null | awk '{sum+=$1} END {print sum/1024}')
-    fi
-
-    local TOTAL_PROCESS_MEM=$(echo "$NVIM_MEM + $COPILOT_MEM + $LSP_MEM + $NODE_MEM" | bc)
-
-    # Step 2: Gracefully close Neovim instances in tmux sessions
-    echo -e "${YELLOW}Attempting to close Neovim gracefully in tmux sessions...${NC}"
     if tmux list-sessions &>/dev/null; then
-        tmux list-panes -a -F '#{session_name}:#{window_index}.#{pane_index}' | while read pane; do
-            tmux send-keys -t "$pane" Escape 2>/dev/null
-            tmux send-keys -t "$pane" ':qa!' Enter 2>/dev/null
-        done
-        echo -e "${GREEN}Sent close commands to all tmux panes${NC}"
-        sleep 2
+        # Quit Neovim itself first so it saves its shada file and leaves no swap
+        # files behind. Only panes actually running nvim get the keys, a shell
+        # pane would just run ':qa!' as a command.
+        local NVIM_PANES=$(tmux list-panes -a -F '#{pane_id} #{pane_current_command}' | awk '$2 == "nvim" { print $1 }')
+        if [ -n "$NVIM_PANES" ]; then
+            echo "$NVIM_PANES" | while read pane; do
+                tmux send-keys -t "$pane" Escape 2>/dev/null
+                tmux send-keys -t "$pane" ':qa!' Enter 2>/dev/null
+            done
+            echo -e "${GREEN}Closed Neovim in $(echo $NVIM_PANES | wc -w | tr -d ' ') pane(s)${NC}"
+            sleep 2
+        fi
+
+        tmux kill-server 2>/dev/null
+        echo -e "${GREEN}Tmux server stopped${NC}"
     else
         echo -e "${GREEN}No tmux sessions running${NC}"
     fi
 
-    # Step 3: Kill Copilot processes (major memory leaker)
-    echo -e "\n${YELLOW}Killing Copilot processes...${NC}"
-    COPILOT_PIDS=$(pgrep -f "copilot|github.copilot")
-    if [ -n "$COPILOT_PIDS" ]; then
-        echo "$COPILOT_PIDS" | xargs kill -15 2>/dev/null
-        sleep 1
-        # Force kill if still running
-        pgrep -f "copilot|github.copilot" | xargs kill -9 2>/dev/null
-        echo -e "${GREEN}Killed Copilot: $(echo $COPILOT_PIDS | wc -w | tr -d ' ') processes${NC}"
-    else
-        echo -e "${GREEN}No Copilot processes running${NC}"
-    fi
-
-    # Step 4: Kill LSP servers (including vtsls)
-    echo -e "\n${YELLOW}Killing LSP servers...${NC}"
-    LSP_PIDS=$(pgrep -f "language-server|tsserver|vtsls|vue-language-server|eslint")
-    if [ -n "$LSP_PIDS" ]; then
-        echo "$LSP_PIDS" | xargs kill -15 2>/dev/null
-        sleep 1
-        pgrep -f "language-server|tsserver|vtsls|vue-language-server|eslint" | xargs kill -9 2>/dev/null
-        echo -e "${GREEN}Killed LSP servers: $(echo $LSP_PIDS | wc -w | tr -d ' ') processes${NC}"
-    else
-        echo -e "${GREEN}No LSP servers running${NC}"
-    fi
-
-    # Step 5: Kill orphaned node processes from LSP/Copilot
-    echo -e "\n${YELLOW}Killing orphaned node processes...${NC}"
-    NODE_PIDS=$(pgrep -f "node.*mason|node.*copilot|node.*typescript")
-    if [ -n "$NODE_PIDS" ]; then
-        echo "$NODE_PIDS" | xargs kill -15 2>/dev/null
-        sleep 1
-        pgrep -f "node.*mason|node.*copilot|node.*typescript" | xargs kill -9 2>/dev/null
-        echo -e "${GREEN}Killed orphaned node: $(echo $NODE_PIDS | wc -w | tr -d ' ') processes${NC}"
-    else
-        echo -e "${GREEN}No orphaned node processes${NC}"
-    fi
-
-
-    # Step 5: Clean LSP log
-    echo -e "\n${YELLOW}Cleaning LSP log...${NC}"
-    LOG_PATH="$HOME/.local/state/nvim/lsp.log"
-    if [ -f "$LOG_PATH" ]; then
-        LOG_SIZE=$(du -h "$LOG_PATH" | cut -f1)
-        rm "$LOG_PATH"
-        echo -e "${GREEN}✓ Deleted LSP log (was $LOG_SIZE)${NC}"
-    else
-        echo -e "${GREEN}✓ No LSP log to clean${NC}"
-    fi
-
-    # Step 6: Kill any remaining Neovim processes
-    echo -e "\n${YELLOW}Killing remaining Neovim processes...${NC}"
-    NVIM_PIDS=$(pgrep nvim)
-    if [ -n "$NVIM_PIDS" ]; then
-        echo "$NVIM_PIDS" | xargs kill -9 2>/dev/null
-        echo -e "${GREEN}Killed Neovim: $(echo $NVIM_PIDS | wc -w | tr -d ' ') processes${NC}"
-    else
-        echo -e "${GREEN}No Neovim processes running${NC}"
-    fi
-
-    # Step 7: Kill tmux server
-    echo -e "\n${YELLOW}Killing tmux server...${NC}"
-    if tmux list-sessions &>/dev/null; then
-        tmux kill-server 2>/dev/null
-        echo -e "${GREEN}Tmux server killed${NC}"
-    else
-        echo -e "${GREEN}Tmux server not running${NC}"
-    fi
-
-    # Step 8: Clean logs and state
-    echo -e "\n${YELLOW}Cleaning logs and state...${NC}"
-    local CLEANED_SIZE=0
-    local CLEANED_FILES=()
-
-    # Main Neovim log
-    if [ -f "$HOME/.local/state/nvim/log" ]; then
-        local size=$(stat -f%z "$HOME/.local/state/nvim/log" 2>/dev/null || echo 0)
-        CLEANED_SIZE=$((CLEANED_SIZE + size))
-        CLEANED_FILES+=("log ($(echo "scale=1; $size/1024" | bc)KB)")
-        rm -f "$HOME/.local/state/nvim/log"
-    fi
-
-    # LuaSnip log
-    if [ -f "$HOME/.local/state/nvim/luasnip.log" ]; then
-        local size=$(stat -f%z "$HOME/.local/state/nvim/luasnip.log" 2>/dev/null || echo 0)
-        CLEANED_SIZE=$((CLEANED_SIZE + size))
-        CLEANED_FILES+=("luasnip.log ($(echo "scale=1; $size/1024" | bc)KB)")
-        rm -f "$HOME/.local/state/nvim/luasnip.log"
-    fi
-
-    # Conform log
-    if [ -f "$HOME/.local/state/nvim/conform.log" ]; then
-        local size=$(stat -f%z "$HOME/.local/state/nvim/conform.log" 2>/dev/null || echo 0)
-        CLEANED_SIZE=$((CLEANED_SIZE + size))
-        CLEANED_FILES+=("conform.log ($(echo "scale=1; $size/1024" | bc)KB)")
-        rm -f "$HOME/.local/state/nvim/conform.log"
-    fi
-
-    # Mason log
-    if [ -f "$HOME/.local/state/nvim/mason.log" ]; then
-        local size=$(stat -f%z "$HOME/.local/state/nvim/mason.log" 2>/dev/null || echo 0)
-        CLEANED_SIZE=$((CLEANED_SIZE + size))
-        CLEANED_FILES+=("mason.log ($(echo "scale=1; $size/1024" | bc)KB)")
-        rm -f "$HOME/.local/state/nvim/mason.log"
-    fi
-
-    # Diffview log in cache
-    if [ -f "$HOME/.cache/nvim/diffview.log" ]; then
-        local size=$(stat -f%z "$HOME/.cache/nvim/diffview.log" 2>/dev/null || echo 0)
-        CLEANED_SIZE=$((CLEANED_SIZE + size))
-        CLEANED_FILES+=("diffview.log ($(echo "scale=1; $size/1024" | bc)KB)")
-        rm -f "$HOME/.cache/nvim/diffview.log"
-    fi
-
-    # Neo-tree log
-    if [ -f "$HOME/.local/share/nvim/neo-tree.nvim.log" ]; then
-        local size=$(stat -f%z "$HOME/.local/share/nvim/neo-tree.nvim.log" 2>/dev/null || echo 0)
-        CLEANED_SIZE=$((CLEANED_SIZE + size))
-        CLEANED_FILES+=("neo-tree.nvim.log ($(echo "scale=1; $size/1024" | bc)KB)")
-        rm -f "$HOME/.local/share/nvim/neo-tree.nvim.log"
-    fi
-
-    # LSP server logs (lua-language-server, etc.)
-    if [ -d "$HOME/.local/share/nvim/mason/packages" ]; then
-        find "$HOME/.local/share/nvim/mason/packages" -type f -name "*.log" 2>/dev/null | while read logfile; do
-            if [ -f "$logfile" ]; then
-                local size=$(stat -f%z "$logfile" 2>/dev/null || echo 0)
-                if [ "$size" -gt 0 ]; then
-                    CLEANED_SIZE=$((CLEANED_SIZE + size))
-                    local basename=$(basename "$logfile")
-                    CLEANED_FILES+=("$basename ($(echo "scale=1; $size/1024" | bc)KB)")
-                    rm -f "$logfile"
-                fi
-            fi
-        done
-    fi
-
-    # Neovim compiled Lua cache (safe to delete, regenerates on next run)
-    if [ -d "$HOME/.cache/nvim/luac" ]; then
-        local size=$(du -sk "$HOME/.cache/nvim/luac" 2>/dev/null | awk '{print $1*1024}')
-        if [ "$size" -gt 0 ]; then
-            CLEANED_SIZE=$((CLEANED_SIZE + size))
-            CLEANED_FILES+=("luac cache ($(echo "scale=1; $size/1024/1024" | bc)MB)")
-            rm -rf "$HOME/.cache/nvim/luac"
+    # Language servers and node helpers get handed over to launchd (parent PID 1)
+    # when the editor that started them dies, so a parentless one is a leftover.
+    # Anything with a live parent still belongs to something you are using.
+    echo -e "\n${YELLOW}Looking for leftover language servers...${NC}"
+    local ORPHANS=()
+    for pid in $(pgrep -f "language-server|tsserver|vtsls|vue-language-server|eslint|node.*mason|node.*typescript"); do
+        if [ "$(ps -o ppid= -p $pid | tr -d ' ')" = "1" ]; then
+            local command_path=$(ps -o comm= -p $pid)
+            echo -e "${GREEN}  - ${command_path##*/}${NC}"
+            ORPHANS+=($pid)
         fi
-    fi
+    done
 
-    # Report cleaned files
-    if [ ${#CLEANED_FILES[@]} -gt 0 ]; then
-        echo -e "${GREEN}Cleaned files:${NC}"
-        for file in "${CLEANED_FILES[@]}"; do
-            echo -e "${GREEN}  - $file${NC}"
-        done
-        echo -e "${GREEN}Total cleaned: $(echo "scale=1; $CLEANED_SIZE/1024/1024" | bc)MB${NC}"
+    if [ ${#ORPHANS[@]} -gt 0 ]; then
+        kill -15 $ORPHANS 2>/dev/null
+        echo -e "${GREEN}Closed ${#ORPHANS[@]} leftover process(es)${NC}"
     else
-        echo -e "${YELLOW}No log files found to clean${NC}"
+        echo -e "${GREEN}Nothing left over${NC}"
     fi
 
-    # Step 9: Final verification
-    echo -e "\n${YELLOW}Verifying cleanup...${NC}"
-    sleep 1
-
-    REMAINING_NVIM=$(pgrep nvim | wc -l | tr -d ' ')
-    REMAINING_LSP=$(pgrep -f "language-server|tsserver|vtsls|copilot" | wc -l | tr -d ' ')
-
-    if [ "$REMAINING_NVIM" -eq 0 ] && [ "$REMAINING_LSP" -eq 0 ]; then
-        echo -e "${GREEN}Cleanup successful!${NC}"
-        if [ $(echo "$TOTAL_PROCESS_MEM > 0" | bc) -eq 1 ]; then
-            echo -e "${GREEN}Estimated memory freed from killed processes: ${TOTAL_PROCESS_MEM%.*}MB${NC}\n"
+    # These two are the only nvim logs that grow without bound, and nothing
+    # reads them once the session is over.
+    for log in "$HOME/.local/state/nvim/lsp.log" "$HOME/.local/state/nvim/log"; do
+        if [ -f "$log" ]; then
+            echo -e "\n${GREEN}Deleted $(basename $log) ($(du -h "$log" | cut -f1))${NC}"
+            rm -f "$log"
         fi
-    else
-        echo -e "${RED}Warning: Some processes may still be running:${NC}"
-        [ "$REMAINING_NVIM" -gt 0 ] && echo -e "${RED}  - Neovim: $REMAINING_NVIM processes${NC}"
-        [ "$REMAINING_LSP" -gt 0 ] && echo -e "${RED}  - LSP/Copilot: $REMAINING_LSP processes${NC}"
-        if [ $(echo "$TOTAL_PROCESS_MEM > 0" | bc) -eq 1 ]; then
-            echo -e "${YELLOW}Estimated memory freed: ${TOTAL_PROCESS_MEM%.*}MB${NC}\n"
-        fi
-    fi
+    done
 }

@@ -54,7 +54,7 @@ tt             # Toggle between themes
 
 ### Cleanup utility
 
-Kill orphaned Neovim, LSP, and Copilot processes and clean stale logs:
+Close the tmux session tree, plus any language servers it left running, and delete the nvim logs that keep growing:
 
 ```bash
 cleanup
