@@ -143,6 +143,7 @@ local apps = {
   ["4"] = "com.sublimemerge",
   ["5"] = "md.obsidian",
   ["6"] = "com.atlassian.trello",
+  ["7"] = "net.whatsapp.WhatsApp",
 }
 
 local appHotkeys = {}
