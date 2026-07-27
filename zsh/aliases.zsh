@@ -13,6 +13,10 @@ alias tcfg="nvim ~/.tmux.conf"
 alias tsource="tmux source ~/.tmux.conf"
 alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
 
+# AMR mobile
+alias amrm='cd ~/Desktop/projekti/web-app/amr-web/mobile'
+alias amrmv='cd ~/Desktop/projekti/web-app/amr-web/mobile && nvim .'
+
 # Borders
 alias borders='nvim ~/.dotfiles/borders/bordersrc'
 alias borders-start='brew services start felixkratz/formulae/borders'
