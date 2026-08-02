@@ -70,6 +70,7 @@ if [ -d "$SUBLIME_MERGE_USER" ]; then
     if [ ! -f "$SUBLIME_MERGE_USER/Preferences.sublime-settings" ]; then
         cat > "$SUBLIME_MERGE_USER/Preferences.sublime-settings" <<'EOF'
 {
+	"font_size": 16,
 	"theme": "Merge Dark.sublime-theme",
 	"color_scheme": "Packages/User/TokyoNight Moon.sublime-color-scheme",
 }

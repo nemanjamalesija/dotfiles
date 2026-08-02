@@ -4,6 +4,11 @@
 {
 	"variables":
 	{
+		// UI text sizes, four points up from the app defaults (12/11/13)
+		"font_size": 16,
+		"font_size_sm": 15,
+		"font_size_lg": 17,
+
 		// Text
 		"text": "#586e75",
 		"header_fg": "#073642",
