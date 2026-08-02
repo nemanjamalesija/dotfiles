@@ -10,6 +10,7 @@ alias zsource='source ~/.zshrc'
 alias gcfg="nvim ~/.dotfiles/ghostty-config"
 alias vcfg='cd ~/.dotfiles && nvim nvim'
 alias tcfg="nvim ~/.tmux.conf"
+alias cset='nvim ~/.claude/settings.json'
 alias tsource="tmux source ~/.tmux.conf"
 alias ghostty='/Applications/Ghostty.app/Contents/MacOS/ghostty'
 
