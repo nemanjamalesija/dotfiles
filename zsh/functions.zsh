@@ -13,13 +13,40 @@ grebase-n() {
     git rebase -i HEAD~$1
 }
 
-# Theme switcher - syncs Ghostty, Neovim, tmux, and delta colorschemes
+# Points Sublime Merge at one of the two themes in ~/.dotfiles/sublime-merge.
+# Sublime Merge watches this file, so a running app re-themes itself right away.
+_theme_set_sublime_merge() {
+    local prefs="$1"
+    local ui_theme="$2"
+    local color_scheme="$3"
+
+    # Sublime Merge is optional, skip it on a machine that doesn't have it
+    [ -f "$prefs" ] || return 0
+
+    local setting key value tmp
+    for setting in "theme=$ui_theme" "color_scheme=$color_scheme"; do
+        key="${setting%%=*}"
+        value="${setting#*=}"
+
+        if grep -q "\"$key\"" "$prefs"; then
+            sed -i '' -E "s|(\"$key\"[[:space:]]*:[[:space:]]*)\"[^\"]*\"|\1\"$value\"|" "$prefs"
+        else
+            tmp="$(mktemp)"
+            awk -v line="	\"$key\": \"$value\"," \
+                '/^\}/ && !added { print line; added = 1 } { print }' \
+                "$prefs" > "$tmp" && mv "$tmp" "$prefs"
+        fi
+    done
+}
+
+# Theme switcher - syncs Ghostty, Neovim, tmux, delta and Sublime Merge colorschemes
 # Usage: theme light  (iTerm2 Solarized Light + Everforest)
 #        theme dark   (TokyoNight Moon + TokyoNight Moon)
 theme() {
     local mode="$1"
     local ghostty_config="$HOME/.dotfiles/ghostty-config"
     local delta_theme_link="$HOME/.dotfiles/delta/theme.gitconfig"
+    local sublime_merge_prefs="$HOME/Library/Application Support/Sublime Merge/Packages/User/Preferences.sublime-settings"
 
     if [[ "$mode" != "light" && "$mode" != "dark" ]]; then
         echo "Usage: theme [light|dark]"
@@ -40,6 +67,9 @@ theme() {
         # Delta light theme
         ln -sf "$HOME/.dotfiles/delta/light.gitconfig" "$delta_theme_link"
 
+        # Sublime Merge light theme
+        _theme_set_sublime_merge "$sublime_merge_prefs" "Merge.sublime-theme" "Packages/User/Solarized Light.sublime-color-scheme"
+
         echo "Switched to light theme (Solarized Light + Everforest)"
     else
         # Ghostty dark theme
@@ -49,6 +79,9 @@ theme() {
 
         # Delta dark theme
         ln -sf "$HOME/.dotfiles/delta/dark.gitconfig" "$delta_theme_link"
+
+        # Sublime Merge dark theme
+        _theme_set_sublime_merge "$sublime_merge_prefs" "Merge Dark.sublime-theme" "Packages/User/TokyoNight Moon.sublime-color-scheme"
 
         echo "Switched to dark theme (TokyoNight Moon)"
     fi

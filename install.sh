@@ -59,6 +59,38 @@ link "$DOTFILES/hammerspoon" ~/.hammerspoon
 # Bat themes
 link "$DOTFILES/bat/themes" ~/.config/bat/themes
 
+# Sublime Merge themes (only if the app has been launched at least once)
+SUBLIME_MERGE_USER="$HOME/Library/Application Support/Sublime Merge/Packages/User"
+if [ -d "$SUBLIME_MERGE_USER" ]; then
+    for f in "$DOTFILES"/sublime-merge/*; do
+        link "$f" "$SUBLIME_MERGE_USER/$(basename "$f")"
+    done
+
+    # Seed the preferences file so `theme light|dark` has something to rewrite
+    if [ ! -f "$SUBLIME_MERGE_USER/Preferences.sublime-settings" ]; then
+        cat > "$SUBLIME_MERGE_USER/Preferences.sublime-settings" <<'EOF'
+{
+	"theme": "Merge Dark.sublime-theme",
+	"color_scheme": "Packages/User/TokyoNight Moon.sublime-color-scheme",
+}
+EOF
+        echo "Seeded Sublime Merge preferences"
+    fi
+
+    # Sublime Merge has no Vue syntax of its own, so .vue diffs show as plain
+    # text without this. Cloned once and never pulled on its own, update it by
+    # hand when you want a newer version.
+    VUE_SYNTAX="$HOME/.dotfiles-vendor/vue-syntax-highlight"
+    if [ ! -d "$VUE_SYNTAX" ]; then
+        mkdir -p "$HOME/.dotfiles-vendor"
+        git clone --depth 1 https://github.com/vuejs/vue-syntax-highlight.git "$VUE_SYNTAX"
+    fi
+    link "$VUE_SYNTAX/vue.tmLanguage" "$SUBLIME_MERGE_USER/vue.tmLanguage"
+    link "$VUE_SYNTAX/vue.sublime-settings" "$SUBLIME_MERGE_USER/vue.sublime-settings"
+else
+    echo "No Sublime Merge user folder — skipping its themes (launch the app once, then re-run)"
+fi
+
 # Machine-local / work-specific config:
 #   - if the private companion repo is present, symlink the real files from it
 #   - otherwise seed blank templates so you can fill them in by hand

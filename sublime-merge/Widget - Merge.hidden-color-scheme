@@ -1,0 +1,37 @@
+// Text inputs (search fields, filters) in the light UI.
+// Same filename as the one shipped with the app, so Sublime merges this on top.
+{
+	"globals":
+	{
+		"foreground": "#586e75",
+		"background": "#fdf6e3",
+		"caret": "#bf68d9",
+		"line_highlight": "#eee8d5",
+		"selection": "#eee8d5",
+		"selection_border": "#ddd6c1",
+		"inactive_selection": "#f4eedc"
+	},
+	"rules":
+	[
+		{
+			"scope": "comment",
+			"foreground": "#93a1a1"
+		},
+		{
+			"scope": "keyword, storage",
+			"foreground": "#859900"
+		},
+		{
+			"scope": "constant",
+			"foreground": "#d33682"
+		},
+		{
+			"scope": "string",
+			"foreground": "#2aa198"
+		},
+		{
+			"scope": "constant.character.escape",
+			"foreground": "#d33682"
+		}
+	]
+}

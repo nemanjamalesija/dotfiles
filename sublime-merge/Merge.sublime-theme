@@ -1,0 +1,67 @@
+// Solarized Light for Sublime Merge's light UI.
+// Same filename as the theme that ships with the app, so Sublime merges this
+// on top of it and only the variables listed here change.
+{
+	"variables":
+	{
+		// Text
+		"text": "#586e75",
+		"header_fg": "#073642",
+		"commit_summary_fg-primary": "#073642",
+		"commit_summary_fg-secondary": "#657b83",
+		"preview_fg": "#073642",
+		"quick_panel_fg-match": "#073642",
+		"quick_panel_fg-selected-match": "#073642",
+		"file_ann_fg": "#586e75",
+
+		// Palette
+		"red": "#dc322f",
+		"orange": "#cb4b16",
+		"yellow": "#b58900",
+		"green": "#859900",
+		"teal": "#2aa198",
+		"blue": "#268bd2",
+		"purple": "#6c71c4",
+		"magenta": "#d33682",
+
+		// Tinted backgrounds for file headers and diff badges
+		"light_blue": "#d5e4ee",
+		"light_red": "#f5d9d4",
+		"light_orange": "#f7e0cd",
+		"light_green": "#e4e9c8",
+
+		// Surfaces, from the lightest chrome down to the darkest gray.
+		// The diff area itself is base3 and comes from the color scheme.
+		"light_gray": "#eee8d5",
+		"light_gray-medium": "#e6dfc8",
+		"light_gray-dark": "#ddd6c1",
+		"medium_gray-light": "#c3bda8",
+		"medium_gray": "#93a1a1",
+		"medium_gray-dark": "#839496",
+		"dark_gray-light": "#657b83",
+		"dark_gray": "#586e75",
+
+		// Commit button
+		"highlighted_button_light_bg": "#cdd97d",
+		"highlighted_button_dark_bg": "#a3b400",
+		"highlighted_button_light_fg": "#33420a",
+		"highlighted_button_dark_fg": "#33420a",
+
+		"hunk_button_fg": "#586e75",
+
+		"tool_tip_bg": "#fdf6e3",
+		"tool_tip_fg": "#586e75",
+		"tool_tip_border": "#ddd6c1",
+
+		"radio_back": "#fdf6e3",
+		"radio_border-unselected": "#93a1a1",
+		"checkbox_back": "#fdf6e3",
+		"checkbox_border-unselected": "#93a1a1",
+		"checkbox-disabled": "#93a1a1",
+
+		"file_badge_modified_fg": "#268bd2",
+		"file_badge_unmerged_fg": "#8a4310",
+		"file_badge_staged_bg": "#7fb3d5",
+		"file_badge_staged_fg": "#073642",
+	},
+}

@@ -1,0 +1,226 @@
+{
+	"name": "Solarized Light",
+	"variables":
+	{
+		"base3": "#fdf6e3",
+		"base2": "#eee8d5",
+		"base1": "#93a1a1",
+		"base0": "#839496",
+		"base00": "#657b83",
+		"base01": "#586e75",
+		"base02": "#073642",
+
+		"yellow": "#b58900",
+		"orange": "#cb4b16",
+		"red": "#dc322f",
+		"magenta": "#d33682",
+		"violet": "#6c71c4",
+		"blue": "#268bd2",
+		"cyan": "#2aa198",
+		"green": "#859900",
+
+		// The cursor color Ghostty uses in light mode
+		"cursor": "#bf68d9",
+
+		// Diff colors. These are final colors, not tints laid over the
+		// background, so they are used as they are. The greens keep blue at or
+		// below red: a green with more blue than red reads as mint, and a
+		// whole new block painted in it looks teal next to the cream page.
+		"diff_add": "#e9f6e1",
+		"diff_add_word": "#c4ebb8",
+		"diff_delete": "#fbe9eb",
+		"diff_delete_word": "#fac5cd",
+	},
+	"globals":
+	{
+		"background": "var(base3)",
+		"foreground": "var(base00)",
+		"accent": "var(blue)",
+		"caret": "var(cursor)",
+		"line_highlight": "var(base2)",
+		"selection": "var(base2)",
+		"selection_border": "#ddd6c1",
+		"inactive_selection": "#f4eedc",
+		"misspelling": "var(red)",
+		"shadow": "color(#586e75 alpha(0.2))",
+		"gutter_foreground": "var(base1)",
+		"guide": "#e4ddc9",
+		"active_guide": "var(base1)",
+		"stack_guide": "color(var(base1) alpha(0.5))",
+		"highlight": "var(cyan)",
+		"find_highlight": "#f3e0a8",
+		"find_highlight_foreground": "var(base02)",
+		"brackets_options": "underline",
+		"brackets_foreground": "var(orange)",
+		"bracket_contents_options": "underline",
+		"bracket_contents_foreground": "var(cyan)",
+		"tags_options": "stippled_underline",
+		"tags_foreground": "var(magenta)"
+	},
+	"rules":
+	[
+		{
+			"name": "Comment",
+			"scope": "comment, punctuation.definition.comment",
+			"foreground": "var(base1)",
+			"font_style": "italic"
+		},
+		{
+			"name": "String",
+			"scope": "string",
+			"foreground": "var(cyan)"
+		},
+		{
+			"name": "String escape",
+			"scope": "constant.character.escape",
+			"foreground": "var(magenta)"
+		},
+		{
+			"name": "Mapping key",
+			"scope": "meta.mapping.key string - meta.mapping.key meta meta",
+			"foreground": "var(blue)"
+		},
+		{
+			"name": "Punctuation",
+			"scope": "punctuation.definition - punctuation.definition.numeric.base",
+			"foreground": "var(base0)"
+		},
+		{
+			"name": "Separator",
+			"scope": "punctuation.separator, punctuation.terminator",
+			"foreground": "var(base0)"
+		},
+		{
+			"name": "Number",
+			"scope": "constant.numeric",
+			"foreground": "var(magenta)"
+		},
+		{
+			"name": "Built-in constant",
+			"scope": "constant.language",
+			"foreground": "var(magenta)"
+		},
+		{
+			"name": "User-defined constant",
+			"scope": "constant.character, constant.other",
+			"foreground": "var(magenta)"
+		},
+		{
+			"name": "Variable",
+			"scope": "variable",
+			"foreground": "var(base01)"
+		},
+		{
+			"name": "Member",
+			"scope": "variable.other.member, meta.property variable",
+			"foreground": "var(blue)"
+		},
+		{
+			"name": "Parameter",
+			"scope": "variable.parameter",
+			"foreground": "var(base01)"
+		},
+		{
+			"name": "Language variable",
+			"scope": "variable.language",
+			"foreground": "var(violet)"
+		},
+		{
+			"name": "Keyword",
+			"scope": "keyword",
+			"foreground": "var(green)"
+		},
+		{
+			"name": "Operator",
+			"scope": "keyword.operator",
+			"foreground": "var(green)"
+		},
+		{
+			"name": "Storage",
+			"scope": "storage",
+			"foreground": "var(green)"
+		},
+		{
+			"name": "Type",
+			"scope": "storage.type, support.type, entity.name.type",
+			"foreground": "var(yellow)"
+		},
+		{
+			"name": "Class name",
+			"scope": "entity.name.class, entity.name.struct, entity.name.enum, entity.name.interface",
+			"foreground": "var(yellow)"
+		},
+		{
+			"name": "Inherited class",
+			"scope": "entity.other.inherited-class",
+			"foreground": "var(yellow)",
+			"font_style": "italic"
+		},
+		{
+			"name": "Function name",
+			"scope": "entity.name.function, support.function, variable.function",
+			"foreground": "var(blue)"
+		},
+		{
+			"name": "Tag name",
+			"scope": "entity.name.tag",
+			"foreground": "var(blue)"
+		},
+		{
+			"name": "Tag attribute",
+			"scope": "entity.other.attribute-name",
+			"foreground": "var(orange)"
+		},
+		{
+			"name": "Library constant",
+			"scope": "support.constant",
+			"foreground": "var(magenta)"
+		},
+		{
+			"name": "Section heading",
+			"scope": "entity.name.section, markup.heading",
+			"foreground": "var(blue)",
+			"font_style": "bold"
+		},
+		{
+			"name": "Markup link",
+			"scope": "markup.underline.link, string.other.link",
+			"foreground": "var(cyan)"
+		},
+		{
+			"name": "Invalid",
+			"scope": "invalid",
+			"foreground": "var(base3)",
+			"background": "var(red)"
+		},
+		{
+			"name": "Deprecated",
+			"scope": "invalid.deprecated",
+			"foreground": "var(base3)",
+			"background": "var(violet)"
+		},
+
+		// A line that is new in full gets the word color across its whole
+		// width, so that one has to stay calm enough to read code on.
+		{
+			"scope": "diff.deleted",
+			"background": "var(diff_delete)",
+			"foreground_adjust": "l(- 12%)"
+		},
+		{
+			"scope": "diff.deleted.char",
+			"background": "var(diff_delete_word)",
+			"foreground_adjust": "l(- 20%)"
+		},
+		{
+			"scope": "diff.inserted",
+			"background": "var(diff_add)",
+			"foreground_adjust": "l(- 12%)"
+		},
+		{
+			"scope": "diff.inserted.char",
+			"background": "var(diff_add_word)",
+			"foreground_adjust": "l(- 20%)"
+		},
+	]
+}

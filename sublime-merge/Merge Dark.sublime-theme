@@ -1,0 +1,57 @@
+// TokyoNight Moon for Sublime Merge's dark UI.
+// Same filename as the theme that ships with the app, so Sublime merges this
+// on top of it and only the variables listed here change.
+{
+	"variables":
+	{
+		// Text
+		"text-heading": "#c8d3f5",
+		"text": "#828bb8",
+
+		// Palette
+		"red": "#ff757f",
+		"orange": "#ff966c",
+		"yellow": "#ffc777",
+		"green": "#c3e88d",
+		"teal": "#4fd6be",
+		"blue": "#82aaff",
+		"purple": "#c099ff",
+		"magenta": "#fca7ea",
+
+		// Backgrounds behind deleted files, unmerged files and the +/- badges
+		"dark_red": "#4d2c3a",
+		"dark_teal": "#1f4a43",
+		"dark_blue": "#2d3f76",
+
+		// Surfaces, from darkest chrome up to the commit list. The diff area
+		// itself is lighter still and comes from the color scheme background.
+		"dark_gray": "#141520",
+		"dark_gray-medium": "#181a27",
+		"dark_gray-light": "#1b1d2c",
+		"dark_gray-lightest": "#1e2030",
+		"medium_gray-dark": "#444a73",
+		"medium_gray": "#636da6",
+		"medium_gray-light": "#828bb8",
+
+		// Commit button
+		"highlighted_button_light_bg": "#a9cc72",
+		"highlighted_button_dark_bg": "#8bad58",
+		"highlighted_button_light_fg": "#141520",
+		"highlighted_button_dark_fg": "#141520",
+
+		// Segmented buttons above the diff
+		"toggle_button_bg": "#2f334d",
+		"toggle_button_bg-details": "#3b4261",
+
+		"hunk_button_fg": "#c8d3f5",
+
+		"tool_tip_bg": "#1e2030",
+		"tool_tip_fg": "#c8d3f5",
+		"tool_tip_border": "#3b4261",
+
+		"repository_tab_bar_bg": "#141520",
+
+		"file_badge_unmerged_fg": "#c8d3f5",
+		"hazard_button_fg": "#141520",
+	},
+}

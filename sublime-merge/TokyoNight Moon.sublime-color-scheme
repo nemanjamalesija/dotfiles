@@ -1,0 +1,226 @@
+{
+	"name": "TokyoNight Moon",
+	"variables":
+	{
+		"bg": "#222436",
+		"bg_highlight": "#2f334d",
+		"bg_visual": "#2d3f76",
+		"fg": "#c8d3f5",
+		"fg_gutter": "#3b4261",
+		"comment": "#636da6",
+
+		"red": "#ff757f",
+		"orange": "#ff966c",
+		"yellow": "#ffc777",
+		"green": "#c3e88d",
+		"teal": "#4fd6be",
+		"cyan": "#86e1fc",
+		"blue": "#82aaff",
+		"blue1": "#65bcff",
+		"blue5": "#89ddff",
+		"purple": "#c099ff",
+		"magenta": "#fca7ea",
+
+		// Matrix green, the cursor color used across Ghostty, Neovim and tmux
+		"cursor": "#00ff41",
+
+		// Diff tints, not the palette green and red above. Those are tuned to
+		// be read as text: the green has a lot of red in it, so over this
+		// background it turns army green. This one keeps red low and stays
+		// green once it is blended.
+		"diff_add": "#3fb950",
+		"diff_delete": "#c53b53",
+	},
+	"globals":
+	{
+		"background": "var(bg)",
+		"foreground": "var(fg)",
+		"accent": "var(blue)",
+		"caret": "var(cursor)",
+		"line_highlight": "var(bg_highlight)",
+		"selection": "var(bg_visual)",
+		"selection_border": "var(fg_gutter)",
+		"inactive_selection": "var(bg_highlight)",
+		"misspelling": "var(red)",
+		"shadow": "color(#000000 alpha(0.3))",
+		"gutter_foreground": "var(fg_gutter)",
+		"guide": "var(fg_gutter)",
+		"active_guide": "var(blue)",
+		"stack_guide": "color(var(blue) alpha(0.5))",
+		"highlight": "var(teal)",
+		"find_highlight": "var(yellow)",
+		"find_highlight_foreground": "var(bg)",
+		"brackets_options": "underline",
+		"brackets_foreground": "var(yellow)",
+		"bracket_contents_options": "underline",
+		"bracket_contents_foreground": "var(teal)",
+		"tags_options": "stippled_underline",
+		"tags_foreground": "var(magenta)"
+	},
+	"rules":
+	[
+		{
+			"name": "Comment",
+			"scope": "comment, punctuation.definition.comment",
+			"foreground": "var(comment)",
+			"font_style": "italic"
+		},
+		{
+			"name": "String",
+			"scope": "string",
+			"foreground": "var(green)"
+		},
+		{
+			"name": "String escape",
+			"scope": "constant.character.escape",
+			"foreground": "var(magenta)"
+		},
+		{
+			"name": "Mapping key",
+			"scope": "meta.mapping.key string - meta.mapping.key meta meta",
+			"foreground": "var(blue5)"
+		},
+		{
+			"name": "Punctuation",
+			"scope": "punctuation.definition - punctuation.definition.numeric.base",
+			"foreground": "var(blue5)"
+		},
+		{
+			"name": "Separator",
+			"scope": "punctuation.separator, punctuation.terminator",
+			"foreground": "var(blue5)"
+		},
+		{
+			"name": "Number",
+			"scope": "constant.numeric",
+			"foreground": "var(orange)"
+		},
+		{
+			"name": "Built-in constant",
+			"scope": "constant.language",
+			"foreground": "var(orange)"
+		},
+		{
+			"name": "User-defined constant",
+			"scope": "constant.character, constant.other",
+			"foreground": "var(orange)"
+		},
+		{
+			"name": "Variable",
+			"scope": "variable",
+			"foreground": "var(fg)"
+		},
+		{
+			"name": "Member",
+			"scope": "variable.other.member, meta.property variable",
+			"foreground": "var(blue1)"
+		},
+		{
+			"name": "Parameter",
+			"scope": "variable.parameter",
+			"foreground": "var(yellow)"
+		},
+		{
+			"name": "Language variable",
+			"scope": "variable.language",
+			"foreground": "var(magenta)"
+		},
+		{
+			"name": "Keyword",
+			"scope": "keyword",
+			"foreground": "var(purple)"
+		},
+		{
+			"name": "Operator",
+			"scope": "keyword.operator",
+			"foreground": "var(blue5)"
+		},
+		{
+			"name": "Storage",
+			"scope": "storage",
+			"foreground": "var(purple)"
+		},
+		{
+			"name": "Type",
+			"scope": "storage.type, support.type, entity.name.type",
+			"foreground": "var(teal)"
+		},
+		{
+			"name": "Class name",
+			"scope": "entity.name.class, entity.name.struct, entity.name.enum, entity.name.interface",
+			"foreground": "var(yellow)"
+		},
+		{
+			"name": "Inherited class",
+			"scope": "entity.other.inherited-class",
+			"foreground": "var(yellow)",
+			"font_style": "italic"
+		},
+		{
+			"name": "Function name",
+			"scope": "entity.name.function, support.function, variable.function",
+			"foreground": "var(blue)"
+		},
+		{
+			"name": "Tag name",
+			"scope": "entity.name.tag",
+			"foreground": "var(red)"
+		},
+		{
+			"name": "Tag attribute",
+			"scope": "entity.other.attribute-name",
+			"foreground": "var(yellow)"
+		},
+		{
+			"name": "Library constant",
+			"scope": "support.constant",
+			"foreground": "var(orange)"
+		},
+		{
+			"name": "Section heading",
+			"scope": "entity.name.section, markup.heading",
+			"foreground": "var(blue)",
+			"font_style": "bold"
+		},
+		{
+			"name": "Markup link",
+			"scope": "markup.underline.link, string.other.link",
+			"foreground": "var(teal)"
+		},
+		{
+			"name": "Invalid",
+			"scope": "invalid",
+			"foreground": "var(fg)",
+			"background": "#c53b53"
+		},
+		{
+			"name": "Deprecated",
+			"scope": "invalid.deprecated",
+			"foreground": "var(bg)",
+			"background": "var(yellow)"
+		},
+
+		// A line that is new in full gets the .char tint across its whole
+		// width, so that one has to stay calm enough to read code on.
+		{
+			"scope": "diff.deleted",
+			"background": "color(var(diff_delete) alpha(0.16))",
+			"foreground_adjust": "l(+ 4%)"
+		},
+		{
+			"scope": "diff.deleted.char",
+			"background": "color(var(diff_delete) alpha(0.34))",
+			"foreground_adjust": "l(+ 8%)"
+		},
+		{
+			"scope": "diff.inserted",
+			"background": "color(var(diff_add) alpha(0.16))",
+			"foreground_adjust": "l(+ 4%)"
+		},
+		{
+			"scope": "diff.inserted.char",
+			"background": "color(var(diff_add) alpha(0.34))",
+			"foreground_adjust": "l(+ 8%)"
+		},
+	]
+}

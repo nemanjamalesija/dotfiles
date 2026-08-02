@@ -1,0 +1,37 @@
+// Text inputs (search fields, filters) in the dark UI.
+// Same filename as the one shipped with the app, so Sublime merges this on top.
+{
+	"globals":
+	{
+		"foreground": "#c8d3f5",
+		"background": "#1b1d2c",
+		"caret": "#00ff41",
+		"line_highlight": "#2f334d",
+		"selection": "#2d3f76",
+		"selection_border": "#3b4261",
+		"inactive_selection": "#2f334d"
+	},
+	"rules":
+	[
+		{
+			"scope": "comment",
+			"foreground": "#636da6"
+		},
+		{
+			"scope": "keyword, storage",
+			"foreground": "#c099ff"
+		},
+		{
+			"scope": "constant",
+			"foreground": "#ff966c"
+		},
+		{
+			"scope": "string",
+			"foreground": "#c3e88d"
+		},
+		{
+			"scope": "constant.character.escape",
+			"foreground": "#fca7ea"
+		}
+	]
+}
