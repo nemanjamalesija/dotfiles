@@ -39,7 +39,20 @@ _theme_set_sublime_merge() {
     done
 }
 
-# Theme switcher - syncs Ghostty, Neovim, tmux, delta and Sublime Merge colorschemes
+# Flips the macOS system appearance. Native apps (System Settings, Finder, Mail)
+# and Chrome all read it themselves, so they follow within a second. Needs
+# Ghostty allowed to control System Events under Privacy & Security, Automation.
+_theme_set_macos_appearance() {
+    local dark_mode="false"
+    if [[ "$1" == "dark" ]]; then
+        dark_mode="true"
+    fi
+
+    osascript -e "tell application \"System Events\" to tell appearance preferences to set dark mode to $dark_mode"
+}
+
+# Theme switcher - syncs Ghostty, Neovim, tmux, delta, Sublime Merge and the
+# macOS system appearance
 # Usage: theme light  (iTerm2 Solarized Light + Everforest)
 #        theme dark   (TokyoNight Moon + TokyoNight Moon)
 theme() {
@@ -57,6 +70,9 @@ theme() {
 
     # Write theme mode for Neovim to read
     echo "$mode" > "$HOME/.theme-mode"
+
+    # One call themes every native app and Chrome at once
+    _theme_set_macos_appearance "$mode"
 
     if [[ "$mode" == "light" ]]; then
         # Ghostty light theme
