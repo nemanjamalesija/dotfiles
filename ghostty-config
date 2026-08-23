@@ -38,7 +38,8 @@ macos-option-as-alt = true
 # Theme - managed by `theme` shell command (light/dark)
 theme = TokyoNight Moon
 
-# Cursor color - override theme cursor to matrix green (matches borders; must be after theme)
+# Cursor color, written by the `theme` command to match the border accent.
+# It has to sit after the theme line so it overrides the theme's own cursor.
 cursor-color = #00ff41
 
 # Keybindings
