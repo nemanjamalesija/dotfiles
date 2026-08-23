@@ -41,8 +41,8 @@ return {
                 background = "medium",
                 colours_override = function(palette)
                     palette.orange = "#4791e4"
-                    palette.fg = "#586e75"
-                    palette.blue = "#586e75"
+                    palette.fg = "#697d83"
+                    palette.blue = "#697d83"
                     palette.aqua = "#2aa198"
                 end,
                 on_highlights = function(hl, palette)
