@@ -14,4 +14,7 @@ options=(
     active_color=$accent
     inactive_color=0xff333333
 )
-borders "${options[@]}"
+# Absolute path on purpose. Hammerspoon runs this script on theme change
+# with a bare PATH that has no /opt/homebrew/bin, so a plain `borders`
+# call fails with command not found and the borders never update.
+/opt/homebrew/bin/borders "${options[@]}"
