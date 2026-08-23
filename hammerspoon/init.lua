@@ -5,7 +5,10 @@ require("hs.ipc")
 -- (otherwise Lua GC collects them and watchers/timers stop firing silently).
 local themeWatcher
 
---[[ Disabled for now — kept in case I want the ';' dead-key back later.
+-- Only needed on the laptop keyboard (business trips). The usual setup has
+-- this whole block disabled: wrap it in --[[ ... ]] from here down to
+-- `sleepWatcher:start()`.
+--[[
 -- Tmux shortcuts: ;1–;9, ;c, ;x, ;r
 -- Dead-key approach: ';' is consumed and held. If a trigger follows,
 -- the action fires. Otherwise ';' is re-injected via return value
