@@ -1,9 +1,10 @@
 -- Enable the `hs` CLI for terminal introspection. Pure observability.
 require("hs.ipc")
 
--- Module-scope refs kept alive for the life of the Hammerspoon Lua state
--- (otherwise Lua GC collects them and watchers/timers stop firing silently).
-local themeWatcher
+-- Watchers and timers have to be globals. This file is just a function to
+-- Lua, so a local declared here dies the moment the file finishes running.
+-- The garbage collector then frees the watcher and it stops firing, with no
+-- error logged anywhere. themeWatcher is assigned near the bottom of the file.
 
 -- Only needed on the laptop keyboard (business trips). The usual setup has
 -- this whole block disabled: wrap it in --[[ ... ]] from here down to
