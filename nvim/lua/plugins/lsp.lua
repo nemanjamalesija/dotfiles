@@ -68,7 +68,6 @@ return {
                     source = true,
                     header = "Diagnostics:",
                     prefix = " ",
-                    border = "rounded",
                     max_height = 10,
                     max_width = 130,
                 },

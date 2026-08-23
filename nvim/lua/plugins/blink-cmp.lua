@@ -54,7 +54,6 @@ return {
             menu = {
                 auto_show = true,
                 max_height = 15,
-                border = "rounded",
                 winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
             },
             documentation = {
@@ -63,7 +62,6 @@ return {
                 window = {
                     max_width = 60,
                     max_height = 13,
-                    border = "rounded",
                     winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
                 },
             },

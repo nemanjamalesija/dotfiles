@@ -10,6 +10,9 @@ vim.g.loaded_netrwPlugin = 1
 -- wired up in lua/plugins/lsp.lua. See lspconfig/lsp/eslint.lua for the docs.
 vim.g.lazyvim_eslint_auto_format = false
 vim.opt.termguicolors = true
+-- Default border for every float that does not set its own.
+-- fzf-lua and noice draw their own windows and ignore this.
+vim.o.winborder = "rounded"
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.cmdheight = 0
