@@ -1,19 +1,31 @@
-# adjust-cell-width = "-2%"
-# adjust-cell-height = "-5%"
+ adjust-cell-width = -5%
+ adjust-cell-height = -5%
 
 window-decoration = auto
 # background-opacity = 0.95
 
 font-size = 20
 
+ font-family = RobotoMono Nerd Font Mono
+# font-variation = wght=300
+
 # font-family = MesloLGS Nerd Font Mono
-  font-family = JetBrainsMono Nerd Font Mono
+# font-family = Consolas
+# font-family = JetBrainsMono Nerd Font Mono
+# font-family = Martian Mono VF
+# font-family = Hack Nerd Font Mono
+# font-family = JetBrainsMono Nerd Font Mono
+# font-family = SF Mono
+  
+# font-variation = wdth=150
+# minimum-contrast = 1.3
+
   
 # font-thicken = true
 # adjust-underline-position = 8
 
 adjust-underline-thickness = 1
-alpha-blending = linear-corrected
+# alpha-blending = linear-corrected
 font-feature = -calt
 
   
@@ -31,4 +43,3 @@ cursor-color = #00ff41
 
 # Keybindings
 keybind = ctrl+t>t=text:tt\r
-
