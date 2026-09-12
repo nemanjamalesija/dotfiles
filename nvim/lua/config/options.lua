@@ -17,6 +17,10 @@ vim.opt.termguicolors = true
 -- Default border for every float that does not set its own.
 -- fzf-lua and noice draw their own windows and ignore this.
 vim.o.winborder = "rounded"
+
+-- Stop Vim counting lines at us. The default of 2 means every yank or delete
+-- of three or more lines announces itself, which is most of them.
+vim.o.report = 9999
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.cmdheight = 0
