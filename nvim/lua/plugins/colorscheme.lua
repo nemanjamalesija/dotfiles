@@ -1,20 +1,8 @@
 return {
     {
-        "loctvl842/monokai-pro.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            require("monokai-pro").setup()
-            -- if vim.g.theme_mode == "dark" then
-            --     vim.o.background = "dark"
-            --     vim.cmd.colorscheme("monokai-pro")
-            -- end
-        end,
-    },
-    {
         "folke/tokyonight.nvim",
-        lazy = false,
-        priority = 1000,
+        -- lazy = false,
+        -- priority = 1000,
         config = function()
             require("tokyonight").setup({
                 style = "moon",
@@ -34,8 +22,8 @@ return {
     {
         "neanias/everforest-nvim",
         version = false,
-        lazy = false,
-        priority = 1000,
+        -- lazy = false,
+        -- priority = 1000,
         config = function()
             require("everforest").setup({
                 background = "medium",
@@ -100,50 +88,62 @@ return {
             end
         end,
     },
-    {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            require("catppuccin").setup({
-                flavour = "macchiato",
-                no_italic = true,
-                -- transparent_background = true,
-                float = {
-                    enabled = true,
-                    transparent = false,
-                    solid = false,
-                },
-                lsp_styles = {
-                    underlines = {
-                        errors = { "undercurl" },
-                        hints = { "undercurl" },
-                        warnings = { "undercurl" },
-                        information = { "undercurl" },
-                        ok = { "undercurl" },
-                    },
-                    inlay_hints = {
-                        background = true,
-                    },
-                },
-            })
-        end,
-    },
-    {
-        "Mofiqul/vscode.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            require("vscode").setup({
-                background = "hard",
-                -- transparent = true,
-                terminal_colors = true,
-            })
-            if vim.g.theme_mode == "dark" then
-                vim.o.background = "dark"
-                -- vim.cmd.colorscheme("vscode")
-            end
-        end,
-    },
+    -- {
+    --     "catppuccin/nvim",
+    --     name = "catppuccin",
+    --     lazy = false,
+    --     priority = 1000,
+    --     config = function()
+    --         require("catppuccin").setup({
+    --             flavour = "macchiato",
+    --             no_italic = true,
+    --             -- transparent_background = true,
+    --             float = {
+    --                 enabled = true,
+    --                 transparent = false,
+    --                 solid = false,
+    --             },
+    --             lsp_styles = {
+    --                 underlines = {
+    --                     errors = { "undercurl" },
+    --                     hints = { "undercurl" },
+    --                     warnings = { "undercurl" },
+    --                     information = { "undercurl" },
+    --                     ok = { "undercurl" },
+    --                 },
+    --                 inlay_hints = {
+    --                     background = true,
+    --                 },
+    --             },
+    --         })
+    --     end,
+    -- },
+    -- {
+    --     "Mofiqul/vscode.nvim",
+    --     lazy = false,
+    --     priority = 1000,
+    --     config = function()
+    --         require("vscode").setup({
+    --             background = "hard",
+    --             -- transparent = true,
+    --             terminal_colors = true,
+    --         })
+    --         if vim.g.theme_mode == "dark" then
+    --             vim.o.background = "dark"
+    --             -- vim.cmd.colorscheme("vscode")
+    --         end
+    --     end,
+    -- },
+    -- {
+    --     "loctvl842/monokai-pro.nvim",
+    --     lazy = false,
+    --     priority = 1000,
+    --     config = function()
+    --         require("monokai-pro").setup()
+    --         -- if vim.g.theme_mode == "dark" then
+    --         --     vim.o.background = "dark"
+    --         --     vim.cmd.colorscheme("monokai-pro")
+    --         -- end
+    --     end,
+    -- },
 }
