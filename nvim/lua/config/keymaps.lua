@@ -5,13 +5,18 @@
 -- or add to your init.lua if you have a different setup
 local map = vim.keymap.set
 
--- File operations
-map("n", "<leader>fw", "<cmd>w<cr>", { desc = "Save File" })
+-- File operations. Saving is silent so the file name and byte count stop
+-- being announced on every write. A write that actually fails still reports
+-- itself, since plain silent only hides ordinary messages.
+map("n", "<leader>fw", "<cmd>silent w<cr>", { desc = "Save File" })
+
+-- LazyVim maps this to a loud write.
+map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>silent w<cr><esc>", { desc = "Save File" })
 
 -- Close current buffer
 map("n", "<leader>qb", "<cmd>bdelete<cr>", { desc = "Quit Buffer" })
 
-vim.api.nvim_create_user_command("W", "w", {})
+vim.api.nvim_create_user_command("W", "silent w", {})
 
 local function rive_with_count_object()
     local count = vim.v.count1 -- Gets the count prefix (defaults to 1)
