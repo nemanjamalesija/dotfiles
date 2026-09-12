@@ -42,4 +42,5 @@ return {
     { "nvim-mini/mini.operators", enabled = false },
     { "nvim-mini/mini.align", enabled = false },
     { "nvim-mini/mini.diff", enabled = false },
+    { "folke/ts-comments.nvim", enabled = false },
 }
