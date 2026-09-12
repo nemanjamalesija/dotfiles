@@ -197,3 +197,16 @@ map("n", "<C-u>", straight_scroll("<C-u>"), { desc = "Scroll up (straight line)"
 -- Insert blank lines without entering insert mode
 map("n", "<leader>o", ":put _<CR>", { desc = "Insert line below", silent = true })
 map("n", "<leader>O", ":put! _<CR>", { desc = "Insert line above", silent = true })
+
+-- Neovim ships the undo tree as an optional plugin that only opens, so the
+-- closing half is ours. Moving the cursor in that window moves the undo state.
+map("n", "<leader>ut", function()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "nvim-undotree" then
+            vim.api.nvim_win_close(win, true)
+            return
+        end
+    end
+    vim.cmd("packadd nvim.undotree")
+    vim.cmd("Undotree")
+end, { desc = "Toggle undo tree" })

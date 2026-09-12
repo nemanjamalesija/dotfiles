@@ -5,6 +5,10 @@ vim.opt.swapfile = false
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- Keep undo history on disk so undo reaches back into previous sessions.
+vim.o.undodir = vim.fn.expand("~/.config/nvim/.undodir")
+vim.o.undofile = true
+
 -- Disable LazyVim's eslint extras autoformat, which uses textDocument/formatting.
 -- We use the official lspconfig pattern instead (BufWritePre + LspEslintFixAll),
 -- wired up in lua/plugins/lsp.lua. See lspconfig/lsp/eslint.lua for the docs.
