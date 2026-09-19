@@ -186,3 +186,65 @@ cleanup() {
         fi
     done
 }
+
+# Declared empty here so the lookup below works with no private config file.
+# Without the declaration zsh reads a host that looks like an IP address as a
+# number and errors out.
+typeset -gA GITLAB_HOST_ALIASES
+
+# The web address of the current repo, worked out from the git remote. Two
+# remote shapes show up, "git@host:group/project.git" and the one with an ssh
+# port, "ssh://git@host:port/group/project.git".
+_gitlab_project_url() {
+    local host_and_path=$(git remote get-url origin | sed -E 's|^(ssh://)?git@||; s|:[0-9]+/|/|; s|:|/|; s|\.git$||')
+    local host=${host_and_path%%/*}
+    local path=${host_and_path#*/}
+
+    # Some git servers answer on a different address than their GitLab
+    # website. Those pairs are personal, so a private config file fills
+    # GITLAB_HOST_ALIASES.
+    local website_host=${GITLAB_HOST_ALIASES[$host]}
+    [[ -n $website_host ]] && host=$website_host
+
+    local scheme=https
+
+    echo "$scheme://$host/$path"
+}
+
+# Push the current branch and set its upstream, then open its merge request in
+# the browser. A branch with no merge request opens the create form instead.
+gu() {
+    # Reading the exit status needs its own line. On a "local x=$(...)" line the
+    # status belongs to local, not to the command inside it.
+    local push_output
+    push_output=$(git push --set-upstream origin HEAD 2>&1)
+    local push_status=$?
+    echo "$push_output"
+
+    if [ $push_status -ne 0 ]; then
+        return $push_status
+    fi
+
+    # A push that carries commits gets a link back from GitLab, either the
+    # merge request for the branch or the create form when there is none.
+    local merge_request_url=$(echo "$push_output" | grep -oE 'https?://[^[:space:]]+/merge_requests/(new[^[:space:]]*|[0-9]+)')
+
+    if [ -z "$merge_request_url" ]; then
+        # Nothing was pushed, so GitLab sent no link. Every open merge request
+        # has a ref on the server pointing at its branch tip, so the ref that
+        # matches HEAD carries the merge request number for this branch.
+        local merge_request_number=$(git ls-remote origin 'refs/merge-requests/*/head' 2>/dev/null \
+            | grep "^$(git rev-parse HEAD)" \
+            | sed -E 's|.*/merge-requests/([0-9]+)/head|\1|' \
+            | sort -n | tail -1)
+
+        local project_url=$(_gitlab_project_url)
+        if [ -n "$merge_request_number" ]; then
+            merge_request_url="$project_url/-/merge_requests/$merge_request_number"
+        else
+            merge_request_url="$project_url/-/merge_requests/new?merge_request%5Bsource_branch%5D=$(git rev-parse --abbrev-ref HEAD)"
+        fi
+    fi
+
+    open "$merge_request_url"
+}
