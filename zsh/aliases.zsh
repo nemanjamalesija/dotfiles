@@ -30,19 +30,22 @@ alias gcma='git commit --amend -m'
 alias gco='git checkout'
 alias gcb='git checkout -b'
 alias gp='git push'
-alias gplease='git push --force-with-lease'
+alias gpnv='git push --no-verify'
+alias gpls='git push --force-with-lease'
 alias gpl='git pull -r'
 alias gcp='git cherry-pick'
 alias greset-hard='git reset --hard @{u}'
 alias grevert-cm='git reset --soft HEAD~1'
 alias greset-one='git reset --hard HEAD^'
-alias grebase='git rebase'
+alias grbs='git rebase'
+# grbs-4 rebases the last 4 commits interactively
+for n in {1..20}; do alias grbs-$n="git rebase -i HEAD~$n"; done
 alias grestore='git restore'
 alias gdelete='git push origin --delete'
 alias gclean='git branch --merged | grep -v "main\|master\|\*" | xargs -n 1 git branch -d'
 
 # Hammerspoon
-alias rsh='killall Hammerspoon && open -a Hammerspoon'
+alias rsh='killall Hammerspoon; while pgrep -x Hammerspoon >/dev/null; do sleep 0.1; done; open -a Hammerspoon'
 
 # Docker
 alias caclear='docker/cli bin/console cache:clear'
