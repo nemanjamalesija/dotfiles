@@ -48,7 +48,7 @@ Switch Ghostty, Neovim, tmux, and delta between light and dark with a single com
 
 ```bash
 theme light    # Solarized Light + Everforest
-theme dark     # TokyoNight Moon
+theme dark     # Rose Pine Moon
 tt             # Toggle between themes
 ```
 

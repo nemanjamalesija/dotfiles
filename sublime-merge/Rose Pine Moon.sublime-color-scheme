@@ -1,203 +1,192 @@
 {
-	"name": "TokyoNight Moon",
+	"name": "Rose Pine Moon",
 	"variables":
 	{
-		"bg": "#222436",
-		"bg_highlight": "#2f334d",
-		"bg_visual": "#2d3f76",
-		"fg": "#c8d3f5",
-		"fg_gutter": "#3b4261",
-		"comment": "#636da6",
+		"base": "#232136",
+		"highlight_low": "#2a283e",
+		"highlight_med": "#44415a",
+		"highlight_high": "#56526e",
+		"text": "#e0def4",
+		"subtle": "#908caa",
+		"muted": "#6e6a86",
 
-		"red": "#ff757f",
-		"orange": "#ff966c",
-		"yellow": "#ffc777",
-		"green": "#c3e88d",
-		"teal": "#4fd6be",
-		"cyan": "#86e1fc",
-		"blue": "#82aaff",
-		"blue1": "#65bcff",
-		"blue5": "#89ddff",
-		"purple": "#c099ff",
-		"magenta": "#fca7ea",
+		"love": "#eb6f92",
+		"gold": "#f6c177",
+		"rose": "#ea9a97",
+		"pine": "#3e8fb0",
+		"foam": "#9ccfd8",
+		"iris": "#c4a7e7",
 
-		// Matrix green, the cursor color used across Ghostty, Neovim and tmux
-		"cursor": "#00ff41",
-
-		// Diff tints, not the palette green and red above. Those are tuned to
-		// be read as text: the green has a lot of red in it, so over this
-		// background it turns army green. This one keeps red low and stays
-		// green once it is blended.
+		// Diff tints. Rose Pine has no green, and a foam tint reads as a
+		// change rather than an addition, so added lines keep a plain green.
 		"diff_add": "#3fb950",
-		"diff_delete": "#c53b53",
+		"diff_delete": "#eb6f92",
 	},
 	"globals":
 	{
-		"background": "var(bg)",
-		"foreground": "var(fg)",
-		"accent": "var(blue)",
-		"caret": "var(cursor)",
-		"line_highlight": "var(bg_highlight)",
-		"selection": "var(bg_visual)",
-		"selection_border": "var(fg_gutter)",
-		"inactive_selection": "var(bg_highlight)",
-		"misspelling": "var(red)",
+		"background": "var(base)",
+		"foreground": "var(text)",
+		"accent": "var(rose)",
+		"caret": "var(rose)",
+		"line_highlight": "var(highlight_low)",
+		"selection": "var(highlight_med)",
+		"selection_border": "var(highlight_high)",
+		"inactive_selection": "var(highlight_low)",
+		"misspelling": "var(love)",
 		"shadow": "color(#000000 alpha(0.3))",
-		"gutter_foreground": "var(fg_gutter)",
-		"guide": "var(fg_gutter)",
-		"active_guide": "var(blue)",
-		"stack_guide": "color(var(blue) alpha(0.5))",
-		"highlight": "var(teal)",
-		"find_highlight": "var(yellow)",
-		"find_highlight_foreground": "var(bg)",
+		"gutter_foreground": "var(muted)",
+		"guide": "var(highlight_med)",
+		"active_guide": "var(rose)",
+		"stack_guide": "color(var(rose) alpha(0.5))",
+		"highlight": "var(foam)",
+		"find_highlight": "var(gold)",
+		"find_highlight_foreground": "var(base)",
 		"brackets_options": "underline",
-		"brackets_foreground": "var(yellow)",
+		"brackets_foreground": "var(gold)",
 		"bracket_contents_options": "underline",
-		"bracket_contents_foreground": "var(teal)",
+		"bracket_contents_foreground": "var(foam)",
 		"tags_options": "stippled_underline",
-		"tags_foreground": "var(magenta)"
+		"tags_foreground": "var(iris)"
 	},
 	"rules":
 	[
 		{
 			"name": "Comment",
 			"scope": "comment, punctuation.definition.comment",
-			"foreground": "var(comment)",
-			"font_style": "italic"
+			"foreground": "var(muted)"
 		},
 		{
 			"name": "String",
 			"scope": "string",
-			"foreground": "var(green)"
+			"foreground": "var(gold)"
 		},
 		{
 			"name": "String escape",
 			"scope": "constant.character.escape",
-			"foreground": "var(magenta)"
+			"foreground": "var(pine)"
 		},
 		{
 			"name": "Mapping key",
 			"scope": "meta.mapping.key string - meta.mapping.key meta meta",
-			"foreground": "var(blue5)"
+			"foreground": "var(foam)"
 		},
 		{
 			"name": "Punctuation",
 			"scope": "punctuation.definition - punctuation.definition.numeric.base",
-			"foreground": "var(blue5)"
+			"foreground": "var(subtle)"
 		},
 		{
 			"name": "Separator",
 			"scope": "punctuation.separator, punctuation.terminator",
-			"foreground": "var(blue5)"
+			"foreground": "var(subtle)"
 		},
 		{
 			"name": "Number",
 			"scope": "constant.numeric",
-			"foreground": "var(orange)"
+			"foreground": "var(gold)"
 		},
 		{
 			"name": "Built-in constant",
 			"scope": "constant.language",
-			"foreground": "var(orange)"
+			"foreground": "var(rose)"
 		},
 		{
 			"name": "User-defined constant",
 			"scope": "constant.character, constant.other",
-			"foreground": "var(orange)"
+			"foreground": "var(gold)"
 		},
 		{
 			"name": "Variable",
 			"scope": "variable",
-			"foreground": "var(fg)"
+			"foreground": "var(text)"
 		},
 		{
 			"name": "Member",
 			"scope": "variable.other.member, meta.property variable",
-			"foreground": "var(blue1)"
+			"foreground": "var(foam)"
 		},
 		{
 			"name": "Parameter",
 			"scope": "variable.parameter",
-			"foreground": "var(yellow)"
+			"foreground": "var(iris)"
 		},
 		{
 			"name": "Language variable",
 			"scope": "variable.language",
-			"foreground": "var(magenta)"
+			"foreground": "var(love)"
 		},
 		{
 			"name": "Keyword",
 			"scope": "keyword",
-			"foreground": "var(purple)"
+			"foreground": "var(pine)"
 		},
 		{
 			"name": "Operator",
 			"scope": "keyword.operator",
-			"foreground": "var(blue5)"
+			"foreground": "var(subtle)"
 		},
 		{
 			"name": "Storage",
 			"scope": "storage",
-			"foreground": "var(purple)"
+			"foreground": "var(pine)"
 		},
 		{
 			"name": "Type",
 			"scope": "storage.type, support.type, entity.name.type",
-			"foreground": "var(teal)"
+			"foreground": "var(foam)"
 		},
 		{
 			"name": "Class name",
 			"scope": "entity.name.class, entity.name.struct, entity.name.enum, entity.name.interface",
-			"foreground": "var(yellow)"
+			"foreground": "var(foam)"
 		},
 		{
 			"name": "Inherited class",
 			"scope": "entity.other.inherited-class",
-			"foreground": "var(yellow)",
-			"font_style": "italic"
+			"foreground": "var(foam)"
 		},
 		{
 			"name": "Function name",
 			"scope": "entity.name.function, support.function, variable.function",
-			"foreground": "var(blue)"
+			"foreground": "var(rose)"
 		},
 		{
 			"name": "Tag name",
 			"scope": "entity.name.tag",
-			"foreground": "var(red)"
+			"foreground": "var(foam)"
 		},
 		{
 			"name": "Tag attribute",
 			"scope": "entity.other.attribute-name",
-			"foreground": "var(yellow)"
+			"foreground": "var(iris)"
 		},
 		{
 			"name": "Library constant",
 			"scope": "support.constant",
-			"foreground": "var(orange)"
+			"foreground": "var(gold)"
 		},
 		{
 			"name": "Section heading",
 			"scope": "entity.name.section, markup.heading",
-			"foreground": "var(blue)",
+			"foreground": "var(iris)",
 			"font_style": "bold"
 		},
 		{
 			"name": "Markup link",
 			"scope": "markup.underline.link, string.other.link",
-			"foreground": "var(teal)"
+			"foreground": "var(foam)"
 		},
 		{
 			"name": "Invalid",
 			"scope": "invalid",
-			"foreground": "var(fg)",
-			"background": "#c53b53"
+			"foreground": "var(text)",
+			"background": "var(love)"
 		},
 		{
 			"name": "Deprecated",
 			"scope": "invalid.deprecated",
-			"foreground": "var(bg)",
-			"background": "var(yellow)"
+			"foreground": "var(base)",
+			"background": "var(gold)"
 		},
 
 		// A line that is new in full gets the .char tint across its whole

@@ -54,7 +54,7 @@ _theme_set_macos_appearance() {
 # Theme switcher - syncs Ghostty, Neovim, tmux, delta, Sublime Merge and the
 # macOS system appearance
 # Usage: theme light  (iTerm2 Solarized Light + Everforest)
-#        theme dark   (TokyoNight Moon + TokyoNight Moon)
+#        theme dark   (Rose Pine Moon + Rose Pine Moon)
 theme() {
     local mode="$1"
     local ghostty_config="$HOME/.dotfiles/ghostty-config"
@@ -64,7 +64,7 @@ theme() {
     if [[ "$mode" != "light" && "$mode" != "dark" ]]; then
         echo "Usage: theme [light|dark]"
         echo "  light - iTerm2 Solarized Light (Ghostty) + Everforest (Neovim) + Solarized Light (delta)"
-        echo "  dark  - TokyoNight Moon (Ghostty) + TokyoNight Moon (Neovim) + Visual Studio Dark+ (delta)"
+        echo "  dark  - Rose Pine Moon (Ghostty) + Rose Pine Moon (Neovim) + Visual Studio Dark+ (delta)"
         return 1
     fi
 
@@ -89,17 +89,17 @@ theme() {
         echo "Switched to light theme (Solarized Light + Everforest)"
     else
         # Ghostty dark theme
-        sed -i '' 's/^theme = .*/theme = TokyoNight Moon/' "$ghostty_config"
+        sed -i '' 's/^theme = .*/theme = Rose Pine Moon/' "$ghostty_config"
         sed -i '' 's/^background-opacity = .*/background-opacity = 0.95/' "$ghostty_config"
-        sed -i '' 's/^cursor-color = .*/cursor-color = #00ff41/' "$ghostty_config"
+        sed -i '' 's/^cursor-color = .*/cursor-color = #ea9a97/' "$ghostty_config"
 
         # Delta dark theme
         ln -sf "$HOME/.dotfiles/delta/dark.gitconfig" "$delta_theme_link"
 
         # Sublime Merge dark theme
-        _theme_set_sublime_merge "$sublime_merge_prefs" "Merge Dark.sublime-theme" "Packages/User/TokyoNight Moon.sublime-color-scheme"
+        _theme_set_sublime_merge "$sublime_merge_prefs" "Merge Dark.sublime-theme" "Packages/User/Rose Pine Moon.sublime-color-scheme"
 
-        echo "Switched to dark theme (TokyoNight Moon)"
+        echo "Switched to dark theme (Rose Pine Moon)"
     fi
 
     # Reload Ghostty config (Cmd+Shift+,) — sent to whatever app is frontmost,

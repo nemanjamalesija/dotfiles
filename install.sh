@@ -72,7 +72,7 @@ if [ -d "$SUBLIME_MERGE_USER" ]; then
 {
 	"font_size": 16,
 	"theme": "Merge Dark.sublime-theme",
-	"color_scheme": "Packages/User/TokyoNight Moon.sublime-color-scheme",
+	"color_scheme": "Packages/User/Rose Pine Moon.sublime-color-scheme",
 }
 EOF
         echo "Seeded Sublime Merge preferences"

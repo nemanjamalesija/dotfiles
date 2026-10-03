@@ -3,35 +3,35 @@
 {
 	"globals":
 	{
-		"foreground": "#c8d3f5",
-		"background": "#1b1d2c",
-		"caret": "#00ff41",
-		"line_highlight": "#2f334d",
-		"selection": "#2d3f76",
-		"selection_border": "#3b4261",
-		"inactive_selection": "#2f334d"
+		"foreground": "#e0def4",
+		"background": "#1d1b2c",
+		"caret": "#ea9a97",
+		"line_highlight": "#2a283e",
+		"selection": "#44415a",
+		"selection_border": "#56526e",
+		"inactive_selection": "#2a283e"
 	},
 	"rules":
 	[
 		{
 			"scope": "comment",
-			"foreground": "#636da6"
+			"foreground": "#6e6a86"
 		},
 		{
 			"scope": "keyword, storage",
-			"foreground": "#c099ff"
+			"foreground": "#3e8fb0"
 		},
 		{
 			"scope": "constant",
-			"foreground": "#ff966c"
+			"foreground": "#f6c177"
 		},
 		{
 			"scope": "string",
-			"foreground": "#c3e88d"
+			"foreground": "#f6c177"
 		},
 		{
 			"scope": "constant.character.escape",
-			"foreground": "#fca7ea"
+			"foreground": "#3e8fb0"
 		}
 	]
 }
