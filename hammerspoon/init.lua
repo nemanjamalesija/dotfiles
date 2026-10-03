@@ -128,7 +128,7 @@ sleepWatcher:start()
 local home = os.getenv("HOME")
 
 local function reloadBorders()
-  hs.task.new("/bin/bash", nil, {home .. "/.config/borders/bordersrc"}):start()
+	hs.task.new("/bin/bash", nil, { home .. "/.config/borders/bordersrc" }):start()
 end
 
 themeWatcher = hs.pathwatcher.new(home .. "/.theme-mode", reloadBorders)
@@ -141,25 +141,25 @@ themeWatcher:start()
 -- specific combos are intercepted, so this is far lighter than the tmux
 -- dead-key tap.
 local apps = {
-  ["1"] = "com.mitchellh.ghostty",
-  ["2"] = "com.google.Chrome",
-  ["3"] = "com.sublimemerge",
-  ["4"] = "com.microsoft.teams2",
-  ["5"] = "com.atlassian.trello",
-  ["6"] = "net.whatsapp.WhatsApp",
-  ["7"] = "md.obsidian",
+	["1"] = "com.mitchellh.ghostty",
+	["2"] = "com.google.Chrome",
+	["3"] = "com.sublimemerge",
+	["4"] = "com.microsoft.teams2",
+	["5"] = "com.atlassian.trello",
+	["6"] = "net.whatsapp.WhatsApp",
+	["7"] = "md.obsidian",
 }
 
 local appHotkeys = {}
 for key, bundleID in pairs(apps) do
-  local function activate()
-    hs.application.launchOrFocusByBundleID(bundleID)
-    hs.eventtap.keyStroke({"cmd", "alt"}, "h", 0)
-  end
-  -- Bind both the top-row digit and the keypad digit: some external keyboards
-  -- (e.g. Glove80 with ZMK) emit KP_N* keycodes for the number row.
-  appHotkeys[#appHotkeys + 1] = hs.hotkey.bind({"alt", "cmd"}, key, activate)
-  appHotkeys[#appHotkeys + 1] = hs.hotkey.bind({"alt", "cmd"}, "pad" .. key, activate)
+	local function activate()
+		hs.application.launchOrFocusByBundleID(bundleID)
+		hs.eventtap.keyStroke({ "cmd", "alt" }, "h", 0)
+	end
+	-- Bind both the top-row digit and the keypad digit: some external keyboards
+	-- (e.g. Glove80 with ZMK) emit KP_N* keycodes for the number row.
+	appHotkeys[#appHotkeys + 1] = hs.hotkey.bind({ "alt", "cmd" }, key, activate)
+	appHotkeys[#appHotkeys + 1] = hs.hotkey.bind({ "alt", "cmd" }, "pad" .. key, activate)
 end
 
 -- Dock toggle is handled natively by macOS' Cmd+Opt+D (symbolic hotkey 52,
@@ -168,29 +168,31 @@ end
 
 -- Minimize focused window. Native Cmd+M does the same, this is for
 -- muscle-memory consistency with the other Alt+Cmd+<key> bindings above.
-local minimizeHotkey = hs.hotkey.bind({"alt", "cmd"}, "m", function()
-  local win = hs.window.focusedWindow()
-  if win then win:minimize() end
+local minimizeHotkey = hs.hotkey.bind({ "alt", "cmd" }, "m", function()
+	local win = hs.window.focusedWindow()
+	if win then
+		win:minimize()
+	end
 end)
 
 -- Croatian diacritics on Alt+Cmd+<key>, uppercase on Shift+Alt+Cmd+<key>.
 -- Lua's string.upper is byte-based and won't uppercase multi-byte UTF-8,
 -- so the uppercase forms are spelled out explicitly.
 local croatian = {
-  y = { "č", "Č" },
-  u = { "ć", "Ć" },
-  i = { "š", "Š" },
-  o = { "ž", "Ž" },
-  p = { "đ", "Đ" },
+	y = { "č", "Č" },
+	u = { "ć", "Ć" },
+	i = { "š", "Š" },
+	o = { "ž", "Ž" },
+	p = { "đ", "Đ" },
 }
 
 local croatianHotkeys = {}
 for key, pair in pairs(croatian) do
-  local lower, upper = pair[1], pair[2]
-  croatianHotkeys[#croatianHotkeys + 1] = hs.hotkey.bind({"alt", "cmd"}, key, function()
-    hs.eventtap.keyStrokes(lower)
-  end)
-  croatianHotkeys[#croatianHotkeys + 1] = hs.hotkey.bind({"shift", "alt", "cmd"}, key, function()
-    hs.eventtap.keyStrokes(upper)
-  end)
+	local lower, upper = pair[1], pair[2]
+	croatianHotkeys[#croatianHotkeys + 1] = hs.hotkey.bind({ "alt", "cmd" }, key, function()
+		hs.eventtap.keyStrokes(lower)
+	end)
+	croatianHotkeys[#croatianHotkeys + 1] = hs.hotkey.bind({ "shift", "alt", "cmd" }, key, function()
+		hs.eventtap.keyStrokes(upper)
+	end)
 end
