@@ -131,7 +131,25 @@ local function reloadBorders()
 	hs.task.new("/bin/bash", nil, { home .. "/.config/borders/bordersrc" }):start()
 end
 
-themeWatcher = hs.pathwatcher.new(home .. "/.theme-mode", reloadBorders)
+-- The wallpaper also follows the theme, one picture per mode.
+local themeWallpapers = {
+	dark = home .. "/Pictures/Wallpapers/theme-dark-corridor.jpg",
+	light = home .. "/Pictures/Wallpapers/theme-light-cube.png",
+}
+
+local function setThemeWallpaper()
+	local file = io.open(home .. "/.theme-mode")
+	local mode = file:read("l")
+	file:close()
+	for _, screen in ipairs(hs.screen.allScreens()) do
+		screen:desktopImageURL("file://" .. themeWallpapers[mode])
+	end
+end
+
+themeWatcher = hs.pathwatcher.new(home .. "/.theme-mode", function()
+	reloadBorders()
+	setThemeWallpaper()
+end)
 themeWatcher:start()
 
 -- App switcher: Alt+Cmd+<n> launches or focuses the bound app, then defers
