@@ -84,8 +84,18 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = function(_, opts)
+        -- In dark mode the normal-mode blue becomes the accent color,
+        -- so the statusline matches the cursor, the borders and tmux.
+        local statusline_theme = "auto"
+        if vim.g.theme_mode == "dark" then
+            statusline_theme = require("lualine.themes.tokyonight-moon")
+            statusline_theme.normal.a.bg = vim.g.accent_color
+            statusline_theme.normal.b.fg = vim.g.accent_color
+            statusline_theme.inactive.a.fg = vim.g.accent_color
+        end
+
         opts.options = {
-            theme = "auto",
+            theme = statusline_theme,
             component_separators = { left = "", right = "┃" },
             section_separators = { left = "", right = "" },
             globalstatus = true,

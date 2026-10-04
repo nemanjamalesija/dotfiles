@@ -1,24 +1,24 @@
 return {
-    -- {
-    --     "folke/tokyonight.nvim",
-    --     -- lazy = false,
-    --     -- priority = 1000,
-    --     config = function()
-    --         require("tokyonight").setup({
-    --             style = "moon",
-    --             transparent = true,
-    --             terminal_colors = true,
-    --             styles = {
-    --                 comments = { italic = false },
-    --                 keywords = { italic = false },
-    --             },
-    --         })
-    --         if vim.g.theme_mode == "dark" then
-    --             vim.o.background = "dark"
-    --             vim.cmd.colorscheme("tokyonight-moon")
-    --         end
-    --     end,
-    -- },
+    {
+        "folke/tokyonight.nvim",
+        -- lazy = false,
+        -- priority = 1000,
+        config = function()
+            require("tokyonight").setup({
+                style = "moon",
+                transparent = true,
+                terminal_colors = true,
+                styles = {
+                    comments = { italic = false },
+                    keywords = { italic = false },
+                },
+            })
+            if vim.g.theme_mode == "dark" then
+                vim.o.background = "dark"
+                vim.cmd.colorscheme("tokyonight-moon")
+            end
+        end,
+    },
     {
         "neanias/everforest-nvim",
         version = false,
@@ -88,21 +88,6 @@ return {
             end
         end,
     },
-    {
-        "rose-pine/neovim",
-        name = "rose-pine",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            require("rose-pine").setup({
-                variant = "moon",
-                styles = {
-                    italic = false,
-                },
-            })
-            vim.cmd("colorscheme rose-pine")
-        end,
-    },
     -- {
     --     "catppuccin/nvim",
     --     name = "catppuccin",
@@ -147,18 +132,6 @@ return {
     --             vim.o.background = "dark"
     --             -- vim.cmd.colorscheme("vscode")
     --         end
-    --     end,
-    -- },
-    -- {
-    --     "loctvl842/monokai-pro.nvim",
-    --     lazy = false,
-    --     priority = 1000,
-    --     config = function()
-    --         require("monokai-pro").setup()
-    --         -- if vim.g.theme_mode == "dark" then
-    --         --     vim.o.background = "dark"
-    --         --     vim.cmd.colorscheme("monokai-pro")
-    --         -- end
     --     end,
     -- },
 }

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Theme-aware accent: Rose Pine rose (dark) / magenta (light)
+# Theme-aware accent: rose (dark) / magenta (light)
 if [ -f "$HOME/.theme-mode" ] && [ "$(cat "$HOME/.theme-mode" | tr -d '[:space:]')" = "dark" ]; then
-    accent=0xffea9a97 # Rose Pine rose
+    accent=0xffea9a97 # rose
 else
     accent=0xffbf68d9 # magenta
 fi

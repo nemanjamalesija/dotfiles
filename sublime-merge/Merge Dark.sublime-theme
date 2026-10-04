@@ -1,4 +1,4 @@
-// Rose Pine Moon for Sublime Merge's dark UI.
+// TokyoNight Moon for Sublime Merge's dark UI.
 // Same filename as the theme that ships with the app, so Sublime merges this
 // on top of it and only the variables listed here change.
 {
@@ -10,53 +10,53 @@
 		"font_size_lg": 17,
 
 		// Text
-		"text-heading": "#e0def4",
-		"text": "#908caa",
+		"text-heading": "#c8d3f5",
+		"text": "#828bb8",
 
 		// Palette
-		"red": "#eb6f92",
-		"orange": "#ea9a97",
-		"yellow": "#f6c177",
-		"green": "#9ccfd8",
-		"teal": "#9ccfd8",
-		"blue": "#3e8fb0",
-		"purple": "#c4a7e7",
-		"magenta": "#c4a7e7",
+		"red": "#ff757f",
+		"orange": "#ff966c",
+		"yellow": "#ffc777",
+		"green": "#c3e88d",
+		"teal": "#4fd6be",
+		"blue": "#82aaff",
+		"purple": "#c099ff",
+		"magenta": "#fca7ea",
 
 		// Backgrounds behind deleted files, unmerged files and the +/- badges
-		"dark_red": "#4b3148",
-		"dark_teal": "#2a3c54",
-		"dark_blue": "#44415a",
+		"dark_red": "#4d2c3a",
+		"dark_teal": "#1f4a43",
+		"dark_blue": "#2d3f76",
 
 		// Surfaces, from darkest chrome up to the commit list. The diff area
 		// itself is lighter still and comes from the color scheme background.
-		"dark_gray": "#16141f",
-		"dark_gray-medium": "#1a1826",
-		"dark_gray-light": "#1d1b2c",
-		"dark_gray-lightest": "#1f1d30",
-		"medium_gray-dark": "#44415a",
-		"medium_gray": "#6e6a86",
-		"medium_gray-light": "#908caa",
+		"dark_gray": "#141520",
+		"dark_gray-medium": "#181a27",
+		"dark_gray-light": "#1b1d2c",
+		"dark_gray-lightest": "#1e2030",
+		"medium_gray-dark": "#444a73",
+		"medium_gray": "#636da6",
+		"medium_gray-light": "#828bb8",
 
 		// Commit button
-		"highlighted_button_light_bg": "#ea9a97",
-		"highlighted_button_dark_bg": "#d4827f",
-		"highlighted_button_light_fg": "#16141f",
-		"highlighted_button_dark_fg": "#16141f",
+		"highlighted_button_light_bg": "#a9cc72",
+		"highlighted_button_dark_bg": "#8bad58",
+		"highlighted_button_light_fg": "#141520",
+		"highlighted_button_dark_fg": "#141520",
 
 		// Segmented buttons above the diff
-		"toggle_button_bg": "#2a273f",
-		"toggle_button_bg-details": "#393552",
+		"toggle_button_bg": "#2f334d",
+		"toggle_button_bg-details": "#3b4261",
 
-		"hunk_button_fg": "#e0def4",
+		"hunk_button_fg": "#c8d3f5",
 
-		"tool_tip_bg": "#1f1d30",
-		"tool_tip_fg": "#e0def4",
-		"tool_tip_border": "#393552",
+		"tool_tip_bg": "#1e2030",
+		"tool_tip_fg": "#c8d3f5",
+		"tool_tip_border": "#3b4261",
 
-		"repository_tab_bar_bg": "#16141f",
+		"repository_tab_bar_bg": "#141520",
 
-		"file_badge_unmerged_fg": "#e0def4",
-		"hazard_button_fg": "#16141f",
+		"file_badge_unmerged_fg": "#c8d3f5",
+		"hazard_button_fg": "#141520",
 	},
 }
