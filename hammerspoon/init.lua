@@ -162,6 +162,16 @@ for key, bundleID in pairs(apps) do
 	appHotkeys[#appHotkeys + 1] = hs.hotkey.bind({ "alt", "cmd" }, "pad" .. key, activate)
 end
 
+-- Hide everything else whenever Ghostty comes to the front, also from
+-- Cmd+Tab, the Dock or Spotlight, so nothing shows through its
+-- transparent background.
+ghosttyWatcher = hs.application.watcher.new(function(_, event, app)
+	if event == hs.application.watcher.activated and app:bundleID() == "com.mitchellh.ghostty" then
+		hs.eventtap.keyStroke({ "cmd", "alt" }, "h", 0)
+	end
+end)
+ghosttyWatcher:start()
+
 -- Dock toggle is handled natively by macOS' Cmd+Opt+D (symbolic hotkey 52,
 -- "Turn Dock Hiding On/Off") — smooth animation, no Dock restart needed.
 -- Intentionally not bound here to avoid intercepting it.
