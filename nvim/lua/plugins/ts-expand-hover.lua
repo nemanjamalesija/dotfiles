@@ -3,6 +3,6 @@ return {
     ft = { "typescript", "typescriptreact" },
     main = "ts_expand_hover",
     opts = {
-        keymaps = { hover = "<leader>th" },
+        keymaps = { hover = "<leader>te" },
     },
 }
