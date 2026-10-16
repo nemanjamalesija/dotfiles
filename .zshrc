@@ -18,9 +18,8 @@ for file in ~/.dotfiles/zsh/local/*.zsh(N); do
   source "$file"
 done
 
-# Add required zsh plugins if not already present
-if [[ ! " ${plugins[@]} " =~ " zsh-syntax-highlighting " ]]; then
-    plugins+=(zsh-syntax-highlighting)
-fi
-
 RPROMPT=''
+
+# Colours the command line while typing, red for a command or alias that does
+# not exist. It has to load last, after everything that adds keybindings.
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
