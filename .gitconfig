@@ -25,6 +25,11 @@
 	conflictStyle = zdiff3
 	tool = sublimemerge
 
+# Rebase and pull --rebase stash uncommitted changes first and bring them
+# back after, instead of refusing to start.
+[rebase]
+	autoStash = true
+
 [diff]
 	tool = sublimemerge
 
