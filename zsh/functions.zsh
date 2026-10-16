@@ -248,3 +248,45 @@ gu() {
 
     open "$merge_request_url"
 }
+
+# Pick a file or folder of the current git repo, or below the current folder
+# outside a repo, and jump there. A picked file jumps to the folder it is in.
+# Hidden folders like .ai and .claude are listed too.
+fzd() {
+    local root=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
+    local pick=$(fd --hidden --exclude .git --base-directory "$root" | fzf --height 40% --reverse --scheme=path)
+    if [[ -z "$pick" ]]; then
+        return
+    fi
+
+    local target="$root/$pick"
+    if [[ -f "$target" ]]; then
+        target=$(dirname "$target")
+    fi
+    cd "$target"
+}
+
+# Jump into one of the git repos under ~/Desktop/projekti.
+fzp() {
+    local projects_root=~/Desktop/projekti
+    local project=$(fd --hidden --max-depth 3 '^\.git$' --base-directory "$projects_root" \
+        | sed -E 's|/\.git/?$||' \
+        | fzf --height 40% --reverse --scheme=path)
+    [[ -n "$project" ]] && cd "$projects_root/$project"
+}
+
+# Jump into one of the folders in the home folder, like Desktop or Downloads.
+dir() {
+    local folder=$(fd --max-depth 1 --type d --base-directory ~ | fzf --height 40% --reverse --scheme=path)
+    [[ -n "$folder" ]] && cd ~/"$folder"
+}
+
+# Jump to the top folder of the current git repo.
+root() {
+    local repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [[ -z "$repo_root" ]]; then
+        echo "Not inside a git repo."
+        return 1
+    fi
+    cd "$repo_root"
+}

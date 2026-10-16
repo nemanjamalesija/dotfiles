@@ -5,12 +5,6 @@
 # alias myproject='cd ~/path/to/project'
 # alias myprojectv='cd ~/path/to/project && nvim'
 
-# Fuzzy project switcher (set your own projects root)
-# proj() {
-#     local dir=$(find ~/projects -mindepth 1 -maxdepth 1 -type d 2>/dev/null | fzf --height 40% --reverse)
-#     [[ -n "$dir" ]] && cd "$dir"
-# }
-
 # JIRA branch helper
 # jiraBranch() {
 #     echo "JIRA ID:"; read JIRA_ID
