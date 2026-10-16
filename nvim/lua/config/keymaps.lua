@@ -18,6 +18,14 @@ map("n", "<leader>qb", "<cmd>bdelete<cr>", { desc = "Quit Buffer" })
 
 vim.api.nvim_create_user_command("W", "silent w", {})
 
+-- Copy the open file's path, relative to the project folder, to the clipboard.
+vim.api.nvim_create_user_command("CopyPath", function()
+    local path = vim.fn.expand("%:.")
+    vim.fn.setreg("+", path)
+    vim.notify("Copied " .. path)
+end, { desc = "Copy file path" })
+map("n", "<C-y>", "<cmd>CopyPath<cr>", { desc = "Copy file path" })
+
 local function rive_with_count_object()
     local count = vim.v.count1 -- Gets the count prefix (defaults to 1)
     local original_pos = vim.fn.getpos(".")
