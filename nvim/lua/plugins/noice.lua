@@ -1,6 +1,74 @@
 return {
     {
         "folke/noice.nvim",
+        keys = {
+            {
+                "<C-f>",
+                function()
+                    if not require("noice.lsp").scroll(-4) then
+                        return "<C-f>"
+                    end
+                end,
+                mode = { "n", "i", "s" },
+                expr = true,
+                silent = true,
+                desc = "Scroll hover up",
+            },
+            {
+                "<C-v>",
+                function()
+                    if not require("noice.lsp").scroll(4) then
+                        return "<C-v>"
+                    end
+                end,
+                mode = { "n", "i", "s" },
+                expr = true,
+                silent = true,
+                desc = "Scroll hover down",
+            },
+            {
+                "<C-u>",
+                function()
+                    if not require("noice.lsp").scroll(-4) then
+                        return "<C-u>"
+                    end
+                end,
+                mode = { "i", "s" },
+                expr = true,
+                silent = true,
+                desc = "Scroll hover up",
+            },
+            {
+                "<C-d>",
+                function()
+                    if not require("noice.lsp").scroll(4) then
+                        return "<C-d>"
+                    end
+                end,
+                mode = { "i", "s" },
+                expr = true,
+                silent = true,
+                desc = "Scroll hover down",
+            },
+            {
+                "<Esc>",
+                function()
+                    local docs = require("noice.lsp.docs")
+                    for _, kind in ipairs({ "hover", "signature" }) do
+                        local message = docs.get(kind)
+                        if message:win() then
+                            docs.hide(message)
+                            return
+                        end
+                    end
+                    return "<Esc>"
+                end,
+                mode = "n",
+                expr = true,
+                silent = true,
+                desc = "Close hover",
+            },
+        },
         opts = {
             presets = {
                 bottom_search = false,

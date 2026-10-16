@@ -192,9 +192,14 @@ map("n", "<leader>NN", function()
     end)
 end, { desc = "Obsidian: New note in chosen vault" })
 
--- Straight-line scroll: temporarily enable virtualedit during C-d/C-u
-local function straight_scroll(key)
+-- Straight-line scroll: temporarily enable virtualedit during C-d/C-u.
+-- When a hover float is open, the keys scroll the float instead.
+local function straight_scroll(key, hover_lines)
     return function()
+        local scrolled_hover = require("noice.lsp").scroll(hover_lines)
+        if scrolled_hover then
+            return
+        end
         local col = vim.fn.virtcol(".")
         vim.opt.virtualedit = "all"
         local escaped = vim.api.nvim_replace_termcodes(key, true, false, true)
@@ -204,8 +209,11 @@ local function straight_scroll(key)
     end
 end
 
-map("n", "<C-d>", straight_scroll("<C-d>"), { desc = "Scroll down (straight line)" })
-map("n", "<C-u>", straight_scroll("<C-u>"), { desc = "Scroll up (straight line)" })
+map("n", "<C-d>", straight_scroll("<C-d>", 4), { desc = "Scroll down (straight line)" })
+map("n", "<C-u>", straight_scroll("<C-u>", -4), { desc = "Scroll up (straight line)" })
+
+-- The partner of <C-f>. tmux keeps the first <C-b> as its prefix key.
+map("n", "<C-j>", "<C-b>", { desc = "Scroll a page up" })
 
 -- Insert blank lines without entering insert mode
 map("n", "<leader>o", ":put _<CR>", { desc = "Insert line below", silent = true })

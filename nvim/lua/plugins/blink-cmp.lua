@@ -73,6 +73,8 @@ return {
             ["<C-k>"] = { "select_prev", "fallback" },
             ["<C-f>"] = { "scroll_documentation_up", "fallback" },
             ["<C-v>"] = { "scroll_documentation_down", "fallback" },
+            ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+            ["<C-d>"] = { "scroll_documentation_down", "fallback" },
             ["<C-l>"] = { "snippet_forward", "fallback" },
             ["<C-h>"] = { "snippet_backward", "fallback" },
             ["<M-Space>"] = { "show", "fallback" },
