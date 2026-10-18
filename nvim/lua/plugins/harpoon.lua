@@ -49,14 +49,14 @@ return {
                 desc = "Toggle Harpoon menu",
             },
             {
-                "<M-n>",
+                "<leader>hn",
                 function()
                     require("harpoon"):list():next()
                 end,
                 desc = "Harpoon next file",
             },
             {
-                "<M-p>",
+                "<leader>hp",
                 function()
                     require("harpoon"):list():prev()
                 end,
