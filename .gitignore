@@ -7,3 +7,6 @@ zsh/local/*
 
 # Machine-local Neovim config (templates: *.example.lua are tracked)
 nvim/lua/config/local.lua
+
+# macOS Finder metadata
+.DS_Store

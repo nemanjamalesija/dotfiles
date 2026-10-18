@@ -1,20 +1,17 @@
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
--- -- Add this to ~/.config/nvim/lua/config/keymaps.lua (if using LazyVim)
--- or add to your init.lua if you have a different setup
+-- Loaded on the VeryLazy event. LazyVim's defaults:
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Keys that belong to a plugin live in that plugin's file under lua/plugins.
 local map = vim.keymap.set
 
--- File operations. Saving is silent so the file name and byte count stop
--- being announced on every write. A write that actually fails still reports
--- itself, since plain silent only hides ordinary messages.
+-- Files
+
+-- Saving is silent so the file name and byte count stop being announced on
+-- every write. A write that actually fails still reports itself, since plain
+-- silent only hides ordinary messages.
 map("n", "<leader>fw", "<cmd>silent w<cr>", { desc = "Save File" })
 
 -- LazyVim maps this to a loud write.
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>silent w<cr><esc>", { desc = "Save File" })
-
--- Close the current pane. Its file stays open for <leader>bd to close.
-map("n", "<leader>qb", "<cmd>close<cr>", { desc = "Close Pane" })
 
 vim.api.nvim_create_user_command("W", "silent w", {})
 
@@ -26,49 +23,18 @@ vim.api.nvim_create_user_command("CopyPath", function()
 end, { desc = "Copy file path" })
 map("n", "<C-y>", "<cmd>CopyPath<cr>", { desc = "Copy file path" })
 
-local function rive_with_count_object()
-    local count = vim.v.count1 -- Gets the count prefix (defaults to 1)
-    local original_pos = vim.fn.getpos(".")
+-- Panes
 
-    -- Jump to the nth occurrence of {
-    for i = 1, count do
-        local found = vim.fn.search("{", "W")
-        if found == 0 then
-            vim.fn.setpos(".", original_pos)
-            print("Only found " .. (i - 1) .. " blocks forward")
-            return
-        end
-    end
+-- Close the current pane. Its file stays open for <leader>bd to close.
+map("n", "<leader>qb", "<cmd>close<cr>", { desc = "Close Pane" })
 
-    vim.cmd("normal! vi{")
-end
+map("n", "<leader>\\", "<cmd>vsplit<cr>", { desc = "Split pane vertically" })
+map("n", "<M-i>", "<cmd>vertical resize +5<cr>", { desc = "Increase pane width" })
+map("n", "<M-d>", "<cmd>vertical resize -5<cr>", { desc = "Decrease pane width" })
+map("n", "<M-I>", "<cmd>resize +5<cr>", { desc = "Increase pane height" })
+map("n", "<M-D>", "<cmd>resize -5<cr>", { desc = "Decrease pane height" })
 
-local function dive_with_count_paren()
-    local count = vim.v.count1
-    local original_pos = vim.fn.getpos(".")
-
-    -- Jump to the nth occurrence of (
-    for i = 1, count do
-        local found = vim.fn.search("(", "W")
-        if found == 0 then
-            vim.fn.setpos(".", original_pos)
-            print("Only found " .. (i - 1) .. " parentheses forward")
-            return
-        end
-    end
-
-    vim.cmd("normal! vi(")
-end
-
--- map("n", "vi{", dive_with_count_object, { desc = "Dive inside nth { block" })
--- map("n", "vi(", dive_with_count_paren, { desc = "Dive inside nth ( block" })
-
--- Buffer control
-map("n", "<M-i>", "<cmd>vertical resize +5<cr>", { desc = "Increase buffer width" })
-map("n", "<M-d>", "<cmd>vertical resize -5<cr>", { desc = "Decrease buffer width" })
-map("n", "<M-I>", "<cmd>resize +5<cr>", { desc = "Increase buffer height" })
-map("n", "<M-D>", "<cmd>resize -5<cr>", { desc = "Decrease buffer height" })
-map("n", "<leader>\\", "<cmd>vsplit<cr>", { desc = "Split window vertically" })
+-- Scrolling
 
 -- Straight-line scroll: temporarily enable virtualedit during C-d/C-u.
 -- When a hover float is open, the keys scroll the float instead.
@@ -93,9 +59,13 @@ map("n", "<C-u>", straight_scroll("<C-u>", -4), { desc = "Scroll up (straight li
 -- The partner of <C-f>. tmux keeps the first <C-b> as its prefix key.
 map("n", "<C-j>", "<C-b>", { desc = "Scroll a page up" })
 
+-- Editing
+
 -- Insert blank lines without entering insert mode
 map("n", "<leader>o", ":put _<CR>", { desc = "Insert line below", silent = true })
 map("n", "<leader>O", ":put! _<CR>", { desc = "Insert line above", silent = true })
+
+-- Undo tree
 
 -- Neovim ships the undo tree as an optional plugin that only opens, so the
 -- closing half is ours. Moving the cursor in that window moves the undo state.

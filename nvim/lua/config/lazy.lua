@@ -16,6 +16,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     spec = {
+        -- LazyVim loads this colorscheme before the plugin files run.
+        -- lua/plugins/colorscheme.lua then picks the one for the theme mode.
         { "LazyVim/LazyVim", import = "lazyvim.plugins", opts = {
             colorscheme = "tokyonight-moon",
         } },
@@ -23,10 +25,7 @@ require("lazy").setup({
         { import = "lazyvim.plugins.extras.lang.json" },
         { import = "lazyvim.plugins.extras.ui.mini-animate" },
         { import = "lazyvim.plugins.extras.lang.vue" },
-        -- { import = "lazyvim.plugins.extras.coding.luasnip" },
         { import = "lazyvim.plugins.extras.linting.eslint" },
-        -- { import = "lazyvim.plugins.extras.lang.php" },
-        -- { import = "lazyvim.plugins.extras.coding.nvim-cmp" },
         { import = "plugins" },
     },
     defaults = {
@@ -48,7 +47,6 @@ require("lazy").setup({
                 "tohtml",
                 "zipPlugin",
                 "tutor",
-                "bufferline",
             },
         },
     },

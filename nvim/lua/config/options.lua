@@ -1,19 +1,29 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
+-- Loaded before lazy.nvim starts. LazyVim's defaults:
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+
+-- Files
 vim.opt.swapfile = false
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 
 -- Keep undo history on disk so undo reaches back into previous sessions.
 vim.o.undodir = vim.fn.expand("~/.config/nvim/.undodir")
 vim.o.undofile = true
 
--- Disable LazyVim's eslint extras autoformat, which uses textDocument/formatting.
--- We use the official lspconfig pattern instead (BufWritePre + LspEslintFixAll),
--- wired up in lua/plugins/lsp.lua. See lspconfig/lsp/eslint.lua for the docs.
-vim.g.lazyvim_eslint_auto_format = false
-vim.opt.termguicolors = true
+vim.filetype.add({
+    extension = {
+        view = "php",
+        template = "php",
+        scss = "sass",
+    },
+})
+
+-- Editing
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+
+-- UI
+vim.opt.cmdheight = 0
+vim.opt.updatetime = 100
+
 -- Default border for every float that does not set its own.
 -- fzf-lua and noice draw their own windows and ignore this.
 vim.o.winborder = "rounded"
@@ -21,22 +31,12 @@ vim.o.winborder = "rounded"
 -- Stop Vim counting lines at us. The default of 2 means every yank or delete
 -- of three or more lines announces itself, which is most of them.
 vim.o.report = 9999
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.cmdheight = 0
-vim.opt.updatetime = 100
-vim.opt.virtualedit = "block"
 
--- Cursor color (theme-driven via vim.g.accent_color) - autocmd persists it across colorscheme changes
-vim.opt.guicursor = "n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor"
+-- Plugin switches
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
-local function set_cursor_hl()
-    vim.api.nvim_set_hl(0, "Cursor", { fg = "#1e1e2e", bg = vim.g.accent_color })
-    vim.api.nvim_set_hl(0, "lCursor", { fg = "#1e1e2e", bg = vim.g.accent_color })
-end
-
-set_cursor_hl()
-vim.api.nvim_create_autocmd("ColorScheme", {
-    pattern = "*",
-    callback = set_cursor_hl,
-})
+-- Disable LazyVim's eslint extras autoformat, which uses textDocument/formatting.
+-- We use the official lspconfig pattern instead (BufWritePre + LspEslintFixAll),
+-- wired up in lua/plugins/lsp.lua. See lspconfig/lsp/eslint.lua for the docs.
+vim.g.lazyvim_eslint_auto_format = false
