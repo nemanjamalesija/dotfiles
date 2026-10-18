@@ -12,7 +12,6 @@ echo "Installing dotfiles from $DOTFILES"
 # Create necessary directories
 mkdir -p ~/.config/borders
 mkdir -p ~/.config/bat
-mkdir -p ~/.config/lazygit
 mkdir -p "$DOTFILES/zsh/local"
 mkdir -p ~/Library/Application\ Support/com.mitchellh.ghostty
 
