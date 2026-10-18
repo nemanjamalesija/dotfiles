@@ -13,8 +13,8 @@ map("n", "<leader>fw", "<cmd>silent w<cr>", { desc = "Save File" })
 -- LazyVim maps this to a loud write.
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>silent w<cr><esc>", { desc = "Save File" })
 
--- Close current buffer
-map("n", "<leader>qb", "<cmd>bdelete<cr>", { desc = "Quit Buffer" })
+-- Close the current pane. Its file stays open for <leader>bd to close.
+map("n", "<leader>qb", "<cmd>close<cr>", { desc = "Close Pane" })
 
 vim.api.nvim_create_user_command("W", "silent w", {})
 
