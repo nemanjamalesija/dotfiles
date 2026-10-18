@@ -76,11 +76,33 @@ M.config = function()
             vim.keymap.set("n", "<leader>gb", function()
                 gs.blame_line({ full = true })
             end, { desc = "Blame line" })
+            local function find_master_diff_win()
+                for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+                    local buf_name = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win))
+                    local shows_master = vim.startswith(buf_name, "gitsigns://") and buf_name:find("//master:", 1, true)
+                    if shows_master and vim.wo[win].diff then
+                        return win
+                    end
+                end
+            end
+
             vim.keymap.set("n", "<leader>gm", function()
-                gs.show("master:%", { open = "vsplit" }, function()
-                    vim.wo.winbar = " master"
+                local master_win = find_master_diff_win()
+                if master_win then
+                    vim.api.nvim_win_close(master_win, false)
+                    return
+                end
+
+                gs.diffthis("master", { vertical = true }, function()
+                    -- Focus stays on the current file, so the master side is the other diff window.
+                    local current_win = vim.api.nvim_get_current_win()
+                    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+                        if win ~= current_win and vim.wo[win].diff then
+                            vim.wo[win].winbar = " master"
+                        end
+                    end
                 end)
-            end, { desc = "Show file on master" })
+            end, { desc = "Diff file against master" })
             vim.keymap.set("n", "<leader>gta", gs.toggle_linehl, { desc = "Toggle added/changed line highlight" })
 
             -- Text object
