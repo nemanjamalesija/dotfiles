@@ -1,13 +1,10 @@
-local M = {
+return {
     "lewis6991/gitsigns.nvim",
     event = "VeryLazy",
-}
-
-M.config = function()
-    require("gitsigns").setup({
+    opts = {
         word_diff = false,
         attach_to_untracked = true,
-        on_attach = function()
+        on_attach = function(buffer)
             local gs = package.loaded.gitsigns
 
             local function get_unstaged_line_count()
@@ -41,7 +38,7 @@ M.config = function()
                     gs.nav_hunk("next", { target = "all" })
                 end)
                 return "<Ignore>"
-            end, { expr = true, desc = "Next hunk" })
+            end, { buffer = buffer, expr = true, desc = "Next hunk" })
             vim.keymap.set({ "n", "v" }, "[h", function()
                 if vim.wo.diff then
                     return "[c"
@@ -50,32 +47,32 @@ M.config = function()
                     gs.nav_hunk("prev", { target = "all" })
                 end)
                 return "<Ignore>"
-            end, { expr = true, desc = "Previous hunk" })
+            end, { buffer = buffer, expr = true, desc = "Previous hunk" })
 
             -- Actions
-            vim.keymap.set("n", "<leader>gA", gs.stage_buffer, { desc = "Stage buffer" })
-            vim.keymap.set("n", "<leader>gR", gs.reset_buffer, { desc = "Reset buffer" })
+            vim.keymap.set("n", "<leader>gA", gs.stage_buffer, { buffer = buffer, desc = "Stage buffer" })
+            vim.keymap.set("n", "<leader>gR", gs.reset_buffer, { buffer = buffer, desc = "Reset buffer" })
             vim.keymap.set("n", "<leader>ga", function()
                 stage_or_unstage_hunk()
-            end, { desc = "Stage or unstage hunk" })
+            end, { buffer = buffer, desc = "Stage or unstage hunk" })
             vim.keymap.set("v", "<leader>ga", function()
                 local range = { vim.fn.line("."), vim.fn.line("v") }
                 vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "n", false)
                 stage_or_unstage_hunk(range)
-            end, { desc = "Stage or unstage lines" })
+            end, { buffer = buffer, desc = "Stage or unstage lines" })
             vim.keymap.set("n", "<leader>gr", function()
                 gs.reset_hunk()
-            end, { desc = "Reset hunk" })
+            end, { buffer = buffer, desc = "Reset hunk" })
             vim.keymap.set("v", "<leader>gr", function()
                 local range = { vim.fn.line("."), vim.fn.line("v") }
                 vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "n", false)
                 gs.reset_hunk(range)
-            end, { desc = "Reset lines" })
-            vim.keymap.set("n", "<leader>gp", gs.preview_hunk, { desc = "Preview hunk" })
-            vim.keymap.set("n", "<leader>gi", gs.preview_hunk_inline, { desc = "Preview hunk inline" })
+            end, { buffer = buffer, desc = "Reset lines" })
+            vim.keymap.set("n", "<leader>gp", gs.preview_hunk, { buffer = buffer, desc = "Preview hunk" })
+            vim.keymap.set("n", "<leader>gi", gs.preview_hunk_inline, { buffer = buffer, desc = "Preview hunk inline" })
             vim.keymap.set("n", "<leader>gb", function()
                 gs.blame_line({ full = true })
-            end, { desc = "Blame line" })
+            end, { buffer = buffer, desc = "Blame line" })
             local function find_master_diff_win()
                 for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
                     local buf_name = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win))
@@ -102,13 +99,16 @@ M.config = function()
                         end
                     end
                 end)
-            end, { desc = "Diff file against master" })
-            vim.keymap.set("n", "<leader>gta", gs.toggle_linehl, { desc = "Toggle added/changed line highlight" })
+            end, { buffer = buffer, desc = "Diff file against master" })
+            vim.keymap.set(
+                "n",
+                "<leader>gta",
+                gs.toggle_linehl,
+                { buffer = buffer, desc = "Toggle added/changed line highlight" }
+            )
 
             -- Text object
-            vim.keymap.set({ "o", "x" }, "ih", gs.select_hunk, { desc = "Hunk" })
+            vim.keymap.set({ "o", "x" }, "ih", gs.select_hunk, { buffer = buffer, desc = "Hunk" })
         end,
-    })
-end
-
-return M
+    },
+}

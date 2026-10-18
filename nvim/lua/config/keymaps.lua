@@ -1,6 +1,7 @@
 -- Loaded on the VeryLazy event. LazyVim's defaults:
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Keys that belong to a plugin live in that plugin's file under lua/plugins.
+-- Keys that belong to a plugin live in that plugin's file under lua/plugins:
+-- in its keys table, or in its attach callback when the key is buffer-local.
 local map = vim.keymap.set
 
 -- Files
@@ -64,6 +65,15 @@ map("n", "<C-j>", "<C-b>", { desc = "Scroll a page up" })
 -- Insert blank lines without entering insert mode
 map("n", "<leader>o", ":put _<CR>", { desc = "Insert line below", silent = true })
 map("n", "<leader>O", ":put! _<CR>", { desc = "Insert line above", silent = true })
+
+-- Diagnostics
+
+-- Put the current file's diagnostics in the quickfix list, not the whole workspace's.
+map("n", "<leader>cq", function()
+    local diagnostics = vim.diagnostic.get(0)
+    vim.fn.setqflist({}, " ", { title = "Diagnostics", items = vim.diagnostic.toqflist(diagnostics) })
+    vim.cmd("copen")
+end, { desc = "See Quickfix List for Current Buffer" })
 
 -- Undo tree
 

@@ -3,6 +3,8 @@
 
 -- Files
 vim.opt.swapfile = false
+-- Skip the ATTENTION prompt when a swap file already exists for a file.
+vim.opt.shortmess:append("A")
 
 -- Keep undo history on disk so undo reaches back into previous sessions.
 vim.o.undodir = vim.fn.expand("~/.config/nvim/.undodir")

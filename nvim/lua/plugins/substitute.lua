@@ -12,14 +12,38 @@ return {
                 suffix = "",
             },
         },
+        keys = {
+            {
+                "s",
+                function()
+                    require("substitute").operator()
+                end,
+                desc = "Substitute operator",
+            },
+            {
+                "S",
+                function()
+                    require("substitute").line()
+                end,
+                desc = "Substitute line",
+            },
+            {
+                "ss",
+                function()
+                    require("substitute").eol()
+                end,
+                desc = "Substitute to end of line",
+            },
+            {
+                "s",
+                function()
+                    require("substitute").visual()
+                end,
+                mode = "x",
+                desc = "Substitute visual",
+            },
+        },
         init = function()
-            local substitute = require("substitute")
-
-            vim.keymap.set("n", "s", substitute.operator, { noremap = true, desc = "Substitute operator" })
-            vim.keymap.set("n", "S", substitute.line, { noremap = true, desc = "Substitute line" })
-            vim.keymap.set("n", "ss", substitute.eol, { noremap = true, desc = "Substitute to end of line" })
-            vim.keymap.set("x", "s", substitute.visual, { noremap = true, desc = "Substitute visual" })
-
             vim.api.nvim_set_hl(0, "SubstituteSubstituted", { link = "Substitute" })
             vim.api.nvim_set_hl(0, "SubstituteRange", { link = "Substitute" })
         end,

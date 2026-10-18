@@ -23,6 +23,10 @@ return {
         keys = {
             { "<leader>fe", false },
             { "<leader>fE", false },
+            -- fzf-lua owns these, in plugins/fzf.lua.
+            { "<leader><leader>", false },
+            { "<leader>ff", false },
+            { "<leader>fg", false },
         },
     },
     { "folke/persistence.nvim", enabled = false },

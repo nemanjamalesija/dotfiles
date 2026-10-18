@@ -4,12 +4,16 @@
 
 local M = {}
 
--- Project-specific fzf keymaps. Receives the loaded fzf-lua module and is
--- called from plugins/fzf.lua after fzf-lua loads.
--- function M.fzf_keymaps(fzf_lua)
---     vim.keymap.set("n", "<leader>pf", function()
---         fzf_lua.files({ cwd = "my-project", fzf_opts = { ["--layout"] = "reverse" } })
---     end, { desc = "Find files in my-project" })
--- end
+-- Project-specific fzf keys, in lazy.nvim's keys format.
+-- plugins/fzf.lua adds them to its own keys list.
+-- M.fzf_keys = {
+--     {
+--         "<leader>pf",
+--         function()
+--             require("fzf-lua").files({ cwd = "my-project", fzf_opts = { ["--layout"] = "reverse" } })
+--         end,
+--         desc = "Find files in my-project",
+--     },
+-- }
 
 return M
