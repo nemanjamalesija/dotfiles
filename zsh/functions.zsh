@@ -252,7 +252,7 @@ gu() {
 # Pick a file or folder of the current git repo, or below the current folder
 # outside a repo, and jump there. A picked file jumps to the folder it is in.
 # Hidden folders like .ai and .claude are listed too.
-fzd() {
+zd() {
     local root=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
     local pick=$(fd --hidden --exclude .git --base-directory "$root" | fzf --height 40% --reverse --scheme=path)
     if [[ -z "$pick" ]]; then
@@ -267,7 +267,7 @@ fzd() {
 }
 
 # Jump into one of the git repos under ~/Desktop/projekti.
-fzp() {
+zp() {
     local projects_root=~/Desktop/projekti
     local project=$(fd --hidden --max-depth 3 '^\.git$' --base-directory "$projects_root" \
         | sed -E 's|/\.git/?$||' \
@@ -276,7 +276,7 @@ fzp() {
 }
 
 # Jump into one of the folders in the home folder, like Desktop or Downloads.
-dir() {
+zdir() {
     local folder=$(fd --max-depth 1 --type d --base-directory ~ | fzf --height 40% --reverse --scheme=path)
     [[ -n "$folder" ]] && cd ~/"$folder"
 }
