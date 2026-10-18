@@ -32,6 +32,20 @@
 
 [diff]
 	tool = sublimemerge
+	# Lines up a moved block of code better than the default algorithm.
+	algorithm = histogram
+
+# A plain push on a new branch creates the branch on the remote and tracks it.
+[push]
+	autoSetupRemote = true
+
+# Fetch and pull drop local copies of branches the remote deleted.
+[fetch]
+	prune = true
+
+# git branch lists the most recently committed branches first.
+[branch]
+	sort = -committerdate
 
 [difftool "sublimemerge"]
 	cmd = \"/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge\" diff \"$LOCAL\" \"$REMOTE\"
