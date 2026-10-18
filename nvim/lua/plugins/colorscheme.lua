@@ -1,92 +1,78 @@
 return {
     {
         "folke/tokyonight.nvim",
-        -- lazy = false,
-        -- priority = 1000,
-        config = function()
-            require("tokyonight").setup({
-                style = "moon",
-                transparent = true,
-                terminal_colors = true,
-                styles = {
-                    comments = { italic = false },
-                    keywords = { italic = false },
-                },
-            })
-            if vim.g.theme_mode == "dark" then
-                vim.o.background = "dark"
-                vim.cmd.colorscheme("tokyonight-moon")
-            end
-        end,
+        opts = {
+            style = "moon",
+            transparent = true,
+            terminal_colors = true,
+            styles = {
+                comments = { italic = false },
+                keywords = { italic = false },
+            },
+        },
     },
     {
         "neanias/everforest-nvim",
+        main = "everforest",
         version = false,
-        -- lazy = false,
-        -- priority = 1000,
-        config = function()
-            require("everforest").setup({
-                background = "medium",
-                colours_override = function(palette)
-                    palette.orange = "#4791e4"
-                    palette.fg = "#697d83"
-                    palette.blue = "#697d83"
-                    palette.aqua = "#2aa198"
-                end,
-                on_highlights = function(hl, palette)
-                    local solarizedYellow = "#b58900"
-                    local customOrange = "#e47112"
+        -- Loads when LazyVim applies the colorscheme in light mode.
+        lazy = true,
+        opts = {
+            background = "medium",
+            colours_override = function(palette)
+                palette.orange = "#4791e4"
+                palette.fg = "#697d83"
+                palette.blue = "#697d83"
+                palette.aqua = "#2aa198"
+            end,
+            on_highlights = function(hl, palette)
+                local solarizedYellow = "#b58900"
+                local customOrange = "#e47112"
 
-                    hl["@punctuation.bracket"] = { fg = palette.fg }
+                hl["@punctuation.bracket"] = { fg = palette.fg }
 
-                    -- HTML tags
-                    hl["@tag"] = { fg = palette.orange, bold = false }
-                    hl["@tag.bracket"] = { fg = palette.fg }
-                    hl["@tag.delimiter"] = { fg = palette.fg }
-                    hl["@tag.attribute"] = { fg = palette.fg, bg = palette.bg1 }
+                -- HTML tags
+                hl["@tag"] = { fg = palette.orange, bold = false }
+                hl["@tag.bracket"] = { fg = palette.fg }
+                hl["@tag.delimiter"] = { fg = palette.fg }
+                hl["@tag.attribute"] = { fg = palette.fg, bg = palette.bg1 }
 
-                    hl["@keyword"] = { fg = solarizedYellow, bold = false }
-                    hl["@keyword.import"] = { fg = solarizedYellow, bold = false }
-                    hl["@keyword.export"] = { fg = solarizedYellow, bold = false }
-                    hl["@keyword.import.javascript"] = { fg = solarizedYellow, bold = false }
-                    hl["@keyword.export.javascript"] = { fg = solarizedYellow, bold = false }
-                    hl["@keyword.return"] = { fg = solarizedYellow, bold = false }
-                    hl["@keyword.operator"] = { fg = solarizedYellow, bold = false }
-                    hl["@keyword.repeat"] = { fg = solarizedYellow, bold = false }
-                    hl["@keyword.exception"] = { fg = solarizedYellow, bold = false }
-                    hl["@keyword.modifier"] = { fg = solarizedYellow, bold = false }
-                    hl["@keyword.type"] = { fg = solarizedYellow, bold = false }
-                    hl["@keyword.coroutine"] = { fg = solarizedYellow, bold = false }
-                    hl["@keyword.directive"] = { fg = solarizedYellow, bold = false }
-                    hl["@keyword.function"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword.import"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword.export"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword.import.javascript"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword.export.javascript"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword.return"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword.operator"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword.repeat"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword.exception"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword.modifier"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword.type"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword.coroutine"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword.directive"] = { fg = solarizedYellow, bold = false }
+                hl["@keyword.function"] = { fg = solarizedYellow, bold = false }
 
-                    hl["@operator"] = { fg = solarizedYellow }
-                    hl["@operator.logical"] = { fg = solarizedYellow }
-                    hl["@operator.comparison"] = { fg = solarizedYellow }
-                    hl["@operator.arithmetic"] = { fg = solarizedYellow }
-                    hl["@operator.bitwise"] = { fg = solarizedYellow }
-                    hl["@operator.assignment"] = { fg = solarizedYellow }
-                    hl["@operator.ternary"] = { fg = solarizedYellow }
-                    hl["@operator.spread"] = { fg = solarizedYellow }
-                    hl["@operator.pipeline"] = { fg = solarizedYellow }
-                    hl["@keyword.conditional"] = { fg = solarizedYellow }
+                hl["@operator"] = { fg = solarizedYellow }
+                hl["@operator.logical"] = { fg = solarizedYellow }
+                hl["@operator.comparison"] = { fg = solarizedYellow }
+                hl["@operator.arithmetic"] = { fg = solarizedYellow }
+                hl["@operator.bitwise"] = { fg = solarizedYellow }
+                hl["@operator.assignment"] = { fg = solarizedYellow }
+                hl["@operator.ternary"] = { fg = solarizedYellow }
+                hl["@operator.spread"] = { fg = solarizedYellow }
+                hl["@operator.pipeline"] = { fg = solarizedYellow }
+                hl["@keyword.conditional"] = { fg = solarizedYellow }
 
-                    hl["@variable.parameter"] = { fg = customOrange }
-                    hl["@lsp.type.parameter.vue"] = { fg = customOrange }
-                    hl["@lsp.type.parameter.javascript"] = { fg = customOrange }
-                    hl["@variable.parameter.javascript"] = { fg = customOrange }
+                hl["@variable.parameter"] = { fg = customOrange }
+                hl["@lsp.type.parameter.vue"] = { fg = customOrange }
+                hl["@lsp.type.parameter.javascript"] = { fg = customOrange }
+                hl["@variable.parameter.javascript"] = { fg = customOrange }
 
-                    hl.DiagnosticUnderlineHint = { fg = palette.aqua, undercurl = true, sp = palette.purple }
-                    hl.DiagnosticUnderlineWarn = { fg = "NONE", undercurl = true, sp = customOrange }
-                    hl.DiagnosticUnderlineError = { fg = "NONE", undercurl = true, sp = palette.red }
-                end,
-            })
-            -- Load everforest if light theme
-            if vim.g.theme_mode == "light" then
-                vim.o.background = "light"
-                vim.cmd.colorscheme("everforest")
-            end
-        end,
+                hl.DiagnosticUnderlineHint = { fg = palette.aqua, undercurl = true, sp = palette.purple }
+                hl.DiagnosticUnderlineWarn = { fg = "NONE", undercurl = true, sp = customOrange }
+                hl.DiagnosticUnderlineError = { fg = "NONE", undercurl = true, sp = palette.red }
+            end,
+        },
     },
     -- {
     --     "catppuccin/nvim",

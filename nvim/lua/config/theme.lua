@@ -8,10 +8,17 @@ if vim.fn.filereadable(theme_file) == 1 then
         theme_mode = "dark"
     end
 end
+-- Accent color propagates to cursor, smear-cursor, illuminate, indent-blankline
+local themes = {
+    dark = { colorscheme = "tokyonight-moon", accent_color = "#ea9a97" },
+    light = { colorscheme = "everforest", accent_color = "#bf68d9" },
+}
+local theme = themes[theme_mode]
+
 vim.o.background = theme_mode
 vim.g.theme_mode = theme_mode
--- Accent color propagates to cursor, smear-cursor, illuminate, indent-blankline
-vim.g.accent_color = theme_mode == "dark" and "#ea9a97" or "#bf68d9"
+vim.g.colorscheme = theme.colorscheme
+vim.g.accent_color = theme.accent_color
 
 -- Cursor color (theme-driven via vim.g.accent_color) - autocmd persists it across colorscheme changes
 vim.opt.guicursor = "n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor"
