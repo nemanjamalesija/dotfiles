@@ -15,7 +15,7 @@ The install script creates symlinks for all configurations and sets up the theme
 ### Dependencies
 
 ```bash
-brew install neovim tmux git-delta bat fzf ripgrep fd pure lazygit zsh-syntax-highlighting
+brew install neovim tmux git-delta bat fzf ripgrep fd pure lazygit zsh-syntax-highlighting nvm
 brew install felixkratz/formulae/borders
 brew install --cask hammerspoon
 ```
@@ -23,8 +23,9 @@ brew install --cask hammerspoon
 ### Post-install
 
 1. Restart your terminal or run `source ~/.zshrc`
-2. Open Neovim to install plugins automatically
-3. Set your preferred theme with `theme light` or `theme dark`
+2. Install Node before opening Neovim, since Mason installs the language servers with npm: `mkdir -p ~/.nvm && nvm install 22 && nvm alias default 22`
+3. Open Neovim to install plugins automatically
+4. Set your preferred theme with `theme light` or `theme dark`
 
 ## What's Included
 
@@ -68,6 +69,7 @@ cleanup
 zsh/
   aliases.zsh       # Git, config editing, utility aliases
   functions.zsh     # Theme switcher, cleanup, slugify
+  nvm.zsh           # Default Node on the PATH, nvm loaded on first use
   prompt.zsh        # Pure prompt setup
   local/            # Your personal configs (gitignored)
 ```
