@@ -4,11 +4,6 @@
 
 local M = {}
 
--- Extra Obsidian workspaces, appended to the public defaults in plugins/obsidian.lua.
--- M.obsidian_workspaces = {
---     { name = "work", path = "~/vaults/work" },
--- }
-
 -- Project-specific fzf keymaps. Receives the loaded fzf-lua module and is
 -- called from plugins/fzf.lua after fzf-lua loads.
 -- function M.fzf_keymaps(fzf_lua)
