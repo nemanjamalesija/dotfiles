@@ -43,6 +43,10 @@ theme = TokyoNight Moon
 # It has to sit after the theme line so it overrides the theme's own cursor.
 cursor-color = #00ff41
 
+# Split divider color, also written by the `theme` command to match the
+# border accent, so the line between panes is easy to see.
+split-divider-color = #ea9a97
+
 # Keybindings
 keybind = ctrl+t>t=text:tt\r
 keybind = super+backslash=new_split:right

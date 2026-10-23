@@ -79,6 +79,7 @@ theme() {
         sed -i '' 's/^theme = .*/theme = iTerm2 Solarized Light/' "$ghostty_config"
         sed -i '' 's/^background-opacity = .*/background-opacity = 1.0/' "$ghostty_config"
         sed -i '' 's/^cursor-color = .*/cursor-color = #bf68d9/' "$ghostty_config"
+        sed -i '' 's/^split-divider-color = .*/split-divider-color = #bf68d9/' "$ghostty_config"
 
         # Delta light theme
         ln -sf "$HOME/.dotfiles/delta/light.gitconfig" "$delta_theme_link"
@@ -92,6 +93,7 @@ theme() {
         sed -i '' 's/^theme = .*/theme = TokyoNight Moon/' "$ghostty_config"
         sed -i '' 's/^background-opacity = .*/background-opacity = 0.95/' "$ghostty_config"
         sed -i '' 's/^cursor-color = .*/cursor-color = #ea9a97/' "$ghostty_config"
+        sed -i '' 's/^split-divider-color = .*/split-divider-color = #ea9a97/' "$ghostty_config"
 
         # Delta dark theme
         ln -sf "$HOME/.dotfiles/delta/dark.gitconfig" "$delta_theme_link"
