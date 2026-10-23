@@ -160,11 +160,11 @@ themeWatcher:start()
 -- dead-key tap.
 local apps = {
 	["1"] = "com.mitchellh.ghostty",
-	["2"] = "com.google.Chrome",
-	["3"] = "com.sublimemerge",
-	["4"] = "com.microsoft.teams2",
-	["5"] = "com.atlassian.trello",
-	["6"] = "net.whatsapp.WhatsApp",
+	["2"] = "com.t3tools.t3code",
+	["3"] = "com.google.Chrome",
+	["4"] = "com.sublimemerge",
+	["5"] = "com.microsoft.teams2",
+	["6"] = "com.atlassian.trello",
 	["7"] = "md.obsidian",
 }
 
