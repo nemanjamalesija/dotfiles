@@ -4,6 +4,9 @@
 -- in its keys table, or in its attach callback when the key is buffer-local.
 local map = vim.keymap.set
 
+-- The full path, because smerge is a shell alias that Neovim cannot see.
+local SUBLIME_MERGE = "/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge"
+
 -- Copy the open file's path, relative to the project folder, to the clipboard.
 local function copy_file_path()
     local path = vim.fn.expand("%:.")
@@ -34,6 +37,23 @@ local function show_file_diagnostics()
     local items = vim.diagnostic.toqflist(diagnostics)
     vim.fn.setqflist({}, " ", { title = "Diagnostics", items = items })
     vim.cmd("copen")
+end
+
+-- Sublime Merge finds the repository from the folder it starts in.
+local function show_file_history()
+    local file = vim.api.nvim_buf_get_name(0)
+    vim.system({ SUBLIME_MERGE, "log", file }, { cwd = vim.fs.dirname(file) })
+end
+
+local function show_line_blame()
+    local file = vim.api.nvim_buf_get_name(0)
+    local line = tostring(vim.fn.line("."))
+    vim.system({ SUBLIME_MERGE, "blame", file, line }, { cwd = vim.fs.dirname(file) })
+end
+
+local function show_repository()
+    local repository = vim.fs.root(0, ".git")
+    vim.system({ SUBLIME_MERGE, repository })
 end
 
 -- Neovim ships the undo tree as an optional plugin that only opens, so the
@@ -92,6 +112,20 @@ map("n", "<leader>O", ":put! _<CR>", { desc = "Insert line above", silent = true
 -- Diagnostics
 
 map("n", "<leader>cq", show_file_diagnostics, { desc = "See Quickfix List for Current Buffer" })
+
+-- Git
+
+-- LazyVim opens this in a Snacks picker, where Enter checks the old version out over the file.
+map("n", "<leader>gf", show_file_history, { desc = "File history in Sublime Merge" })
+map("n", "<leader>go", show_repository, { desc = "Open repository in Sublime Merge" })
+
+-- The small blame is the Gitsigns popup on <leader>gb. LazyVim's browser link
+-- on this key cannot turn the amr-web remote into a GitLab page.
+map("n", "<leader>gB", show_line_blame, { desc = "Blame in Sublime Merge" })
+
+-- LazyVim's commit log pickers, where Enter checks out the commit.
+vim.keymap.del("n", "<leader>gl")
+vim.keymap.del("n", "<leader>gL")
 
 -- Undo tree
 
