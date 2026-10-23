@@ -180,6 +180,36 @@ for key, bundleID in pairs(apps) do
 	appHotkeys[#appHotkeys + 1] = hs.hotkey.bind({ "alt", "cmd" }, "pad" .. key, activate)
 end
 
+-- Ghostty window switcher: Cmd+<n> focuses the nth Ghostty window, counted
+-- in the order the windows were opened, like tmux window numbers. Ghostty
+-- can't show tabs with the hidden titlebar, so each project gets a window.
+-- Window ids grow with every new window, so sorting by id gives that order.
+-- The hotkeys are on only while Ghostty is in front, so Cmd+<n> keeps
+-- switching tabs in Chrome and the other apps.
+local function focusGhosttyWindow(number)
+	local ghostty = hs.application.get("com.mitchellh.ghostty")
+	if not ghostty then
+		return
+	end
+	local windows = ghostty:allWindows()
+	table.sort(windows, function(a, b)
+		return a:id() < b:id()
+	end)
+	local window = windows[number]
+	if window then
+		window:focus()
+	end
+end
+
+local ghosttyWindowHotkeys = {}
+for number = 1, 9 do
+	local function focus()
+		focusGhosttyWindow(number)
+	end
+	ghosttyWindowHotkeys[#ghosttyWindowHotkeys + 1] = hs.hotkey.new({ "cmd" }, tostring(number), focus)
+	ghosttyWindowHotkeys[#ghosttyWindowHotkeys + 1] = hs.hotkey.new({ "cmd" }, "pad" .. number, focus)
+end
+
 -- Ctrl+W deletes the previous word in every app, like it does in the
 -- terminal. Ghostty handles Ctrl+W itself, so the hotkey is off while
 -- Ghostty is in front and Neovim keeps its own Ctrl+W.
@@ -197,14 +227,24 @@ ghosttyWatcher = hs.application.watcher.new(function(_, event, app)
 	if event == hs.application.watcher.activated then
 		hs.eventtap.keyStroke({ "cmd", "alt" }, "h", 0)
 		deleteWordHotkey:disable()
+		for _, hotkey in ipairs(ghosttyWindowHotkeys) do
+			hotkey:enable()
+		end
 	elseif event == hs.application.watcher.deactivated then
 		deleteWordHotkey:enable()
+		for _, hotkey in ipairs(ghosttyWindowHotkeys) do
+			hotkey:disable()
+		end
 	end
 end)
 ghosttyWatcher:start()
 
 if hs.application.frontmostApplication():bundleID() ~= "com.mitchellh.ghostty" then
 	deleteWordHotkey:enable()
+else
+	for _, hotkey in ipairs(ghosttyWindowHotkeys) do
+		hotkey:enable()
+	end
 end
 
 -- Dock toggle is handled natively by macOS' Cmd+Opt+D (symbolic hotkey 52,
