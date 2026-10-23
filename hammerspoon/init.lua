@@ -180,15 +180,32 @@ for key, bundleID in pairs(apps) do
 	appHotkeys[#appHotkeys + 1] = hs.hotkey.bind({ "alt", "cmd" }, "pad" .. key, activate)
 end
 
+-- Ctrl+W deletes the previous word in every app, like it does in the
+-- terminal. Ghostty handles Ctrl+W itself, so the hotkey is off while
+-- Ghostty is in front and Neovim keeps its own Ctrl+W.
+local deleteWordHotkey = hs.hotkey.new({ "ctrl" }, "w", function()
+	hs.eventtap.keyStroke({ "alt" }, "delete", 0)
+end)
+
 -- Hide everything else whenever Ghostty comes to the front, also from
 -- Cmd+Tab, the Dock or Spotlight, so nothing shows through its
 -- transparent background.
 ghosttyWatcher = hs.application.watcher.new(function(_, event, app)
-	if event == hs.application.watcher.activated and app:bundleID() == "com.mitchellh.ghostty" then
+	if app:bundleID() ~= "com.mitchellh.ghostty" then
+		return
+	end
+	if event == hs.application.watcher.activated then
 		hs.eventtap.keyStroke({ "cmd", "alt" }, "h", 0)
+		deleteWordHotkey:disable()
+	elseif event == hs.application.watcher.deactivated then
+		deleteWordHotkey:enable()
 	end
 end)
 ghosttyWatcher:start()
+
+if hs.application.frontmostApplication():bundleID() ~= "com.mitchellh.ghostty" then
+	deleteWordHotkey:enable()
+end
 
 -- Dock toggle is handled natively by macOS' Cmd+Opt+D (symbolic hotkey 52,
 -- "Turn Dock Hiding On/Off") — smooth animation, no Dock restart needed.
