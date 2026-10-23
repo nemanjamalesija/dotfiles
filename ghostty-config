@@ -45,8 +45,9 @@ cursor-color = #00ff41
 
 # Keybindings
 keybind = ctrl+t>t=text:tt\r
-# Voice push-to-talk is Alt+K: option-as-alt already sends esc+k,
-# which Claude Code reads as its meta+k binding. This makes Cmd+K
-# send the same thing, as a fallback for the laptop keyboard.
-keybind = super+k=text:\x1bk
-
+keybind = super+backslash=new_split:right
+keybind = super+-=new_split:down
+keybind = super+h=goto_split:left
+keybind = super+j=goto_split:down
+keybind = super+k=goto_split:up
+keybind = super+l=goto_split:right
