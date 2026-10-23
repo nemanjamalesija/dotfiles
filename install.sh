@@ -91,6 +91,14 @@ else
     echo "No Sublime Merge user folder — skipping its themes (launch the app once, then re-run)"
 fi
 
+# T3 Code theme. The app refuses a symlinked theme file, so its CLI copies it in.
+# One file holds both modes and T3 Code follows the macOS appearance.
+if [ -x "$HOME/.t3/bin/t3" ]; then
+    "$HOME/.t3/bin/t3" theme set "$DOTFILES/t3code/solarized-tokyonight.json"
+else
+    echo "No T3 Code CLI — skipping its theme (launch the app once, then re-run)"
+fi
+
 # Machine-local / work-specific config:
 #   - if the private companion repo is present, symlink the real files from it
 #   - otherwise seed blank templates so you can fill them in by hand
