@@ -56,6 +56,19 @@ local function show_repository()
     vim.system({ SUBLIME_MERGE, repository })
 end
 
+-- gmr lives in the zsh config, next to the private GitLab address, and -i is
+-- what loads that config.
+local function open_merge_request()
+    local repository = vim.fs.root(0, ".git")
+    vim.system({ "zsh", "-ic", "gmr" }, { cwd = repository, text = true }, function(result)
+        if result.code ~= 0 then
+            vim.schedule(function()
+                vim.notify(vim.trim(result.stdout))
+            end)
+        end
+    end)
+end
+
 -- Neovim ships the undo tree as an optional plugin that only opens, so the
 -- closing half is ours. Moving the cursor in that window moves the undo state.
 local function toggle_undo_tree()
@@ -118,6 +131,7 @@ map("n", "<leader>cq", show_file_diagnostics, { desc = "See Quickfix List for Cu
 -- LazyVim opens this in a Snacks picker, where Enter checks the old version out over the file.
 map("n", "<leader>gf", show_file_history, { desc = "File history in Sublime Merge" })
 map("n", "<leader>go", show_repository, { desc = "Open repository in Sublime Merge" })
+map("n", "<leader>gu", open_merge_request, { desc = "Open merge request" })
 
 -- The small blame is the Gitsigns popup on <leader>gb. LazyVim's browser link
 -- on this key cannot turn the amr-web remote into a GitLab page.

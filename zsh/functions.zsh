@@ -213,6 +213,50 @@ _gitlab_project_url() {
     echo "$scheme://$host/$path"
 }
 
+# The number of the current branch's merge request, empty when it has none.
+# Every open merge request has a ref on the server pointing at its branch tip,
+# so the ref that matches the pushed branch carries the number.
+# Asking the server takes most of a second, so the first answer is saved in the
+# branch's git config. When a branch gets a new merge request after the old one
+# closed, clear the old number with
+# "git config --unset branch.<branch>.merge-request".
+_merge_request_number() {
+    local branch=$(git rev-parse --abbrev-ref HEAD)
+    local saved_number=$(git config "branch.$branch.merge-request")
+    if [ -n "$saved_number" ]; then
+        echo "$saved_number"
+        return
+    fi
+
+    # One call for both lists, because every connection to the server takes
+    # most of a second.
+    local refs=$(git ls-remote origin "refs/heads/$branch" 'refs/merge-requests/*/head' 2>/dev/null)
+    local branch_tip=$(echo "$refs" | grep "refs/heads/$branch$" | cut -f1)
+    if [ -z "$branch_tip" ]; then
+        return
+    fi
+
+    local merge_request_number=$(echo "$refs" \
+        | grep "^$branch_tip.*refs/merge-requests/" \
+        | sed -E 's|.*/merge-requests/([0-9]+)/head|\1|' \
+        | sort -n | tail -1)
+    if [ -n "$merge_request_number" ]; then
+        git config "branch.$branch.merge-request" "$merge_request_number"
+    fi
+    echo "$merge_request_number"
+}
+
+# Open the current branch's merge request in the browser, when it has one.
+gmr() {
+    local merge_request_number=$(_merge_request_number)
+    if [ -z "$merge_request_number" ]; then
+        echo "No merge request for $(git rev-parse --abbrev-ref HEAD)"
+        return 1
+    fi
+
+    open "$(_gitlab_project_url)/-/merge_requests/$merge_request_number"
+}
+
 # Push the current branch and set its upstream, then open its merge request in
 # the browser. A branch with no merge request opens the create form instead.
 gu() {
@@ -232,13 +276,8 @@ gu() {
     local merge_request_url=$(echo "$push_output" | grep -oE 'https?://[^[:space:]]+/merge_requests/(new[^[:space:]]*|[0-9]+)')
 
     if [ -z "$merge_request_url" ]; then
-        # Nothing was pushed, so GitLab sent no link. Every open merge request
-        # has a ref on the server pointing at its branch tip, so the ref that
-        # matches HEAD carries the merge request number for this branch.
-        local merge_request_number=$(git ls-remote origin 'refs/merge-requests/*/head' 2>/dev/null \
-            | grep "^$(git rev-parse HEAD)" \
-            | sed -E 's|.*/merge-requests/([0-9]+)/head|\1|' \
-            | sort -n | tail -1)
+        # Nothing was pushed, so GitLab sent no link.
+        local merge_request_number=$(_merge_request_number)
 
         local project_url=$(_gitlab_project_url)
         if [ -n "$merge_request_number" ]; then
